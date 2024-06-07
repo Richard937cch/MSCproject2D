@@ -1,0 +1,34 @@
+{
+    "name": "scrollControl",
+    "maps": [
+        {
+            "name": "scroll",
+            "id": "729e9f75-2dbe-4454-b95a-053ed3f2ca4a",
+            "actions": [
+                {
+                    "name": "mouseScroll",
+                    "type": "PassThrough",
+                    "id": "7a1ec3bb-2355-47ce-8713-0e2153f00c33",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f0289175-29b6-4839-ab90-4743d8ea9536",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
