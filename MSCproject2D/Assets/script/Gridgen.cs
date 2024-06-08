@@ -41,16 +41,16 @@ public class Gridgen : MonoBehaviour
     }
 
     void GenerateGrid()
-{
-    // Initialize the grid with random values
-    grid = new Grid3D(width, height, 1);
-    for (int x = 0; x < width; x++)
     {
-        for (int y = 0; y < height; y++)
+        // Initialize the grid with random values
+        grid = new Grid3D(width, height, 1);
+        for (int x = 0; x < width; x++)
         {
-            grid[x, y, 0] = (Random.value < fillProbability) ? 1 : 0;
+            for (int y = 0; y < height; y++)
+            {
+                grid[x, y, 0] = (Random.value < fillProbability) ? 1 : 0;
+            }
         }
-    }
 
     //widen path
     //widenPath();

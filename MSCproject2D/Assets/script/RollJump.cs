@@ -11,6 +11,8 @@ public class RollJump : MonoBehaviour {
 
 	private Rigidbody2D rigid;
 
+	public float respawnDepth = -110;
+
 	void Start () {
 		rigid = GetComponent<Rigidbody2D> ();
 	}
@@ -34,6 +36,10 @@ public class RollJump : MonoBehaviour {
 				rigid.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
 			}
 
+		if (transform.position.y < respawnDepth)
+		{
+			transform.position = new Vector3(0, 40, -0.58f);
+		}
 
 	}
 
