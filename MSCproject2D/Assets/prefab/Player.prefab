@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7838510883778083044}
   - component: {fileID: 4452495879527418650}
   - component: {fileID: 3200775017270220186}
-  - component: {fileID: 1799578378252823710}
-  - component: {fileID: 7663029684038582001}
+  - component: {fileID: -4641941229890985555}
+  - component: {fileID: 7516608583743717524}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -99,9 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b58525c60e24014da264356d5593f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpControl: {fileID: -944628639613478452, guid: 2786498bc7cb07d46957e0ab3fa79b68, type: 3}
+  actionMapName: PlayerJump
+  rotate: Jump
   rotationSpeed: 25
-  jumpHeight: 8
---- !u!58 &1799578378252823710
+  jumpHeight: 10
+  respawnDepth: -110
+--- !u!58 &-4641941229890985555
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,8 +140,8 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
---- !u!50 &7663029684038582001
+  m_Radius: 0.50000006
+--- !u!50 &7516608583743717524
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

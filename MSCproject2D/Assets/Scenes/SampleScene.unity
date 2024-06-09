@@ -417,14 +417,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 50
   height: 50
-  fillProbability: 0.5
-  tree: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
-  dirt: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
+  Seed: 1234
+  tokenAmount: 8
+  mapType: 0
+  block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
+  background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   Adventurer: {fileID: 954048678018988784, guid: a7e12ac2ee9887b449d382a9847e6ce1, type: 3}
-  Enemy: {fileID: 0}
   token: {fileID: 3450604137700535255, guid: 1d829408b9d55cb42881bb78e2b37955, type: 3}
   spawnpoint: {x: 0, y: 0, z: 0}
-  Seed: 1234
+  fillProbability: 0.5
+  Threshold: 0.4
+  NoiseScale: 0.15
 --- !u!4 &989436730
 Transform:
   m_ObjectHideFlags: 0

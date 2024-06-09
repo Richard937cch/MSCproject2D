@@ -146,4 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redMaterial: {fileID: 2100000, guid: 766322e59c798754d81fed006f97f6ca, type: 2}
   redMaterial2: {fileID: 2100000, guid: 1f75b18bc79a11440baae3c62d5d3373, type: 2}
-  newPrefab: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
+  type: 1
+  durationTime: 3
+  durationExceeded: 0
+  change: 0

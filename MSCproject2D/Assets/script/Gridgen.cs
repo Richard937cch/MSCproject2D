@@ -4,27 +4,45 @@ using UnityEngine;
 
 public class Gridgen : MonoBehaviour
 {
+    [Header("Map Setup")]
     public int width;
     public int height;
-    public float fillProbability = 0.5f;
+    public int Seed = 1234;
+    public int tokenAmount = 8;
+    public enum MapType
+    {
+        RandomNCA, Perlin
+    };
+
+    public MapType mapType = MapType.RandomNCA;
+    
 
     private Grid3D grid;
 
-    public GameObject tree;
+    [Header("Prefab")]
+    public GameObject block;
 
-    public GameObject dirt;
+    public GameObject background;
 
     public GameObject Adventurer;
 
-    public GameObject Enemy;
+    //public GameObject Enemy;
 
     public GameObject token;
 
     public Vector3 spawnpoint;
 
-    private string mapcheck;
+    //private string mapcheck;
 
-    public int Seed = 1234;
+    [Header("RandomNCA")]
+    public float fillProbability = 0.5f;
+
+    [Header("Perlin")]
+    public float Threshold = 0.4f;
+
+    public float NoiseScale = 0.13f;
+
+    
 
     
 
@@ -48,194 +66,138 @@ public class Gridgen : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                grid[x, y, 0] = (Random.value < fillProbability) ? 1 : 0;
+                grid[x, y, 0] = 0;
             }
         }
 
-    //widen path
-    //widenPath();
+        switch (mapType)
+        {
+            case (MapType.RandomNCA):
+                randomNoiseNCA();
+                break;
+            
+            case (MapType.Perlin):
+                perlinNoise();
+                break;
+
+            default:
+                break;
+        }
     
 
-    /////////////////////////////////////////////////////
-
-    // Apply cellular automata rules
-    for (int i = 0; i < 8; i++) // Repeat for a few iterations for smoother results (5)
-    {
-        Grid3D newGrid = new Grid3D(width, height, 1);
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                int aliveNeighbors = CountAliveNeighbors(x, y);
-                
-                if (grid[x,y,0] == 1)
-                {
-                    if (aliveNeighbors < 2 || aliveNeighbors > 3)
-                        newGrid[x, y, 0] = 0; // Cell dies
-                    else
-                        newGrid[x, y, 0] = 1; // Cell survives
-                }
-                else
-                {
-                    if (aliveNeighbors == 3)
-                        newGrid[x, y, 0] = 1; // Cell becomes alive
-                    else
-                        newGrid[x, y, 0] = 0; // Cell remains dead
-                }
-            }
-        }
-
-        // Update the grid with the new values
-        grid = newGrid;
-    }
-
-    List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(0);
-        List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, 8);
+        //token spawn
+        List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(0);
+        List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, tokenAmount);
         foreach (Vector3 cell in randomCells)
         {
             grid[cell] = 2;
         }
 
-    // Now, instantiate objects based on the final grid state
-    Quaternion rotation = Quaternion.Euler(0, 0, 90);
-    for (int x = 0; x < width; x++)
-    {
-        for (int y = 0; y < height; y++)
-        {
-            if (grid[x, y, 0] == 1) //tree
-            {
-                GameObject newTree = Instantiate(tree, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
-                newTree.transform.parent = transform;
-            }
-            else
-            {
-                GameObject newDirt = Instantiate(dirt, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
-                newDirt.transform.parent = transform;
-            }
-            if (grid[x, y, 0] == 2) //token
-            {
-                GameObject newtoken = Instantiate(token, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.1f), rotation);
-                newtoken.transform.parent = transform;
-            }
-
-        }
-    }
-}
-
-int CountAliveNeighbors(int x, int y)
-{
-    int count = 0;
-    for (int i = -1; i <= 1; i++)
-    {
-        for (int j = -1; j <= 1; j++)
-        {
-            int neighborX = x + i;
-            int neighborY = y + j;
-            if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
-            {
-                count += grid[neighborX, neighborY, 0];
-            }
-        }
-    }
-    count -= grid[x, y, 0]; // Exclude the cell itself
-    return count;
-}
-/*
-void widenPath()
-{
-    int[,] newGrid1 = new int[width, height];
-
+        //Instantiate Tile objects
+        Quaternion rotation = Quaternion.Euler(0, 0, 90);
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                if (grid[x, y] == 1)
+                if (grid[x, y, 0] == 1) //block
                 {
-                for (int i = -2; i <= 1; i++)
-                {
-                    
-                    for (int j = -1; j <= 1; j++)
-                    {   
-                        int neighborX = x + i;
-                        int neighborY = y + j;
-                        if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
-                        {
-                            if (newGrid1[neighborX, neighborY] == 1)
-                            {
-                                newGrid1[x,y] = 0;
-                            }
-                        }            
-                    }
-                    
-                }
-                
-                }
-                
-            }
-        }
-
-        // Update the grid with the new values
-        grid = newGrid1;
-}*/
-
-
-    /*
-    void GenerateGrid()
-    {
-        grid = new int[width, height];
-        Quaternion rotation = Quaternion.Euler(90, 0, 0);
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                grid[x, y] = (Random.value < fillProbability) ? 1 : 0;
-                if (grid[x, y] == 1)
-                {
-                    GameObject newTree = Instantiate(tree, new Vector3(x, 0.0f, y), rotation);
-                    newTree.transform.parent = transform;
+                    GameObject newblock = Instantiate(block, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
+                    newblock.transform.parent = transform;
                 }
                 else
                 {
-                    GameObject newDirt = Instantiate(dirt, new Vector3(x, 0.0f, y), rotation);
-                    newDirt.transform.parent = transform;
+                    GameObject newbackground = Instantiate(background, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
+                    newbackground.transform.parent = transform;
                 }
+                if (grid[x, y, 0] == 2) //token
+                {
+                    GameObject newtoken = Instantiate(token, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.1f), rotation);
+                    newtoken.transform.parent = transform;
+                }
+
             }
         }
     }
-*/
 
-    /*
-    void GenerateGrid()
+    void randomNoiseNCA()
     {
-        grid = new int[width, height];
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                grid[x, y] = (Random.value < fillProbability) ? 1 : 0;
-                if (grid[x, y] == 1)
-                {
-                    Instantiate(tree);
-                    tree.transform.position = new Vector3(x, 0.0f, y);
-                }
-                if (grid[x, y] == 0)
-                {
-                    Instantiate(dirt);
-                    dirt.transform.position = new Vector3(x, 0.0f, y);
-                }
+                grid[x, y, 0] = (Random.value < fillProbability) ? 1 : 0;
             }
         }
-        for (int y=0; y < height; y++)
+    
+
+        // Apply cellular automata rules
+        for (int i = 0; i < 8; i++) // Repeat for a few iterations for smoother results (5)
         {
-            for (int x=0; x< width; x++)
+            Grid3D newGrid = new Grid3D(width, height, 1);
+
+            for (int x = 0; x < width; x++)
             {
-                mapcheck += grid[x, y];
+                for (int y = 0; y < height; y++)
+                {
+                    int aliveNeighbors = CountAliveNeighbors(x, y);
+                    
+                    if (grid[x,y,0] == 1)
+                    {
+                        if (aliveNeighbors < 2 || aliveNeighbors > 3)
+                            newGrid[x, y, 0] = 0; // Cell dies
+                        else
+                            newGrid[x, y, 0] = 1; // Cell survives
+                    }
+                    else
+                    {
+                        if (aliveNeighbors == 3)
+                            newGrid[x, y, 0] = 1; // Cell becomes alive
+                        else
+                            newGrid[x, y, 0] = 0; // Cell remains dead
+                    }
+                }
             }
-            print(mapcheck);
-            mapcheck = "";
+
+            // Update the grid with the new values
+            grid = newGrid;
         }
     }
-    */
+
+    void perlinNoise()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                float perlinValue = Mathf.PerlinNoise(x * NoiseScale, y * NoiseScale);
+
+                if (perlinValue < Threshold)
+                {
+                    grid[x, y, 0] = 1;
+                }
+            }
+        }
+    }
+
+
+    int CountAliveNeighbors(int x, int y)
+    {
+        int count = 0;
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                int neighborX = x + i;
+                int neighborY = y + j;
+                if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+                {
+                    count += grid[neighborX, neighborY, 0];
+                }
+            }
+        }
+        count -= grid[x, y, 0]; // Exclude the cell itself
+        return count;
+    }
+
 
 }

@@ -44,10 +44,10 @@ public class scrollControl : MonoBehaviour
 
     private void OnEnable()
     {
-        scrollcontrols.Enable();
+        rotateAction.Enable();
     }
     private void Disable()
     {
-        scrollcontrols.Disable();
+        rotateAction.Disable();
     }
 }
