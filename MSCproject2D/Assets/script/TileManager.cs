@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public GameObject back;
+    public GameObject block;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +29,13 @@ public class TileManager : MonoBehaviour
             if (childScript != null)
             {
                 // Check the boolean value
-                if (childScript.change == 1)
+                if (childScript.changeType == ChangeType.Block2Back)
                 {
                     ReplaceChildWithPrefab(child,back);
+                }
+                else if (childScript.changeType == ChangeType.Back2Block)
+                {
+                    ReplaceChildWithPrefab(child,block);
                 }
                 /*else
                 {
@@ -55,6 +60,11 @@ public class TileManager : MonoBehaviour
             // Instantiate the new prefab with the same transform values
             GameObject newObject = Instantiate(newPrefab, position, rotation, transform);
             newObject.transform.localScale = scale;
+            if (this.GetComponent<Gridgen>().backType == BackType.Restore)
+            {
+                newObject.GetComponent<BlockReaction>().type = BlockReactionType.Restore;
+            }
+            
 
             // Destroy the current child game object
             Destroy(child.gameObject);

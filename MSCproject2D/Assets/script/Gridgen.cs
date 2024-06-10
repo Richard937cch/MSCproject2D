@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Gridgen : MonoBehaviour
 {
     [Header("Map Setup")]
@@ -9,13 +10,11 @@ public class Gridgen : MonoBehaviour
     public int height;
     public int Seed = 1234;
     public int tokenAmount = 8;
-    public enum MapType
-    {
-        RandomNCA, Perlin
-    };
+    
 
     public MapType mapType = MapType.RandomNCA;
-    
+    public BlockType blockType = BlockType.None;
+    public BackType backType = BackType.None;
 
     private Grid3D grid;
 
@@ -42,12 +41,13 @@ public class Gridgen : MonoBehaviour
 
     public float NoiseScale = 0.13f;
 
-    
+    private EnumManager enumManager;
 
     
 
     void Start()
     {
+        enumManager = GetComponent<EnumManager>();
         Random.InitState(Seed);
         //spawnpoint = new Vector3(width/2, 0.58f, height/2);
         spawnpoint = new Vector3(0, 40, -0.58f);
@@ -103,8 +103,9 @@ public class Gridgen : MonoBehaviour
                 {
                     GameObject newblock = Instantiate(block, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
                     newblock.transform.parent = transform;
+                    enumManager.SetBlockType(newblock, blockType);
                 }
-                else
+                else                    //background
                 {
                     GameObject newbackground = Instantiate(background, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
                     newbackground.transform.parent = transform;

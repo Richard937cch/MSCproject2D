@@ -9,11 +9,11 @@ public class BlockReaction : MonoBehaviour
     public Material redMaterial2;
     
     private Renderer objectRenderer;
-    
+    /*
     public enum BlockReactionType
     {
-        Hit, Touch
-    };
+        None, Hit, Touch, Restore
+    };*/
     
     [Header("Block Reaction Type")]
     public BlockReactionType type;
@@ -25,11 +25,14 @@ public class BlockReaction : MonoBehaviour
     public float durationTime = 5.0f; // Set the duration time in seconds
     private float currentDurationTime;
     public bool durationExceeded = false; // Boolean to check if duration is exceeded
-
     private bool isPlayerTouching = false;
 
+    [Header("Restore Time Setup")]
+    public float restoreTime = 5.0f;
+    private float restoretimer =0;
+    
     [Header("Change mode")]
-    public int change = 0;
+    public ChangeType changeType = ChangeType.None;
 
     
 
@@ -37,7 +40,7 @@ public class BlockReaction : MonoBehaviour
     {
         objectRenderer = GetComponent<Renderer>();
         currentDurationTime = durationTime;
-
+        restoretimer = restoreTime;
         if (objectRenderer != null)
         {
             originalMaterial = objectRenderer.material; // Store the original material
@@ -53,6 +56,10 @@ public class BlockReaction : MonoBehaviour
         if (type == BlockReactionType.Touch)
         {
             durationUpdate();
+        }
+        if (type == BlockReactionType.Restore)
+        {
+            restoreUpdate();
         }
         
     }
@@ -102,7 +109,7 @@ public class BlockReaction : MonoBehaviour
             }
             else if (hit >=2) 
             {
-                change = 1;
+                changeType = ChangeType.Block2Back;
             }
             else
             {
@@ -121,10 +128,21 @@ public class BlockReaction : MonoBehaviour
             {
                 // Set the boolean to true if the duration time is exceeded
                 durationExceeded = true;
-                change = 1;
+                changeType = ChangeType.Block2Back;
                 currentDurationTime = 0; // Ensure the timer doesn't go below zero
                 //Debug.Log("Duration time exceeded!");
             }
+        }
+    }
+
+    void restoreUpdate()
+    {
+        restoretimer -= Time.deltaTime;
+
+        if (restoretimer <= 0)
+        {
+            changeType = ChangeType.Back2Block;
+            restoreTime = 0;
         }
     }
 
