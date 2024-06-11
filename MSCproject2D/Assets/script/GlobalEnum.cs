@@ -2,7 +2,7 @@
 
     public enum MapType
     {
-        RandomNCA, Perlin
+        RandomNCA, Perlin, WFC
     };
 
     public enum BlockType
