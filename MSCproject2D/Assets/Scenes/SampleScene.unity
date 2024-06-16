@@ -619,6 +619,7 @@ MonoBehaviour:
   rotate: mouseScroll
   scrollSpeed: 1
   torqueAmount: 10
+  mapRotation: 1
 --- !u!114 &989436729
 MonoBehaviour:
   m_ObjectHideFlags: 0

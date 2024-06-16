@@ -44,6 +44,7 @@ public class Gridgen : MonoBehaviour
     private EnumManager enumManager;
 
     private WaveFunctionCollapse wfc;
+    
 
     void Start()
     {

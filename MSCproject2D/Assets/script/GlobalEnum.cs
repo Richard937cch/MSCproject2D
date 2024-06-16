@@ -25,7 +25,10 @@
         None, Block2Back, Back2Block
     };
 
-    
+    public enum MapRotation
+    {
+        None, ScrollTransform, ScrollForce, Gravity
+    };
 
 
 

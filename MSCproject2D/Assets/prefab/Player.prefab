@@ -104,7 +104,8 @@ MonoBehaviour:
   actionMapName: PlayerJump
   rotate: Jump
   rotationSpeed: 25
-  jumpHeight: 5
+  jumpHeight: 10
+  isFalling: 0
   respawnDepth: -110
 --- !u!114 &-8393920855702239908
 MonoBehaviour:

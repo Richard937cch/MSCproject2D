@@ -24,7 +24,7 @@ public class RollJump : MonoBehaviour {
 
 	private float gravity= 9.81f;
 
-	private bool isFalling = false;
+	public bool isFalling = false;
 
 	private Rigidbody2D rigid;
 

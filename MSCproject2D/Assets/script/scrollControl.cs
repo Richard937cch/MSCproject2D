@@ -23,15 +23,38 @@ public class scrollControl : MonoBehaviour
     public float torqueAmount = 10f;
     private Rigidbody rb;
 
+    public MapRotation mapRotation = MapRotation.None;
+
+    private GameObject player;
+    private RollJump playerRJ;
+    private int width;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        /*
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerRJ = player.GetComponent<RollJump>();
+        if (player == null || playerRJ == null)
+        {
+            Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
+            return;
+        }*/
+        width = this.GetComponent<Gridgen>().width;
         rotateAction = scrollcontrols.FindActionMap (actionMapName).FindAction (rotate); 
         RegisterInputActions();
     }
 
     private void Update()
     {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerRJ = player.GetComponent<RollJump>();
+        }
+        if (mapRotation == MapRotation.ScrollTransform)
+        {
+            ScrollWheelTransform();
+        }
         /*
         if (rotateValue > 0) {
             transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
@@ -42,6 +65,37 @@ public class scrollControl : MonoBehaviour
     }
 
     private void FixedUpdate()
+    {
+        switch (mapRotation) 
+        {
+            case (MapRotation.None):
+                break;
+            case (MapRotation.ScrollTransform):
+                //ScrollWheelTransform();
+                break;
+            case (MapRotation.ScrollForce):
+                ScrollWheelForce();
+                break;
+            case (MapRotation.Gravity):
+                GravityMode();
+                break;
+            default:
+                break;
+        }
+    }
+
+    void ScrollWheelTransform()
+    {
+        if (rotateValue > 0) {
+            transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
+        }
+        if (rotateValue < 0) {
+            transform.Rotate(Vector3.back * scrollSpeed , Space.Self);
+        }
+
+    }
+
+    void ScrollWheelForce()
     {
         if (rotateValue > 0)
         {
@@ -54,6 +108,27 @@ public class scrollControl : MonoBehaviour
         else
         {
             //rb.angularVelocity = Vector3.zero; // Stop rotation when the scroll wheel is not used
+        }
+    }
+
+    void GravityMode()
+    {
+        if (playerRJ.isFalling == false && player.transform.position.x < -0.5f)
+        {
+            rb.AddTorque(Vector3.forward * torqueAmount, ForceMode.Acceleration);
+            //rb.angularVelocity = Vector3.forward * torqueAmount*(player.transform.position.x/width*-1);
+            ScrollWheelForce();
+        }
+        else if (playerRJ.isFalling == false && player.transform.position.x > 0.5f)
+        {
+            rb.AddTorque(Vector3.back * torqueAmount, ForceMode.Acceleration);
+            //rb.angularVelocity = Vector3.back * torqueAmount*(player.transform.position.x/width);
+            ScrollWheelForce();
+        }
+        else
+        {
+            rb.angularVelocity = Vector3.zero; // Stop rotation when the scroll wheel is not used
+            ScrollWheelForce();
         }
     }
 
