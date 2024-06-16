@@ -31,26 +31,31 @@ public class scrollControl : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        /*
+        
+        
+        width = this.GetComponent<Gridgen>().width;
+        rotateAction = scrollcontrols.FindActionMap (actionMapName).FindAction (rotate); 
+        RegisterInputActions();
+    }
+
+    private void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         playerRJ = player.GetComponent<RollJump>();
         if (player == null || playerRJ == null)
         {
             Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
             return;
-        }*/
-        width = this.GetComponent<Gridgen>().width;
-        rotateAction = scrollcontrols.FindActionMap (actionMapName).FindAction (rotate); 
-        RegisterInputActions();
+        }
     }
 
     private void Update()
     {
-        if (player == null)
+        /*if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
             playerRJ = player.GetComponent<RollJump>();
-        }
+        }*/
         if (mapRotation == MapRotation.ScrollTransform)
         {
             ScrollWheelTransform();
