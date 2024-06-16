@@ -60,6 +60,10 @@ public class scrollControl : MonoBehaviour
         {
             ScrollWheelTransform();
         }
+        if (rotateValue != 0)
+        {
+            AstarPath.active.Scan();
+        }
         /*
         if (rotateValue > 0) {
             transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
@@ -93,9 +97,11 @@ public class scrollControl : MonoBehaviour
     {
         if (rotateValue > 0) {
             transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
+            //AstarPath.active.Scan();
         }
         if (rotateValue < 0) {
             transform.Rotate(Vector3.back * scrollSpeed , Space.Self);
+            //AstarPath.active.Scan();
         }
 
     }

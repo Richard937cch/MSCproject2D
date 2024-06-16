@@ -481,6 +481,8 @@ namespace Pathfinding {
 
 				if (lastCompletedNodePath != null) {
 					for (int i = 0; i < lastCompletedNodePath.Count-1; i++) {
+						//lastCompletedNodePath[i].position.z = -1;
+						//lastCompletedNodePath[i+1].position.z = -1;
 						Gizmos.DrawLine((Vector3)lastCompletedNodePath[i].position, (Vector3)lastCompletedNodePath[i+1].position);
 					}
 				}

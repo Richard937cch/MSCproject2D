@@ -60,6 +60,11 @@ public class Gridgen : MonoBehaviour
         GenerateGrid();
     }
 
+    void Update()
+    {
+        //AstarPath.active.Scan();
+    }
+
     void GenerateGrid()
     {
         
@@ -81,7 +86,7 @@ public class Gridgen : MonoBehaviour
             default:
                 break;
         }
-    
+    AstarPath.active.Scan();
 
         
 
@@ -162,6 +167,7 @@ public class Gridgen : MonoBehaviour
 
         TokenSpawn();
         InstantiateTile();
+        
     }
 
     void TokenSpawn()
