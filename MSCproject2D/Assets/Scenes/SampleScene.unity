@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &161538286
 Transform:
   m_ObjectHideFlags: 0
@@ -159,14 +159,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161538284}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7540a326a2674004a839968dd3c86a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1285964121380101746, guid: bc7463d7b7b6bf94c8f9adf25d3f3461, type: 3}
   spawnRange: 10
-  spawnInterval: 10
+  spawnInterval: 5
   duration: 10
 --- !u!1 &470287031
 GameObject:
@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 989436728}
   - component: {fileID: 989436732}
   - component: {fileID: 989436733}
+  - component: {fileID: 989436734}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -617,6 +618,7 @@ MonoBehaviour:
   actionMapName: scroll
   rotate: mouseScroll
   scrollSpeed: 1
+  torqueAmount: 10
 --- !u!114 &989436729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,13 +631,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 20
-  height: 20
+  width: 50
+  height: 50
   Seed: 1234
   tokenAmount: 8
-  mapType: 2
-  blockType: 2
-  backType: 1
+  mapType: 1
+  blockType: 0
+  backType: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   Adventurer: {fileID: 954048678018988784, guid: a7e12ac2ee9887b449d382a9847e6ce1, type: 3}
@@ -653,7 +655,7 @@ Transform:
   m_GameObject: {fileID: 989436727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2738552, y: 4.8096676, z: -11.270931}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -704,6 +706,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d97789aafa3d1c346b894f996375788a, type: 2}
   - {fileID: 11400000, guid: 71981be96c2967944ba0f872b6e60407, type: 2}
   - {fileID: 11400000, guid: 1ea79a5307762804f9a2f0b10017ffa7, type: 2}
+--- !u!54 &989436734
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989436727}
+  serializedVersion: 4
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1734038328
 GameObject:
   m_ObjectHideFlags: 0

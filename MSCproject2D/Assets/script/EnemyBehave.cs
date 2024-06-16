@@ -51,7 +51,7 @@ public class EnemyAI : MonoBehaviour
 
         if (timer2 <= 0.0f)
         {
-           if ( !isFalling) {
+           if ( !isFalling&&isLower()) {
 				//Jump
 				rigid.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
 			}
@@ -132,4 +132,17 @@ public class EnemyAI : MonoBehaviour
 	public void OnCollisionExit() {
 		isFalling = true;
 	}
+
+    public bool isLower()
+    {
+        Vector3 playerLocalPos = this.transform.InverseTransformPoint(GameObject.FindGameObjectWithTag("Player").transform.position);
+        if (transform.position.y < playerLocalPos.y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

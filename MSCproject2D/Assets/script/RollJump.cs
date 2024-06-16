@@ -63,12 +63,13 @@ public class RollJump : MonoBehaviour {
 				rigid.AddForce (Vector3.up * jumpHeight, ForceMode.Impulse);
 			}
 		}*/
-		//if (jumpValue) {print("up");}
+		//if (UpKey()) {print("up");}
 		
-        if (UpKey() && !isFalling) 
+        if (jumpValue && !isFalling) 
 		{
 			//Jump
 			rigid.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
+			jumpValue = false;
 			//rigid. Move (currentMovement*Time.deltaTime);
 			//rigid.MovePosition(currentMovement*Time.deltaTime);
 			

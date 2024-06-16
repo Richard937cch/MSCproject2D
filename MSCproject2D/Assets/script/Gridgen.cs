@@ -51,7 +51,7 @@ public class Gridgen : MonoBehaviour
         wfc = GetComponent<WaveFunctionCollapse>();
         Random.InitState(Seed);
         //spawnpoint = new Vector3(width/2, 0.58f, height/2);
-        spawnpoint = new Vector3(0, 40, -0.58f);
+        spawnpoint = new Vector3(0, height/2+5, 0);
         //Adventurer.transform.position = spawnpoint;
         //Enemy.transform.position = new Vector3(width/2 + 2.0f, 0.5f, height/2);
         GameObject adventurer = Instantiate(Adventurer, spawnpoint, Quaternion.identity);
