@@ -5,21 +5,37 @@ public class WaveFunctionCollapse : MonoBehaviour
 {
     private int mapWidth;
     private int mapHeight;
-    public List<TileData> tileTypes;
+    //public List<TileData> tileTypes;
+    [System.Serializable]
+    public class TileTypes
+    {
+        public List<TileData> tileTypes;
+    }
+    [System.Serializable]
+    public class WFCMapTypes
+    {
+        public List<TileTypes> mapTypes;
+    }
+
+    public WFCMapTypes MAP = new WFCMapTypes();
+
 
     private TileData[,] map;
     private Dictionary<Vector2Int, List<TileData>> possibleTiles;
+
+    private int mapID;
 
     /*void Start()
     {
         GenerateMap();
     }*/
 
-    public void GenerateMap(int Width, int Height, int seed)
+    public void GenerateMap(int Width, int Height, int seed, int mapT)
     {
         mapWidth = Width;
         mapHeight = Height;
         Random.InitState(seed);
+        mapID = mapT;
         map = new TileData[mapWidth, mapHeight];
         possibleTiles = new Dictionary<Vector2Int, List<TileData>>();
 
@@ -29,7 +45,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             for (int y = 0; y < mapHeight; y++)
             {
                 Vector2Int position = new Vector2Int(x, y);
-                possibleTiles[position] = new List<TileData>(tileTypes);
+                possibleTiles[position] = new List<TileData>(MAP.mapTypes[mapID].tileTypes);
             }
         }
 
@@ -99,7 +115,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         else
         {
             //print("out of options");
-            return tileTypes[0];
+            return MAP.mapTypes[mapID].tileTypes[0];
         }
         
     }
@@ -132,7 +148,7 @@ public class WaveFunctionCollapse : MonoBehaviour
                 if (neighborPossibleTiles.Count == 0)
                 {
                     //print("123");
-                    neighborPossibleTiles.Add(tileTypes[0]);
+                    neighborPossibleTiles.Add(MAP.mapTypes[mapID].tileTypes[0]);
                 }
             }
         }

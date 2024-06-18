@@ -13,6 +13,7 @@ public class Gridgen : MonoBehaviour
     
 
     public MapType mapType = MapType.RandomNCA;
+    public int WFCmap = 0;
     public BlockType blockType = BlockType.None;
     public BackType backType = BackType.None;
 
@@ -80,7 +81,7 @@ public class Gridgen : MonoBehaviour
                 break;
 
             case (MapType.WFC):
-                wfc.GenerateMap(width, height, Seed);
+                wfc.GenerateMap(width, height, Seed, WFCmap);
                 break;
 
             default:
