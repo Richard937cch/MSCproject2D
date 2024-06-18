@@ -15,6 +15,10 @@ public class EnemyAStar : MonoBehaviour
     //individual gridpoints which your enemy moves to to get to the player
     public float nextWaypointDistance = 3f;
 
+    public float jumpHeight = 5.0F;
+
+    public bool isFalling = false;
+
     //Enemy Sprite, Disregard if you dont want the sprite to flip to look at the player
     //public Transform enemyGFX; 
 
@@ -30,6 +34,7 @@ public class EnemyAStar : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        //isFalling = true;
         InvokeRepeating("UpdatePath", 0f, 0.5f); 
         
     }
@@ -72,9 +77,18 @@ public class EnemyAStar : MonoBehaviour
 
         rb.AddForce(force);
 
-        float distane = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
+        //jump
+        float height =  rb.position.y - path.vectorPath[currentWayPoint].y;
+        //Vector2 jumpdirection = new Vector2(0,direction.y);
+        //Vector2 jumpforce = jumpdirection * speed * Time.fixedDeltaTime; 
+        if (height < 0 && !isFalling)
+        {
+            //print(height);
+            rb.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
+        }
 
-        
+        //reach waypoint or not
+        float distane = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
         if (distane < nextWaypointDistance) 
         {
             currentWayPoint++;
@@ -91,4 +105,14 @@ public class EnemyAStar : MonoBehaviour
             enemyGFX.localScale = new Vector3(1f, 1f, 1f);
         }*/
     }
+
+    public void OnCollisionStay2D (Collision2D col) 
+	{ //Takes parameter of Collision so unity doesn't complain
+		isFalling = false;
+	}
+
+	public void OnCollisionExit2D() 
+	{
+		isFalling = true;
+	}
 }

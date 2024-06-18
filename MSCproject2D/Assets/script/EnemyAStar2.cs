@@ -145,4 +145,14 @@ public class EnemyAStar2 : MonoBehaviour
         yield return new WaitForSeconds(1f);
         isOnCoolDown = false;
     }
+
+    /*    public void OnCollisionStay2D (Collision2D col) 
+	{ //Takes parameter of Collision so unity doesn't complain
+		isFalling = false;
+	}
+
+	public void OnCollisionExit2D() 
+	{
+		isFalling = true;
+	}*/
 }

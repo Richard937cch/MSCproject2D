@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Pathfinding;
 
@@ -46,15 +47,56 @@ public class AStarGridControl : MonoBehaviour
     void Update()
     {
         
+        
+        gridGraph.rotation = new Vector3(-90 + mapGen.transform.rotation.eulerAngles.z, 270, 90);
+        
+        UpdateGridGraph(gridGraph);
+        // Execute the heavy computation in a background thread
+        //Task.Run(() => UpdateGridGraph(gridGraph));
+
         //DrawRotationField (gridGraph);
-        gridGraph.rotation = RoundVector3(new Vector3(-90 + mapGen.transform.rotation.eulerAngles.z, 270, 90));
         //gridGraph.rotation.x = -90+mapGen.transform.rotation.z*180;
         //AstarPath.active.Scan();
-        PartialUpdateGridGraph(gridGraph);
         //gridGraph.RelocateNodes(gridGraph.center,Quaternion.Euler(gridGraph.rotation),gridGraph.nodeSize,gridGraph.aspectRatio,gridGraph.isometricAngle);
         //print(gridGraph.rotation);
-        print(mapGen.transform.rotation.eulerAngles.z);
+        //print(mapGen.transform.rotation.eulerAngles.z);
     }
+
+    /*private void UpdateGridGraphThreaded(GridGraph gridGraph, Vector3 rotation)
+    {
+        // Perform heavy computation here
+        // Ensure any Unity API calls are marshaled back to the main thread
+
+        // Update rotation
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            gridGraph.rotation = rotation;
+            gridGraph.UpdateTransform();
+        });
+
+        // Perform partial update
+        for (int x = 0; x < gridGraph.width; x++)
+        {
+            for (int z = 0; z < gridGraph.depth; z++)
+            {
+                // Get the node at the current position
+                GridNode node = gridGraph.GetNode(x, z) as GridNode;
+
+                if (node != null)
+                {
+                    // Recalculate the node's position
+                    Int3 position = (Int3)gridGraph.GraphPointToWorld(x, z, 0);
+
+                    // Update node and connections in the main thread
+                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    {
+                        node.position = position;
+                        gridGraph.CalculateConnectionsForCellAndNeighbours(x, z);
+                    });
+                }
+            }
+        }
+    }*/
 
     private void UpdateGridGraphNodes(GridGraph gridGraph)
     {
@@ -111,7 +153,7 @@ public class AStarGridControl : MonoBehaviour
 			return v;
 		}
 
-    private void PartialUpdateGridGraph(GridGraph gridGraph)
+    private void UpdateGridGraph(GridGraph gridGraph)
     {
         // Update the graph's transform
         gridGraph.UpdateTransform();

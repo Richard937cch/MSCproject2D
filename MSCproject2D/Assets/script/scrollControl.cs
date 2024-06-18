@@ -21,6 +21,8 @@ public class scrollControl : MonoBehaviour
     public float scrollSpeed = 0.5f;
 
     public float torqueAmount = 10f;
+
+    public float dampingFactor = 0.95f; // Factor to gradually reduce angular velocity
     private Rigidbody rb;
 
     public MapRotation mapRotation = MapRotation.None;
@@ -120,6 +122,7 @@ public class scrollControl : MonoBehaviour
         else
         {
             //rb.angularVelocity = Vector3.zero; // Stop rotation when the scroll wheel is not used
+            rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, dampingFactor * Time.fixedDeltaTime);
         }
     }
 
