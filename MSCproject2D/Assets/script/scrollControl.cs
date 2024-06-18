@@ -28,6 +28,9 @@ public class scrollControl : MonoBehaviour
     private GameObject player;
     private RollJump playerRJ;
     private int width;
+
+    private Vector3 rotationAS;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,6 +39,8 @@ public class scrollControl : MonoBehaviour
         width = this.GetComponent<Gridgen>().width;
         rotateAction = scrollcontrols.FindActionMap (actionMapName).FindAction (rotate); 
         RegisterInputActions();
+        
+        
     }
 
     private void Start()
@@ -59,10 +64,6 @@ public class scrollControl : MonoBehaviour
         if (mapRotation == MapRotation.ScrollTransform)
         {
             ScrollWheelTransform();
-        }
-        if (rotateValue != 0)
-        {
-            AstarPath.active.Scan();
         }
         /*
         if (rotateValue > 0) {
@@ -97,11 +98,11 @@ public class scrollControl : MonoBehaviour
     {
         if (rotateValue > 0) {
             transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
-            //AstarPath.active.Scan();
+            
         }
         if (rotateValue < 0) {
             transform.Rotate(Vector3.back * scrollSpeed , Space.Self);
-            //AstarPath.active.Scan();
+            
         }
 
     }

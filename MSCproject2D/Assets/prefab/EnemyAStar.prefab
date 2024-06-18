@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7574724342168712456}
   - component: {fileID: 7988304756446963710}
   - component: {fileID: 4182071056683258123}
+  - component: {fileID: 7855052143216337658}
   - component: {fileID: 6924617342483423074}
   m_Layer: 0
   m_Name: EnemyAStar
@@ -179,6 +180,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7855052143216337658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716850311652902455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774532061951c8640a2dcb8b58dc6791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 200
+  nextWaypointDistance: 3
 --- !u!114 &6924617342483423074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +214,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   thickRaycast: 0
   thickRaycastRadius: 0
-  use2DPhysics: 0
+  use2DPhysics: 1
   raycastOffset: {x: 0, y: 0, z: 0}
   useGraphRaycasting: 0
   quality: 1
