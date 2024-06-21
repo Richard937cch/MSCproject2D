@@ -25,6 +25,10 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     private int mapID;
 
+    private Grid3D tokengrid; //grid map for token generation
+
+    public GameObject background;
+
     /*void Start()
     {
         GenerateMap();
@@ -37,6 +41,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         Random.InitState(seed);
         mapID = mapT;
         map = new TileData[mapWidth, mapHeight];
+        tokengrid = new Grid3D(mapWidth, mapHeight, 1);
         possibleTiles = new Dictionary<Vector2Int, List<TileData>>();
 
         // Initialize possible tiles for each position
@@ -77,6 +82,19 @@ public class WaveFunctionCollapse : MonoBehaviour
             // Instantiate the tile at the position
             GameObject PlaceTile = Instantiate(selectedTile.tilePrefab, new Vector3(position.x-(float)mapWidth/2+0.5f, position.y-(float)mapHeight/2+0.5f, 0), selectedTile.tilePrefab.transform.rotation);
             PlaceTile.transform.parent = transform;
+
+            //mark on tokengrid
+            if (selectedTile.tilePrefab == background)
+            {
+                tokengrid[position.x, position.y, 0] = 0;
+            }
+            else
+            {
+                tokengrid[position.x, position.y, 0] = 1;
+            }
+
+
+
             // Propagate constraints to neighbors
             PropagateConstraints(position, selectedTile);
         }
@@ -157,5 +175,10 @@ public class WaveFunctionCollapse : MonoBehaviour
     bool IsWithinBounds(Vector2Int position)
     {
         return position.x >= 0 && position.x < mapWidth && position.y >= 0 && position.y < mapHeight;
+    }
+
+    public Grid3D getWFCTokenGrid()
+    {
+        return tokengrid;
     }
 }

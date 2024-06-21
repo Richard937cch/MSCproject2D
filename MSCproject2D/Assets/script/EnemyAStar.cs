@@ -76,7 +76,7 @@ public class EnemyAStar : MonoBehaviour
         Vector2 force = direction * speed * Time.fixedDeltaTime;
 
         rb.AddForce(force);
-
+		
         //jump
         float height =  rb.position.y - path.vectorPath[currentWayPoint].y;
         //Vector2 jumpdirection = new Vector2(0,direction.y);

@@ -81,7 +81,7 @@ public class Gridgen : MonoBehaviour
                 break;
 
             case (MapType.WFC):
-                wfc.GenerateMap(width, height, Seed, WFCmap);
+                WaveFunctionCollapseMap();
                 break;
 
             default:
@@ -138,8 +138,9 @@ public class Gridgen : MonoBehaviour
             // Update the grid with the new values
             grid = newGrid;
         }
-        TokenSpawn();
+        
         InstantiateTile();
+        TokenSpawn();
     }
 
     void perlinNoise()
@@ -166,19 +167,42 @@ public class Gridgen : MonoBehaviour
             }
         }
 
-        TokenSpawn();
-        InstantiateTile();
         
+        InstantiateTile();
+        TokenSpawn();
+    }
+
+    void WaveFunctionCollapseMap()
+    {
+        wfc.GenerateMap(width, height, Seed, WFCmap);
+        grid = new Grid3D(width, height, 1);
+        grid = wfc.getWFCTokenGrid();
+        TokenSpawn();
     }
 
     void TokenSpawn()
     {
         //token spawn
+        print("ro");
         List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(0);
         List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, tokenAmount);
         foreach (Vector3 cell in randomCells)
         {
             grid[cell] = 2;
+        }
+        //Instantiate token prefab
+        Quaternion rotation = Quaternion.Euler(0, 0, 90);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (grid[x, y, 0] == 2) //token
+                {
+                    GameObject newtoken = Instantiate(token, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.1f), rotation);
+                    newtoken.transform.parent = transform;
+                }
+
+            }
         }
     }
 
@@ -201,11 +225,7 @@ public class Gridgen : MonoBehaviour
                     GameObject newbackground = Instantiate(background, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
                     newbackground.transform.parent = transform;
                 }
-                if (grid[x, y, 0] == 2) //token
-                {
-                    GameObject newtoken = Instantiate(token, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.1f), rotation);
-                    newtoken.transform.parent = transform;
-                }
+                
 
             }
         }
