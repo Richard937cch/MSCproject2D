@@ -33,5 +33,18 @@ public class EnumManager : MonoBehaviour
         }
     }
 
+    public void SetBlockType(BlockReaction blockReaction, BlockType blockType)
+    {
+        //BlockReaction blockReaction = newBlock.GetComponent<BlockReaction>();
+        if (blockReaction != null && blockTypeToReactionType.TryGetValue(blockType, out BlockReactionType reactionType))
+        {
+            blockReaction.type = reactionType;
+        }
+        else
+        {
+            Debug.LogWarning("BlockReaction component not found or BlockType not mapped.");
+        }
+    }
+
     
 }

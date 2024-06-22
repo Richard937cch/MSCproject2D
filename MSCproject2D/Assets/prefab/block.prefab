@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40e0ad7e00eec14696a28788133cf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiletype: 1
   redMaterial: {fileID: 2100000, guid: 766322e59c798754d81fed006f97f6ca, type: 2}
   redMaterial2: {fileID: 2100000, guid: 1f75b18bc79a11440baae3c62d5d3373, type: 2}
   type: 0

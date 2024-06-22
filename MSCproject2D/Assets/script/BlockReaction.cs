@@ -3,6 +3,8 @@ using UnityEngine;
 public class BlockReaction : MonoBehaviour
 {
     private Material originalMaterial; // To store the original material
+    [Header("TileType")]
+    public TileType tiletype;
 
     [Header("Material")]
     public Material redMaterial; // Assign this in the Inspector

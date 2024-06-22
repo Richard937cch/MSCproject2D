@@ -782,9 +782,9 @@ MonoBehaviour:
   height: 50
   Seed: 1234
   tokenAmount: 8
-  mapType: 1
-  WFCmap: 2
-  blockType: 0
+  mapType: 0
+  WFCmap: 1
+  blockType: 2
   backType: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
@@ -849,21 +849,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAP:
     mapTypes:
-    - tileTypes:
+    - WFCtileTypes:
       - {fileID: 11400000, guid: 2937ee5db4718cf4f9cd681ccb80865a, type: 2}
       - {fileID: 11400000, guid: aa858d008bb5ba64d9f40c8763ae36c7, type: 2}
       - {fileID: 11400000, guid: 3c38ff0bcb40d6648915c4af0cd27a5d, type: 2}
       - {fileID: 11400000, guid: d97789aafa3d1c346b894f996375788a, type: 2}
       - {fileID: 11400000, guid: 71981be96c2967944ba0f872b6e60407, type: 2}
       - {fileID: 11400000, guid: 1ea79a5307762804f9a2f0b10017ffa7, type: 2}
-    - tileTypes:
+    - WFCtileTypes:
       - {fileID: 11400000, guid: b1e4f92b86ae0ba46a57e88a42d0b435, type: 2}
+      - {fileID: 11400000, guid: 856f220a83cf9394c8f1369fe3d109c6, type: 2}
       - {fileID: 11400000, guid: fbcf4a0f8a1a43641b900b7e8e57505c, type: 2}
       - {fileID: 11400000, guid: 973ab2b6cc39a7d4c9f5c2e4b9e6e34a, type: 2}
       - {fileID: 11400000, guid: 6af8318ec6833c142aa87e7249af8fa8, type: 2}
       - {fileID: 11400000, guid: 562426575ceed604da5b76bc2a2ebfcc, type: 2}
       - {fileID: 11400000, guid: ebc1e7b12c3110841aeabd621aaae25f, type: 2}
       - {fileID: 11400000, guid: a66b314819d66ad4a8a811820625a1e5, type: 2}
+      - {fileID: 11400000, guid: 5034dab7e25bd8245925f54fe7ddb863, type: 2}
       - {fileID: 11400000, guid: 4076b1228ad78b0439cf0caa29835267, type: 2}
       - {fileID: 11400000, guid: 396076388d954384dbe051596d37e21f, type: 2}
       - {fileID: 11400000, guid: 048be9f2cf78f9b44af55c3dfa6858cf, type: 2}
@@ -872,21 +874,15 @@ MonoBehaviour:
       - {fileID: 11400000, guid: cf9a3e5df16f78e428579b784a0a658e, type: 2}
       - {fileID: 11400000, guid: 4c495af83df868848861729ad408f881, type: 2}
       - {fileID: 11400000, guid: f8a20918152737343ab23023d8fec27c, type: 2}
-      - {fileID: 11400000, guid: 5034dab7e25bd8245925f54fe7ddb863, type: 2}
-      - {fileID: 11400000, guid: 856f220a83cf9394c8f1369fe3d109c6, type: 2}
-    - tileTypes:
+    - WFCtileTypes:
       - {fileID: 11400000, guid: b1e4f92b86ae0ba46a57e88a42d0b435, type: 2}
+      - {fileID: 11400000, guid: 856f220a83cf9394c8f1369fe3d109c6, type: 2}
       - {fileID: 11400000, guid: fbcf4a0f8a1a43641b900b7e8e57505c, type: 2}
       - {fileID: 11400000, guid: 973ab2b6cc39a7d4c9f5c2e4b9e6e34a, type: 2}
-      - {fileID: 11400000, guid: 4076b1228ad78b0439cf0caa29835267, type: 2}
-      - {fileID: 11400000, guid: 396076388d954384dbe051596d37e21f, type: 2}
-      - {fileID: 11400000, guid: 048be9f2cf78f9b44af55c3dfa6858cf, type: 2}
-      - {fileID: 11400000, guid: d889a47cf51ca714c81c1d3ef52959b5, type: 2}
       - {fileID: 11400000, guid: 6af8318ec6833c142aa87e7249af8fa8, type: 2}
       - {fileID: 11400000, guid: 562426575ceed604da5b76bc2a2ebfcc, type: 2}
       - {fileID: 11400000, guid: ebc1e7b12c3110841aeabd621aaae25f, type: 2}
       - {fileID: 11400000, guid: a66b314819d66ad4a8a811820625a1e5, type: 2}
-      - {fileID: 11400000, guid: 856f220a83cf9394c8f1369fe3d109c6, type: 2}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
 --- !u!54 &989436734
 Rigidbody:

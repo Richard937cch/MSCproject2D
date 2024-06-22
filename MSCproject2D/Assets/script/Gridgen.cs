@@ -140,6 +140,7 @@ public class Gridgen : MonoBehaviour
         }
         
         InstantiateTile();
+        SetTileBlockType();
         TokenSpawn();
     }
 
@@ -169,6 +170,7 @@ public class Gridgen : MonoBehaviour
 
         
         InstantiateTile();
+        SetTileBlockType();
         TokenSpawn();
     }
 
@@ -177,6 +179,8 @@ public class Gridgen : MonoBehaviour
         wfc.GenerateMap(width, height, Seed, WFCmap);
         grid = new Grid3D(width, height, 1);
         grid = wfc.getWFCTokenGrid();
+
+        SetTileBlockType();
         TokenSpawn();
     }
 
@@ -218,7 +222,7 @@ public class Gridgen : MonoBehaviour
                 {
                     GameObject newblock = Instantiate(block, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), block.transform.rotation);
                     newblock.transform.parent = transform;
-                    enumManager.SetBlockType(newblock, blockType);
+                    //enumManager.SetBlockType(newblock, blockType);
                 }
                 else                    //background
                 {
@@ -228,6 +232,28 @@ public class Gridgen : MonoBehaviour
                 
 
             }
+        }
+    }
+
+    void SetTileBlockType()
+    {
+        foreach (Transform child in transform)
+        {
+            
+            // Get the ChildScript component from the child
+            BlockReaction childScript = child.GetComponent<BlockReaction>();
+
+            if (childScript != null)
+            {
+                if (childScript.tiletype != TileType.BackGrounds)
+                {
+                    enumManager.SetBlockType(childScript, blockType);
+                }
+            }
+            /*else
+            {
+                Debug.LogWarning(child.name + " does not have a ChildScript component.");
+            }*/
         }
     }
 

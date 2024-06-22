@@ -7,14 +7,14 @@ public class WaveFunctionCollapse : MonoBehaviour
     private int mapHeight;
     //public List<TileData> tileTypes;
     [System.Serializable]
-    public class TileTypes
+    public class WFCTileTypes
     {
-        public List<TileData> tileTypes;
+        public List<TileData> WFCtileTypes;
     }
     [System.Serializable]
     public class WFCMapTypes
     {
-        public List<TileTypes> mapTypes;
+        public List<WFCTileTypes> mapTypes;
     }
 
     public WFCMapTypes MAP = new WFCMapTypes();
@@ -50,7 +50,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             for (int y = 0; y < mapHeight; y++)
             {
                 Vector2Int position = new Vector2Int(x, y);
-                possibleTiles[position] = new List<TileData>(MAP.mapTypes[mapID].tileTypes);
+                possibleTiles[position] = new List<TileData>(MAP.mapTypes[mapID].WFCtileTypes);
             }
         }
 
@@ -133,7 +133,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         else
         {
             //print("out of options");
-            return MAP.mapTypes[mapID].tileTypes[0];
+            return MAP.mapTypes[mapID].WFCtileTypes[0];
         }
         
     }
@@ -166,7 +166,7 @@ public class WaveFunctionCollapse : MonoBehaviour
                 if (neighborPossibleTiles.Count == 0)
                 {
                     //print("123");
-                    neighborPossibleTiles.Add(MAP.mapTypes[mapID].tileTypes[0]);
+                    neighborPossibleTiles.Add(MAP.mapTypes[mapID].WFCtileTypes[0]);
                 }
             }
         }
