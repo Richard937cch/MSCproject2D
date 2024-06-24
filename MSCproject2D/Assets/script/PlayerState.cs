@@ -12,12 +12,19 @@ public class PlayerState : MonoBehaviour
     private int currentHealth;
     public float respawnDepth = -110;
 
+    private bool isInvincible = false;
+    public float invincibilityDuration = 10;
+
+    public Material normalMaterial;
+    public Material invincibleMaterial;
+    private Renderer playerRenderer;
     
     GM gm;
 
     void Start()
     {
         gm = GameObject.Find("GameController").GetComponent<GM>();
+        playerRenderer = GetComponent<SpriteRenderer>();
         //GameObject healthTextObject = GameObject.Find("HP");
         //healthText = healthTextObject.GetComponent<TextMeshProUGUI>();
         currentHealth = maxHealth;
@@ -39,7 +46,33 @@ public class PlayerState : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // Reduce health
-            TakeDamage(10);
+            if (!isInvincible)
+            {
+                TakeDamage(10);
+            }
+            
+        }
+        
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Token") )//&& collision.gameObject.GetComponent<Token>().tokenType == TokenType.Invincible)
+        {
+            GameObject token = collision.gameObject;
+            TokenType type = collision.gameObject.GetComponent<Token>().tokenType;
+            if (type == TokenType.Score)           //score token
+            {
+                gm.TokenCollected();
+                gm.UpdateTokenCountText();
+            }
+            else if (type == TokenType.Invincible) //invincible token
+            {
+                StartCoroutine(ActivateInvincibility());
+            }
+            Destroy(token);
+            
+            
         }
     }
 
@@ -57,7 +90,14 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    
+    private IEnumerator ActivateInvincibility()
+    {
+        isInvincible = true;
+        playerRenderer.material = invincibleMaterial;
+        yield return new WaitForSeconds(invincibilityDuration);
+        isInvincible = false;
+        playerRenderer.material = normalMaterial;
+    }
 
     void respawn()
     {

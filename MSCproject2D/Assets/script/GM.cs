@@ -68,7 +68,14 @@ public class GM : MonoBehaviour
     {
         // Find all GameObjects with the tag "Token"
         GameObject[] tokens = GameObject.FindGameObjectsWithTag("Token");
-        totalTokens = tokens.Length;
+        foreach (GameObject token in tokens)
+        {
+            if (token.GetComponent<Token>().tokenType == TokenType.Score)
+            {
+                totalTokens++;
+            }
+        }
+        //totalTokens = tokens.Length;
     }
 
     public void Pause()

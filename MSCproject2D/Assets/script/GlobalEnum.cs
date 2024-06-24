@@ -5,6 +5,11 @@
         BackGrounds, Blocks
     }
 
+    public enum TokenType
+    {
+        Score, Invincible
+    }
+
     public enum MapType //Map generating method (Gridgen setup)
     {
         RandomNCA, Perlin, WFC

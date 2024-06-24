@@ -7,17 +7,23 @@ public class Token : MonoBehaviour
     public string playerTag = "Player"; // Tag used to identify the player
     private GM gm;
 
+    public TokenType tokenType;
+
     void Start ()
     {
-        gm = GameObject.Find("GameController").GetComponent<GM>();
+        //gm = GameObject.Find("GameController").GetComponent<GM>();
     }
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(playerTag))
         {
-            gm.TokenCollected();
-            gm.UpdateTokenCountText();
+            if (tokenType == TokenType.Score)
+            {
+                gm.TokenCollected();
+                gm.UpdateTokenCountText();
+            }
+            
             Destroy(gameObject);
         }
-    }
+    }*/
 }

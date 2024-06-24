@@ -1649,7 +1649,7 @@ MonoBehaviour:
   scrollSpeed: 1
   torqueAmount: 10
   dampingFactor: 0.95
-  mapRotation: 4
+  mapRotation: 1
 --- !u!114 &989436729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1666,7 +1666,8 @@ MonoBehaviour:
   height: 50
   Seed: 1234
   tokenAmount: 8
-  mapType: 0
+  invincibleAmount: 3
+  mapType: 1
   WFCmap: 1
   blockType: 0
   backType: 0
@@ -1674,6 +1675,7 @@ MonoBehaviour:
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   Adventurer: {fileID: 954048678018988784, guid: a7e12ac2ee9887b449d382a9847e6ce1, type: 3}
   token: {fileID: 3450604137700535255, guid: 1d829408b9d55cb42881bb78e2b37955, type: 3}
+  invincible: {fileID: 6708388823151251692, guid: 86cc2fb0223c2344da6081435f41c785, type: 3}
   spawnpoint: {x: 0, y: 0, z: 0}
   fillProbability: 0.5
   Threshold: 0.4

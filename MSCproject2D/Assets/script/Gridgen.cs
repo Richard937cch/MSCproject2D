@@ -10,6 +10,7 @@ public class Gridgen : MonoBehaviour
     public int height;
     public int Seed = 1234;
     public int tokenAmount = 8;
+    public int invincibleAmount = 3;
     
 
     public MapType mapType = MapType.RandomNCA;
@@ -29,6 +30,7 @@ public class Gridgen : MonoBehaviour
     //public GameObject Enemy;
 
     public GameObject token;
+    public GameObject invincible;
 
     public Vector3 spawnpoint;
 
@@ -87,11 +89,14 @@ public class Gridgen : MonoBehaviour
             default:
                 break;
         }
-    AstarPath.active.Scan();
 
-        
+        SetTileBlockType(); //set block type (background or block)
+        ScoreTokenSpawn();       //spawn score token
+        PerkSpawn();        //spawn perk token
 
-       
+
+        AstarPath.active.Scan();
+        print("mapG");
     }
 
     void randomNoiseNCA()
@@ -140,8 +145,7 @@ public class Gridgen : MonoBehaviour
         }
         
         InstantiateTile();
-        SetTileBlockType();
-        TokenSpawn();
+        
     }
 
     void perlinNoise()
@@ -170,8 +174,6 @@ public class Gridgen : MonoBehaviour
 
         
         InstantiateTile();
-        SetTileBlockType();
-        TokenSpawn();
     }
 
     void WaveFunctionCollapseMap()
@@ -180,18 +182,25 @@ public class Gridgen : MonoBehaviour
         grid = new Grid3D(width, height, 1);
         grid = wfc.getWFCTokenGrid();
 
-        SetTileBlockType();
-        TokenSpawn();
     }
 
-    void TokenSpawn()
+    void ScoreTokenSpawn()
     {
-        //token spawn
+        TokenSpawn(token, tokenAmount, 2);
+    }
+
+    void PerkSpawn()
+    {
+        TokenSpawn(invincible, invincibleAmount, 3);
+    }
+
+    void TokenSpawn(GameObject TokenPrefab, int TAmount, int tokenID)
+    {
         List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(0);
-        List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, tokenAmount);
+        List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, TAmount);
         foreach (Vector3 cell in randomCells)
         {
-            grid[cell] = 2;
+            grid[cell] = tokenID;
         }
         //Instantiate token prefab
         Quaternion rotation = Quaternion.Euler(0, 0, 90);
@@ -199,10 +208,10 @@ public class Gridgen : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if (grid[x, y, 0] == 2) //token
+                if (grid[x, y, 0] == tokenID) //token
                 {
-                    GameObject newtoken = Instantiate(token, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.1f), rotation);
-                    newtoken.transform.parent = transform;
+                    GameObject newperk = Instantiate(TokenPrefab, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.1f), rotation);
+                    newperk.transform.parent = transform;
                 }
 
             }
