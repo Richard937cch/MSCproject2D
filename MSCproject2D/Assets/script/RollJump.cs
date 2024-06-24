@@ -32,7 +32,7 @@ public class RollJump : MonoBehaviour {
 
 	private Vector3 currentMovement;
 
-	public float respawnDepth = -110;
+	
 
 	private void Awake()
     {
@@ -80,10 +80,7 @@ public class RollJump : MonoBehaviour {
 			rigid.MovePosition(currentMovement*Time.deltaTime);
 		}*/
 
-		if (transform.position.y < respawnDepth)
-		{
-			transform.position = new Vector3(0, 40, -0.58f);
-		}
+		
 
 	}
 

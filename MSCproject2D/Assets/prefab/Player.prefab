@@ -106,7 +106,6 @@ MonoBehaviour:
   rotationSpeed: 25
   jumpHeight: 10
   isFalling: 0
-  respawnDepth: -110
 --- !u!114 &-8393920855702239908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ea765fcca1cbf4aa01c84f5298faba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Life: 3
   maxHealth: 100
-  healthText: {fileID: 0}
+  respawnDepth: -110
 --- !u!58 &-4641941229890985555
 CircleCollider2D:
   m_ObjectHideFlags: 0

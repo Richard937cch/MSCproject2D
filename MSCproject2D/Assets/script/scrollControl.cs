@@ -98,11 +98,13 @@ public class scrollControl : MonoBehaviour
 
     void ScrollWheelTransform()
     {
-        if (rotateValue > 0) {
+        if (rotateValue > 0  && Time.timeScale != 0) 
+        {
             transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
             
         }
-        if (rotateValue < 0) {
+        if (rotateValue < 0 && Time.timeScale != 0) 
+        {
             transform.Rotate(Vector3.back * scrollSpeed , Space.Self);
             
         }

@@ -187,7 +187,6 @@ public class Gridgen : MonoBehaviour
     void TokenSpawn()
     {
         //token spawn
-        print("ro");
         List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(0);
         List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, tokenAmount);
         foreach (Vector3 cell in randomCells)

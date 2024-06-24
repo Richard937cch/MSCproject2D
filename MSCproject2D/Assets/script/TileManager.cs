@@ -65,6 +65,7 @@ public class TileManager : MonoBehaviour
                 newObject.GetComponent<BlockReaction>().type = BlockReactionType.Restore;
             }
             
+            //AstarPath.active.Scan();
 
             // Destroy the current child game object
             Destroy(child.gameObject);
