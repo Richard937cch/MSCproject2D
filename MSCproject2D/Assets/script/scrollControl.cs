@@ -91,6 +91,9 @@ public class scrollControl : MonoBehaviour
             case (MapRotation.Gravity):
                 GravityMode();
                 break;
+            case (MapRotation.AutoRotation):
+                AutoRotationMode();
+                break;
             default:
                 break;
         }
@@ -147,6 +150,16 @@ public class scrollControl : MonoBehaviour
             rb.angularVelocity = Vector3.zero; // Stop rotation when the scroll wheel is not used
             ScrollWheelForce();
         }
+    }
+
+    void AutoRotationMode()
+    {
+        if (rb.angularVelocity.magnitude < 0.1)
+        {
+            rb.AddTorque(Vector3.forward * torqueAmount, ForceMode.Acceleration);
+        }
+        
+        //print(rb.angularVelocity);
     }
 
     private void RegisterInputActions()

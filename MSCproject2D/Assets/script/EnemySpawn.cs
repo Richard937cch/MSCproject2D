@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class EnemySpawn : MonoBehaviour
     private GameObject player; // Reference to the player GameObject
     private float timer;
 
+    private GridGraph gridGraph;
+
     void Start()
     {
+        gridGraph = AstarPath.active.data.gridGraph;
+
         timer = spawnInterval; // Initialize the timer
         if (enemyPrefab == null)
         {
@@ -37,15 +42,15 @@ public class EnemySpawn : MonoBehaviour
     {
         timer -= Time.deltaTime;
         
-        if (timer <= 0.0f)
+        if (timer <= 0.0f) //spawn enemy
         {
-            SpawnEnemyNearPlayer();
+            FindWalkablePositionNearPlayer();
             timer = spawnInterval; // Reset the timer
         }
 
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
-            print("survived!");
+            print("null player");
         }
     }
 
@@ -70,5 +75,49 @@ public class EnemySpawn : MonoBehaviour
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
         Debug.Log("Spawned enemy at: " + spawnPosition);
+    }
+
+    void FindWalkablePositionNearPlayer()
+    {
+        List<GridNode> walkableNodes = new List<GridNode>();
+        Vector3 playerPosition = player.transform.position;
+
+        // Iterate through all nodes in the grid
+        for (int x = 0; x < gridGraph.width; x++)
+        {
+            for (int z = 0; z < gridGraph.depth; z++)
+            {
+                GridNode node = gridGraph.GetNode(x, z) as GridNode;
+
+                if (node != null && node.Walkable)
+                {
+                    // Convert the node position to world position
+                    Vector3 nodeWorldPosition = (Vector3)node.position;
+
+                    // Check if the node is within the spawn radius around the player
+                    if (Vector3.Distance(playerPosition, nodeWorldPosition) <= spawnRange)
+                    {
+                        walkableNodes.Add(node);
+                    }
+                }
+            }
+        }
+
+        if (walkableNodes.Count > 0)
+        {
+            // Select a random walkable node
+            GridNode randomNode = walkableNodes[Random.Range(0, walkableNodes.Count)];
+
+            // Convert the node position to world position
+            Vector3 worldPosition = (Vector3)randomNode.position;
+            //return worldPosition;
+            GameObject newEnemy = Instantiate(enemyPrefab, worldPosition, Quaternion.identity);
+            newEnemy.transform.parent = transform;
+        }
+        else
+        {
+            print("no enemy spawnpoint");
+        }
+
     }
 }

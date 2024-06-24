@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8826088192873438841}
   - component: {fileID: 5067372735742040657}
   - component: {fileID: 3172420277464231616}
-  - component: {fileID: 8495628534756925468}
+  - component: {fileID: 6270359596941497769}
   m_Layer: 0
   m_Name: EnemyA2
   m_TagString: Enemy
@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4, y: 50, z: -0.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -167,7 +167,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -179,7 +179,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &3172420277464231616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,13 +197,13 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
-  thickRaycast: 0
-  thickRaycastRadius: 0
+  thickRaycast: 1
+  thickRaycastRadius: 3
   use2DPhysics: 1
   raycastOffset: {x: 0, y: 0, z: 0}
   useGraphRaycasting: 0
   quality: 1
---- !u!114 &8495628534756925468
+--- !u!114 &6270359596941497769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,21 +212,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1265906149813715793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087f8ae9286ac644aacb7bd1761486d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 774532061951c8640a2dcb8b58dc6791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  activateDistance: 50
-  pathUpdateSeconds: 0.5
   speed: 200
-  jumpForce: 100
   nextWaypointDistance: 3
-  jumpNodeHeightRequirement: 0.8
-  jumpModifier: 0.3
-  jumpCheckOffset: 0.1
-  followEnabled: 1
-  jumpEnabled: 1
-  isJumping: 0
-  isInAir: 0
-  directionLookEnabled: 1
-  startOffset: {x: 0, y: 0, z: 0}
+  jumpHeight: 5
+  isFalling: 0
+  duration: 10

@@ -38,7 +38,6 @@ public class PlayerState : MonoBehaviour
         // Check if the player is hit by an enemy
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            print("000");
             // Reduce health
             TakeDamage(10);
         }

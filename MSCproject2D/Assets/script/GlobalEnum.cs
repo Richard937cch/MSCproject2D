@@ -32,7 +32,7 @@
 
     public enum MapRotation //Map rotation method (for scrollControl)
     {
-        None, ScrollTransform, ScrollForce, Gravity
+        None, ScrollTransform, ScrollForce, Gravity, AutoRotation, RandomRotation
     };
 
 

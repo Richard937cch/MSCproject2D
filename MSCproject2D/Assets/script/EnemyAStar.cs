@@ -19,6 +19,9 @@ public class EnemyAStar : MonoBehaviour
 
     public bool isFalling = false;
 
+    public float duration = 10f; // Time interval between spawns
+    private float timer;
+
     //Enemy Sprite, Disregard if you dont want the sprite to flip to look at the player
     //public Transform enemyGFX; 
 
@@ -36,7 +39,7 @@ public class EnemyAStar : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         //isFalling = true;
         InvokeRepeating("UpdatePath", 0f, 0.5f); 
-        
+        timer = duration;
     }
 
     void UpdatePath()
@@ -54,6 +57,16 @@ public class EnemyAStar : MonoBehaviour
         {
             path = p;
             currentWayPoint = 0; 
+        }
+    }
+
+    void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0.0f)
+        {
+            Destroy(gameObject);
+            timer = duration; // Reset the timer
         }
     }
 
