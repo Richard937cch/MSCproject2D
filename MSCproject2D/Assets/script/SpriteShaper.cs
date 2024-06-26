@@ -106,8 +106,7 @@ public class SpriteShaper : MonoBehaviour
                 break;
             }
         }
-        edgePoints.Add(startPoint);
-
+        
         // Directions in clockwise order (right, down, left, up)
         Vector3[] directions = { Vector3.right, Vector3.right+Vector3.down,
                                  Vector3.down, Vector3.down+Vector3.left,
@@ -119,6 +118,7 @@ public class SpriteShaper : MonoBehaviour
         Vector3 previousDirection = Vector3.up; // Assume we enter the first edge point from above
 
         int time = 0;
+        print(startPoint);
         do
         {
             time++;
@@ -128,7 +128,7 @@ public class SpriteShaper : MonoBehaviour
             {
                 chunk.Remove(currentPoint);
             }
-            
+            List<Vector3> edgeCandidates = new List<Vector3>();
             foreach (var direction in directions)
             {
                 Vector3 nextPoint = currentPoint + direction;
@@ -140,33 +140,74 @@ public class SpriteShaper : MonoBehaviour
                     if (IsEdgePoint(nextPoint) && !IsCheck(nextPoint))
                     {
                         //print("addEdge");
-                        currentPoint = nextPoint;
-                        previousDirection = direction;
+                        edgeCandidates.Add(nextPoint);
+                        //break;
+                    }
+                }
+                
+            }
+            //print(edgeCandidates.Count);
+            foreach (var edgec in edgeCandidates)
+            {
+                if (IsSameOrientation(currentPoint, edgec))
+                {
+                    //print("a");
+                    currentPoint = edgec;
+                    //previousDirection = direction;
+                    edgePoints.Add(currentPoint);
+                    findedge = true;
+                    break;
+                }
+            }
+
+            if (!findedge && chunk.Count>0)
+            {
+                foreach (var edgec in edgeCandidates)
+                {
+                    if (ShareSameBacktile(currentPoint, edgec))
+                    {
+                        print("b");
+                        currentPoint = edgec;
+                        //previousDirection = direction;
                         edgePoints.Add(currentPoint);
                         findedge = true;
                         break;
                     }
                 }
+            }
+
+            if (!findedge && chunk.Count>0 && edgeCandidates.Count > 0)
+            {
+                print("c");
+                currentPoint = edgeCandidates[0];
+                //previousDirection = direction;
+                edgePoints.Add(currentPoint);
+                findedge = true;
+                    
                 
             }
+
             if (!findedge && chunk.Count>0)
             {
+                print("d");
                 Vector3 nextPoint =FindNearestEdgePoint(chunk,currentPoint);
                 currentPoint = nextPoint;
                 edgePoints.Add(currentPoint);
                 findedge = true;
-                break;
+                //break;
             }
 
 
 
-        } while (currentPoint != startPoint && time <= 80 && chunk.Count>0);
-        print(time);
-        print("chunkcc"+chunk.Count);
+        } while (chunk.Count>0);//currentPoint != startPoint && time <= 80 && 
+        edgePoints.Add(startPoint);
+
+        //print(time);
+        //print("chunkcc"+chunk.Count);
         return edgePoints;
     }
 
-    List<Vector3> FindEdgePoints(List<Vector3> chunk)
+    List<Vector3> FindEdgePoints(List<Vector3> chunk) //find all edgepoints in a chunk
     {
         List<Vector3> edgePoints = new List<Vector3>();
 
@@ -182,7 +223,7 @@ public class SpriteShaper : MonoBehaviour
         return edgePoints;
     }
 
-    Vector3 FindNearestEdgePoint(List<Vector3> chunk, Vector3 point)
+    Vector3 FindNearestEdgePoint(List<Vector3> chunk, Vector3 point) //find nearest edgepoint from input point
     {
         float min = noiseMap.Width;
         Vector3 Nearest = point;
@@ -200,7 +241,7 @@ public class SpriteShaper : MonoBehaviour
         return Nearest;
     }
 
-    bool IsEdgePoint(Vector3 point)
+    bool IsEdgePoint(Vector3 point) //check if is edgepoint 
     {
         int x = Mathf.FloorToInt(point.x);
         int y = Mathf.FloorToInt(point.y);
@@ -229,13 +270,13 @@ public class SpriteShaper : MonoBehaviour
         return false;
     }
 
-    bool IsCheck(Vector3 point)
+    bool IsCheck(Vector3 point) //if is check, value should be 2
     {
         if (noiseMap[point] == 2) { return true; }
         else { return false; }
     }
 
-    bool IsInChunk(List<Vector3> chunk, Vector3 point)
+    bool IsInChunk(List<Vector3> chunk, Vector3 point) // if a point is in given chunk
     {
         foreach (Vector3 p in chunk)
         {
@@ -245,11 +286,65 @@ public class SpriteShaper : MonoBehaviour
         return false; 
     }
 
+    bool IsSameOrientation(Vector3 pointa, Vector3 pointb) //if two point were facing same way to background tile
+    {
+        Vector3[] directions = { Vector3.right, 
+                                 Vector3.down, 
+                                 Vector3.left, 
+                                 Vector3.up, };
+        foreach (var d in directions)
+        {
+            if (noiseMap[pointa+d]==0 || noiseMap[pointa+d]==-1)
+            {
+                if (noiseMap[pointa+d] == noiseMap[pointb+d])
+                {
+                    //print(noiseMap[pointa+d]);
+                    return true;
+                }
+            }
+            
+        }
+        return false;
+    }
+
+    bool ShareSameBacktile(Vector3 pointa, Vector3 pointb) //share same neighbor backgroun tile
+    {
+        List<Vector3> neighbora = new List<Vector3>();
+        List<Vector3> neighborb = new List<Vector3>();
+        Vector3[] directions = { Vector3.right, 
+                                 Vector3.down, 
+                                 Vector3.left, 
+                                 Vector3.up, };
+        foreach (var d in directions)
+        {
+            if (noiseMap.isInGrid(pointa+d))
+            {
+                if(noiseMap[pointa+d]==0 || noiseMap[pointa+d]==-1) neighbora.Add(pointa+d);
+            }
+            if (noiseMap.isInGrid(pointb+d))
+            {
+                if(noiseMap[pointb+d]==0 || noiseMap[pointa+d]==-1) neighbora.Add(pointb+d);
+            }
+        }
+        foreach(var a in neighbora)
+        {
+            foreach(var b in neighborb)
+            {
+                if (a==b)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     void CreateSpriteShape(List<Vector3> edgePoints)
     {
         print("createsprite");
         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-        GameObject newsprite = Instantiate(sprite, new Vector3(0,0,0), rotation);
+        GameObject newsprite = Instantiate(sprite, new Vector3(0, 0, 0), rotation); //noiseMap.Height/2+5
+        //newsprite.transform.position += new Vector3((float)noiseMap.Width/2-0.5f, (float)noiseMap.Height/2-0.5f, 0.5f);
         newsprite.transform.parent = transform;
         spriteShapeController = newsprite.GetComponent<SpriteShapeController>();
         Spline spline = spriteShapeController.spline;
@@ -257,7 +352,7 @@ public class SpriteShaper : MonoBehaviour
         print(edgePoints.Count);
         for (int i = 0; i < edgePoints.Count; i++)
         {
-            print(edgePoints[i]);
+            //print(edgePoints[i]);
             Vector3 point = edgePoints[i] * cellSize;
             spline.InsertPointAt(i, new Vector2(point.x, point.y));
             spline.SetTangentMode(i, ShapeTangentMode.Continuous);

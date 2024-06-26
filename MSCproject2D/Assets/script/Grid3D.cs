@@ -29,7 +29,11 @@ public class Grid3D
             {
                 return grid[x, y, z];
             }
-            throw new System.IndexOutOfRangeException("Index was outside the bounds of the array.");
+            else
+            {
+                return -1;
+            }
+            //throw new System.IndexOutOfRangeException("Index was outside the bounds of the array.");
         }
         set
         {

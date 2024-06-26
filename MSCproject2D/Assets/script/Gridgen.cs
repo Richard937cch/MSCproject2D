@@ -178,7 +178,7 @@ public class Gridgen : MonoBehaviour
 
         if (ismooth == "smooth")
         {
-            InstantiateTile();
+            //InstantiateTile();
             spriteShaper.GenerateSpriteShapesFromNoiseMap(grid);
         }
         else
