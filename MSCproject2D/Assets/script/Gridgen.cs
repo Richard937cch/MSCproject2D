@@ -47,12 +47,14 @@ public class Gridgen : MonoBehaviour
     private EnumManager enumManager;
 
     private WaveFunctionCollapse wfc;
+    private SpriteShaper spriteShaper;
     
 
     void Start()
     {
         enumManager = GetComponent<EnumManager>();
         wfc = GetComponent<WaveFunctionCollapse>();
+        spriteShaper = GetComponent<SpriteShaper>();
         Random.InitState(Seed);
         //spawnpoint = new Vector3(width/2, 0.58f, height/2);
         spawnpoint = new Vector3(0, height/2+5, 0);
@@ -79,13 +81,15 @@ public class Gridgen : MonoBehaviour
                 break;
             
             case (MapType.Perlin):
-                perlinNoise();
+                perlinNoise("square");
                 break;
 
             case (MapType.WFC):
                 WaveFunctionCollapseMap();
                 break;
-
+            case (MapType.SmoothPerlin):
+                perlinNoise("smooth");
+                break;
             default:
                 break;
         }
@@ -148,7 +152,7 @@ public class Gridgen : MonoBehaviour
         
     }
 
-    void perlinNoise()
+    void perlinNoise(string ismooth)
     {
         grid = new Grid3D(width, height, 1);
         for (int x = 0; x < width; x++)
@@ -172,8 +176,17 @@ public class Gridgen : MonoBehaviour
             }
         }
 
+        if (ismooth == "smooth")
+        {
+            InstantiateTile();
+            spriteShaper.GenerateSpriteShapesFromNoiseMap(grid);
+        }
+        else
+        {
+            InstantiateTile();
+        }
         
-        InstantiateTile();
+        
     }
 
     void WaveFunctionCollapseMap()
@@ -183,6 +196,7 @@ public class Gridgen : MonoBehaviour
         grid = wfc.getWFCTokenGrid();
 
     }
+
 
     void ScoreTokenSpawn()
     {

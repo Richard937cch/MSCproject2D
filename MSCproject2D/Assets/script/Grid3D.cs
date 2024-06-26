@@ -101,6 +101,18 @@ public class Grid3D
         }
     }
 
+    public bool isInGrid(Vector3 vector)
+    {
+        if (vector.x >= 0 && vector.x < Width && vector.y >= 0 && vector.y < Height && vector.z >= 0 && vector.z < Depth)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public List<Vector3> FindCellsWithValue(int value)
     {
         List<Vector3> cells = new List<Vector3>();

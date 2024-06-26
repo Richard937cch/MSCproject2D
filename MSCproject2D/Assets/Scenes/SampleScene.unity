@@ -330,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161538284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7540a326a2674004a839968dd3c86a52, type: 3}
   m_Name: 
@@ -1623,6 +1623,7 @@ GameObject:
   - component: {fileID: 989436728}
   - component: {fileID: 989436732}
   - component: {fileID: 989436733}
+  - component: {fileID: 989436735}
   - component: {fileID: 989436734}
   m_Layer: 0
   m_Name: MapGenerator
@@ -1662,12 +1663,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 50
-  height: 50
+  width: 20
+  height: 20
   Seed: 1234
   tokenAmount: 8
   invincibleAmount: 3
-  mapType: 1
+  mapType: 3
   WFCmap: 1
   blockType: 0
   backType: 0
@@ -1797,6 +1798,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &989436735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989436727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f383db5f5effa42b2115801ba3d813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteShapeController: {fileID: 0}
+  cellSize: 1
+  sprite: {fileID: 2508767297516878158, guid: 74dd930f591307348b8e4d69bd122bd0, type: 3}
 --- !u!1 &1181797551
 GameObject:
   m_ObjectHideFlags: 0
