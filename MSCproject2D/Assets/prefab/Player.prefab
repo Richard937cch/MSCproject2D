@@ -103,8 +103,9 @@ MonoBehaviour:
   jumpControl: {fileID: -944628639613478452, guid: 2786498bc7cb07d46957e0ab3fa79b68, type: 3}
   actionMapName: PlayerJump
   rotate: Jump
+  pause: Pause
   rotationSpeed: 25
-  jumpHeight: 5
+  jumpHeight: 7
   isFalling: 0
 --- !u!114 &-8393920855702239908
 MonoBehaviour:

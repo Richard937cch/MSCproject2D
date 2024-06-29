@@ -12,9 +12,12 @@ public class RollJump : MonoBehaviour {
     [SerializeField] private string actionMapName = "PlayerJump";
     [Header("Action Name References")]
     [SerializeField] private string rotate = "Jump"; 
+	[SerializeField] private string pause = "Pause"; 
 
 	private InputAction jumpAction; 
+	private InputAction pauseAction;
     public bool jumpValue { get; private set; }
+	public bool pauseValue { get; private set;}
 
     public static RollJump Instance { get; private set; }
 
@@ -32,15 +35,20 @@ public class RollJump : MonoBehaviour {
 
 	private Vector3 currentMovement;
 
-	
+	private GM gm;
 
 	private void Awake()
     {
+		gm = FindFirstObjectByType<GM>();
 		characterController = GetComponent<CharacterController>();
 		currentMovement = new Vector3(0, jumpHeight, 0);
         jumpAction = jumpControl.FindActionMap (actionMapName).FindAction (rotate); 
         jumpAction.performed += context => jumpValue = true; 
         jumpAction.canceled += context => jumpValue = false;
+
+		pauseAction = jumpControl.FindActionMap (actionMapName).FindAction (pause);
+		pauseAction.performed += context => pauseValue = true;
+		pauseAction.canceled += context => pauseValue = false;
     }
 
 	void Start () 
@@ -74,6 +82,11 @@ public class RollJump : MonoBehaviour {
 			//rigid.MovePosition(currentMovement*Time.deltaTime);
 			
 		}
+		if (pauseValue)
+		{
+			gm.Pause();
+			pauseValue = false;
+		}
 		/*else
 		{
 			currentMovement.y -= gravity*Time.deltaTime;
@@ -103,10 +116,12 @@ public class RollJump : MonoBehaviour {
 	private void OnEnable()
     {
         jumpAction.Enable();
+		pauseAction.Enable();
     }
     private void Disable()
     {
         jumpAction.Disable();
+		pauseAction.Disable();
     }
 
 }

@@ -19,6 +19,7 @@ public class BlockReaction : MonoBehaviour
     
     [Header("Block Reaction Type")]
     public BlockReactionType type;
+    //public GameObject changePrefab; //Store prefab for next change
 
     private int hit = 0;  //how many times block got hit
 

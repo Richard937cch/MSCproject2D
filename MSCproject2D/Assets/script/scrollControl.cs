@@ -12,9 +12,15 @@ public class scrollControl : MonoBehaviour
     [SerializeField] private string actionMapName = "scroll";
     [Header("Action Name References")]
     [SerializeField] private string rotate = "mouseScroll"; 
+    [SerializeField] private string left = "left"; 
+    [SerializeField] private string right = "right";
 
     private InputAction rotateAction; 
+    private InputAction leftAction;
+    private InputAction rightAction;
     public float rotateValue { get; private set; }
+    public float leftValue { get; private set;}
+    public float rightValue { get; private set;}
 
     public static scrollControl Instance { get; private set; }
 
@@ -32,6 +38,11 @@ public class scrollControl : MonoBehaviour
     private int width;
 
     private Vector3 rotationAS;
+    private bool rotateClockwise = true;
+
+    public float changeDirectionInterval = 2f;
+
+    public bool key = false;
 
     private void Awake()
     {
@@ -40,6 +51,9 @@ public class scrollControl : MonoBehaviour
         
         width = this.GetComponent<Gridgen>().width;
         rotateAction = scrollcontrols.FindActionMap (actionMapName).FindAction (rotate); 
+        leftAction  = scrollcontrols.FindActionMap (actionMapName).FindAction (left);
+        rightAction = scrollcontrols.FindActionMap (actionMapName).FindAction(right);
+        
         RegisterInputActions();
         
         
@@ -54,7 +68,12 @@ public class scrollControl : MonoBehaviour
             Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
             return;
         }
+        if (mapRotation == MapRotation.RandomRotation)
+        {
+            StartCoroutine(ChangeDirectionRoutine());
+        }
     }
+        
 
     private void Update()
     {
@@ -65,7 +84,7 @@ public class scrollControl : MonoBehaviour
         }*/
         if (mapRotation == MapRotation.ScrollTransform)
         {
-            ScrollWheelTransform();
+            //ScrollWheelTransform();
         }
         /*
         if (rotateValue > 0) {
@@ -83,7 +102,7 @@ public class scrollControl : MonoBehaviour
             case (MapRotation.None):
                 break;
             case (MapRotation.ScrollTransform):
-                //ScrollWheelTransform();
+                ScrollWheelTransform();
                 break;
             case (MapRotation.ScrollForce):
                 ScrollWheelForce();
@@ -94,6 +113,9 @@ public class scrollControl : MonoBehaviour
             case (MapRotation.AutoRotation):
                 AutoRotationMode();
                 break;
+            case (MapRotation.RandomRotation):
+                RandomRotationMode();
+                break;
             default:
                 break;
         }
@@ -101,34 +123,43 @@ public class scrollControl : MonoBehaviour
 
     void ScrollWheelTransform()
     {
-        if (rotateValue > 0  && Time.timeScale != 0) 
+        if (Time.timeScale != 0)
         {
-            transform.Rotate(Vector3.forward * scrollSpeed , Space.Self);
-            
+            if (rotateValue > 0 || leftValue > 0) 
+            {
+                transform.Rotate(Vector3.forward * scrollSpeed, Space.Self);
+                //leftValue = false;
+                
+            }
+            if (rotateValue < 0 || rightValue > 0) 
+            {
+                transform.Rotate(Vector3.back * scrollSpeed, Space.Self);
+                //rightValue = false;
+                
+            }
+            print(leftValue+"+"+rightValue);
         }
-        if (rotateValue < 0 && Time.timeScale != 0) 
-        {
-            transform.Rotate(Vector3.back * scrollSpeed , Space.Self);
-            
-        }
+        
 
     }
 
     void ScrollWheelForce()
     {
-        if (rotateValue > 0)
+        
+        if ((rotateValue > 0 || leftValue > 0) && rb.angularVelocity.z < 0.3)
         {
             rb.AddTorque(Vector3.forward * torqueAmount, ForceMode.Acceleration);
         }
-        else if (rotateValue < 0)
+        else if ((rotateValue < 0 || rightValue > 0) && rb.angularVelocity.z > -0.3)
         {
             rb.AddTorque(Vector3.back * torqueAmount, ForceMode.Acceleration);
         }
-        else
+         else
         {
             //rb.angularVelocity = Vector3.zero; // Stop rotation when the scroll wheel is not used
             rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, dampingFactor * Time.fixedDeltaTime);
         }
+        
     }
 
     void GravityMode()
@@ -154,26 +185,76 @@ public class scrollControl : MonoBehaviour
 
     void AutoRotationMode()
     {
-        if (rb.angularVelocity.magnitude < 0.1)
-        {
+         if (rb.angularVelocity.magnitude < 0.1)
+         {
             rb.AddTorque(Vector3.forward * torqueAmount, ForceMode.Acceleration);
+         }
+        
+    }
+
+    void RandomRotationMode()
+    {
+        //print(rb.angularVelocity);
+        
+        if (rotateClockwise)
+        {
+            if (rb.angularVelocity.z < 0.1)
+            {
+                rb.AddTorque(Vector3.forward * torqueAmount * Time.fixedDeltaTime, ForceMode.Acceleration);
+            }
+            
+        }
+        else
+        {
+            if (rb.angularVelocity.z > -0.1)
+            {
+                rb.AddTorque(Vector3.back * torqueAmount * Time.fixedDeltaTime, ForceMode.Acceleration);
+            }
         }
         
-        //print(rb.angularVelocity);
+
+    }
+
+    IEnumerator ChangeDirectionRoutine()
+    {
+        while (mapRotation == MapRotation.RandomRotation)
+        {
+            //changeDirectionInterval = Random.Range(1, changeDirectionInterval);
+            yield return new WaitForSeconds(changeDirectionInterval);
+            rotateClockwise = Random.value > 0.5f;
+            //print(rotateClockwise);
+        }
     }
 
     private void RegisterInputActions()
     {
         rotateAction.performed += context => rotateValue = context.ReadValue<float>(); 
         rotateAction.canceled += context => rotateValue = 0.0f;
+        if (key)
+        {
+            leftAction.performed  += context => leftValue = context.ReadValue<float>();
+            rightAction.performed += context => rightValue = context.ReadValue<float>();
+            leftAction.canceled += context => leftValue = 0.0f;
+            rightAction.canceled += context => rightValue = 0.0f;
+        }
+        else
+        {
+            leftValue = 0.0f;
+            rightValue = 0.0f;
+        }
+        
     }
 
     private void OnEnable()
     {
         rotateAction.Enable();
+        leftAction.Enable();
+        rightAction.Enable();
     }
     private void Disable()
     {
         rotateAction.Disable();
+        leftAction.Disable();
+        rightAction.Disable();
     }
 }

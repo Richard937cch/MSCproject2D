@@ -1647,10 +1647,14 @@ MonoBehaviour:
   scrollcontrols: {fileID: -944628639613478452, guid: a836a174a4956a749926f7fdb4221613, type: 3}
   actionMapName: scroll
   rotate: mouseScroll
-  scrollSpeed: 1
+  left: left
+  right: right
+  scrollSpeed: 2
   torqueAmount: 10
   dampingFactor: 0.95
-  mapRotation: 4
+  mapRotation: 2
+  changeDirectionInterval: 10
+  key: 1
 --- !u!114 &989436729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1663,12 +1667,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  width: 50
+  height: 50
   Seed: 1234
   tokenAmount: 3
   invincibleAmount: 3
-  mapType: 3
+  mapType: 1
   WFCmap: 1
   blockType: 1
   backType: 1

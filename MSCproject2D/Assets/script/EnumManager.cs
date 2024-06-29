@@ -46,5 +46,9 @@ public class EnumManager : MonoBehaviour
         }
     }
 
+    public bool AreTypesEqual(BlockType blockType, BlockReactionType blockReactionType)
+    {
+        return blockTypeToReactionType.TryGetValue(blockType, out BlockReactionType mappedReactionType) && mappedReactionType == blockReactionType;
+    }
     
 }
