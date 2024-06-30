@@ -190,7 +190,9 @@ public class SpriteShaper : MonoBehaviour
             if (!findedge && chunk.Count>0)
             {
                 print("d");
+                print("d"+currentPoint);
                 Vector3 nextPoint =FindNearestEdgePoint(chunk,currentPoint);
+                print("d"+nextPoint);
                 currentPoint = nextPoint;
                 edgePoints.Add(currentPoint);
                 findedge = true;
@@ -343,7 +345,8 @@ public class SpriteShaper : MonoBehaviour
     {
         print("createsprite");
         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-        GameObject newsprite = Instantiate(sprite, new Vector3(0, 0, 0), rotation); //noiseMap.Height/2+5
+        //GameObject newsprite = Instantiate(sprite, new Vector3(0, 0, 0), rotation); //noiseMap.Height/2+5
+        GameObject newsprite = Instantiate(sprite, new Vector3(0, noiseMap.Height/2+10, 0), rotation);
         //newsprite.transform.position += new Vector3((float)noiseMap.Width/2-0.5f, (float)noiseMap.Height/2-0.5f, 0.5f);
         newsprite.transform.parent = transform;
         spriteShapeController = newsprite.GetComponent<SpriteShapeController>();
@@ -354,12 +357,12 @@ public class SpriteShaper : MonoBehaviour
         {
             //print(edgePoints[i]);
             Vector3 point = edgePoints[i] * cellSize;
-            spline.InsertPointAt(i, new Vector2(point.x, point.y));
+            spline.InsertPointAt(i, new Vector2(point.x-noiseMap.Width/2+0.5f, point.y-noiseMap.Height-9.5f));
             spline.SetTangentMode(i, ShapeTangentMode.Continuous);
         }
 
         spriteShapeController.RefreshSpriteShape();
-        newsprite.transform.position -= new Vector3((float)noiseMap.Width/2-0.5f, (float)noiseMap.Height/2-0.5f, 0.5f);
+        //newsprite.transform.position -= new Vector3((float)noiseMap.Width/2-0.5f, (float)noiseMap.Height/2-0.5f, 0.5f);
         //newsprite.transform.position -= new Vector3(20f, 20f, 0.5f);
     }
 }

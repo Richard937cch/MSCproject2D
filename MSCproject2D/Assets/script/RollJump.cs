@@ -107,6 +107,11 @@ public class RollJump : MonoBehaviour {
 		isFalling = true;
 	}
 
+	public void ModifySpeed(float factor)
+    {
+        rigid.velocity *= factor;
+    }
+
 	private bool UpKey() 
 	{
 		return (Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space));

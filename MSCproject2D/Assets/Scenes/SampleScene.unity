@@ -330,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161538284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7540a326a2674004a839968dd3c86a52, type: 3}
   m_Name: 
@@ -1672,7 +1672,7 @@ MonoBehaviour:
   Seed: 1234
   tokenAmount: 3
   invincibleAmount: 3
-  mapType: 1
+  mapType: 3
   WFCmap: 1
   blockType: 1
   backType: 1
@@ -1816,7 +1816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteShapeController: {fileID: 0}
   cellSize: 1
-  sprite: {fileID: 2508767297516878158, guid: 74dd930f591307348b8e4d69bd122bd0, type: 3}
+  sprite: {fileID: 5272757927939089679, guid: 70799ed9cfd72bb4da6631e906161ced, type: 3}
 --- !u!1 &1181797551
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,10 +21,13 @@ public class PlayerState : MonoBehaviour
     
     GM gm;
 
+    private Rigidbody2D rb;
+
     void Start()
     {
         gm = GameObject.Find("GameController").GetComponent<GM>();
         playerRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         //GameObject healthTextObject = GameObject.Find("HP");
         //healthText = healthTextObject.GetComponent<TextMeshProUGUI>();
         currentHealth = maxHealth;

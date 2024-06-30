@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2508767297516878158
+--- !u!1 &5272757927939089679
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1984405151248863381}
-  - component: {fileID: 550862194489299404}
-  - component: {fileID: 420092769880518769}
-  - component: {fileID: 3353794785916834554}
-  - component: {fileID: 8854807004184443883}
+  - component: {fileID: 2391362407652871656}
+  - component: {fileID: 4077184334683577548}
+  - component: {fileID: 3418766465869729271}
+  - component: {fileID: 5775792923282745275}
+  - component: {fileID: -4596656878365008379}
   m_Layer: 0
-  m_Name: Closed Sprite Shape
+  m_Name: slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1984405151248863381
+--- !u!4 &2391362407652871656
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508767297516878158}
+  m_GameObject: {fileID: 5272757927939089679}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.00027251244, y: -0.0002721548, z: 0}
@@ -35,13 +35,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1971053207 &550862194489299404
+--- !u!1971053207 &4077184334683577548
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508767297516878158}
+  m_GameObject: {fileID: 5272757927939089679}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -55,8 +55,8 @@ SpriteShapeRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 69fcdca1492e2c34d855333f2e603195, type: 2}
+  - {fileID: 2100000, guid: 69fcdca1492e2c34d855333f2e603195, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,13 +94,13 @@ SpriteShapeRenderer:
     m_Center: {x: 0.00027251244, y: -0.0002721548, z: 0}
     m_Extent: {x: 2.589231, y: 1.250067, z: 0}
   m_SpriteSortPoint: 0
---- !u!114 &420092769880518769
+--- !u!114 &3418766465869729271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508767297516878158}
+  m_GameObject: {fileID: 5272757927939089679}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90539df1cd5704abcb25fec9f3f5f84b, type: 3}
@@ -191,13 +191,13 @@ MonoBehaviour:
   - {x: 1.0262973, y: -1.248613}
   - {x: -1.000225, y: -1.25}
   m_ShadowSegment: []
---- !u!60 &3353794785916834554
+--- !u!60 &5775792923282745275
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508767297516878158}
+  m_GameObject: {fileID: 5272757927939089679}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -221,7 +221,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -266,19 +266,19 @@ PolygonCollider2D:
       - {x: 1.0262973, y: -1.248613}
       - {x: -1.000225, y: -1.25}
   m_UseDelaunayMesh: 0
---- !u!114 &8854807004184443883
+--- !u!114 &-4596656878365008379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508767297516878158}
+  m_GameObject: {fileID: 5272757927939089679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad69248818bd484f92061894ea017c7, type: 3}
+  m_Script: {fileID: 11500000, guid: bbf97130aed772643bc7fa496377e851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slowDownFactor: 0.5
-  deformationAmount: 0.1
-  deformationSpeed: 1
-  restorationSpeed: 1
+  forceAmount: 10
+  restoreSpeed: 1
+  maxDisplacement: 1
