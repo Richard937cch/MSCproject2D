@@ -83,11 +83,42 @@ public class AStarGridControl : MonoBehaviour
                 {
                     // Recalculate the node's position
                     node.position = (Int3)gridGraph.GraphPointToWorld(x, z, 0);
-
+                    
                     // Update connections for the node and its neighbors
                     gridGraph.CalculateConnectionsForCellAndNeighbours(x, z);
                 }
             }
+        }
+    }
+
+    public void UpdateNodeWalkability(Vector3Int gridPosition)
+    {
+        gridPosition += new Vector3Int(gridGraph.width/2, gridGraph.depth/2, 0);
+        if (gridGraph != null)
+        {
+            
+            // Get the node at the specific grid position
+            GraphNode node = gridGraph.GetNode(gridPosition.x, gridPosition.y) as GridNode;
+            print(gridPosition);
+            if (node != null)
+            {
+                // Change node walkability
+                node.Walkable = !node.Walkable;
+                //node.Walkable = true;
+                print(node.position);
+                // Update the graph to reflect the change
+                //AstarPath.active.FloodFill();
+                
+                //gridGraph.CalculateConnectionsForCellAndNeighbours(node.position.x, node.position.y);
+            }
+            else
+            {
+                Debug.LogError("Node not found at the specified grid position.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GridGraph not found.");
         }
     }
     

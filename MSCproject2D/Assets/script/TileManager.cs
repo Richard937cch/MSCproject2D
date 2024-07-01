@@ -10,12 +10,13 @@ public class TileManager : MonoBehaviour
     private EnumManager enumManager;
 
     private Gridgen gridgen;
+    private AStarGridControl astarGridControl;
     // Start is called before the first frame update
     void Start()
     {
         gridgen = GetComponent<Gridgen>();
         enumManager = GetComponent<EnumManager>();
-        
+        astarGridControl = GameObject.Find("A*").GetComponent<AStarGridControl>();
     }
 
     // Update is called once per frame
@@ -74,7 +75,7 @@ public class TileManager : MonoBehaviour
             Vector3 position = child.position;
             Quaternion rotation = child.rotation;
             Vector3 scale = child.localScale;
-
+            
             // Instantiate the new prefab with the same transform values
             GameObject newObject = Instantiate(newPrefab, position, rotation, transform);
             newObject.transform.localScale = scale;
@@ -83,6 +84,12 @@ public class TileManager : MonoBehaviour
                 newObject.GetComponent<BlockReaction>().type = BlockReactionType.Restore;
                 //newObject.GetComponent<BlockReaction>().changePrefab = child.gameObject; // store old prefab in script for restore
             }
+            //update node
+            print(newObject.transform.localPosition);
+            Vector3Int newnode = Vector3Int.FloorToInt(newObject.transform.localPosition);
+            //newnode -= new Vector3Int (gridgen.width/2, gridgen.height/2, 0);
+            astarGridControl.UpdateNodeWalkability(newnode);
+            //StartCoroutine(Rescan());
             
             //AstarPath.active.Scan();
 
@@ -94,6 +101,7 @@ public class TileManager : MonoBehaviour
             Debug.LogError("Please assign a new prefab in the Inspector.");
         }
     }
+
 
     /*void RestoreChild(Transform child)
     {

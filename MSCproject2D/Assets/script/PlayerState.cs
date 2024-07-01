@@ -10,7 +10,7 @@ public class PlayerState : MonoBehaviour
     public int Life = 3;
     public int maxHealth = 100;
     private int currentHealth;
-    public float respawnDepth = -110;
+    public float respawnDepth;
 
     private bool isInvincible = false;
     public float invincibilityDuration = 10;
@@ -21,10 +21,13 @@ public class PlayerState : MonoBehaviour
     
     GM gm;
 
+    Gridgen gridgen;
+
     private Rigidbody2D rb;
 
     void Start()
     {
+        gridgen = GameObject.Find("MapGenerator").GetComponent<Gridgen>();
         gm = GameObject.Find("GameController").GetComponent<GM>();
         playerRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -33,6 +36,7 @@ public class PlayerState : MonoBehaviour
         currentHealth = maxHealth;
         gm.UpdateHPtext(currentHealth);
         gm.UpdateLifetext(Life);
+        respawnDepth = (gridgen.height/2+5)* -1;
     }
 
     void Update()
@@ -104,7 +108,7 @@ public class PlayerState : MonoBehaviour
 
     void respawn()
     {
-		transform.position = new Vector3(0, 40, -0.58f); // back to respawnpoint
+		transform.position = gridgen.spawnpoint; // back to respawnpoint
         Life--;                                          //lose one life
         gm.UpdateLifetext(Life);
         if (Life == 0) //if run out of life, die

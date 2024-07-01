@@ -49,6 +49,7 @@ public class Gridgen : MonoBehaviour
     private WaveFunctionCollapse wfc;
     private SpriteShaper spriteShaper;
     
+    
 
     void Start()
     {
