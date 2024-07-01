@@ -28,6 +28,9 @@ public class RollJump : MonoBehaviour {
 	private float gravity= 9.81f;
 
 	public bool isFalling = false;
+	public bool isInSlime = false;
+
+	public float slimeSpeed = 0.7f;
 
 	private Rigidbody2D rigid;
 
@@ -57,7 +60,7 @@ public class RollJump : MonoBehaviour {
 		isFalling = true;
 	}
 		
-	void Update () {
+	void FixedUpdate () {
         /*
 		//Handles the rotation of the ball
 		float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
@@ -82,11 +85,25 @@ public class RollJump : MonoBehaviour {
 			//rigid.MovePosition(currentMovement*Time.deltaTime);
 			
 		}
+		if (jumpValue && isInSlime) 
+		{
+			//Jump
+			rigid.AddForce (Vector3.up * jumpHeight , (ForceMode2D)ForceMode.Impulse);
+			jumpValue = false;
+			//rigid. Move (currentMovement*Time.deltaTime);
+			//rigid.MovePosition(currentMovement*Time.deltaTime);
+			
+		}
+		if (isInSlime)
+		{
+			ModifySpeed(slimeSpeed);
+		}
 		if (pauseValue)
 		{
 			gm.Pause();
 			pauseValue = false;
 		}
+		
 		/*else
 		{
 			currentMovement.y -= gravity*Time.deltaTime;
@@ -106,6 +123,23 @@ public class RollJump : MonoBehaviour {
 	{
 		isFalling = true;
 	}
+
+	void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Slime"))
+        {
+            isInSlime = true;
+        }
+    }
+
+	void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Slime"))
+        {
+            isInSlime = false;
+        }
+    }
+
 
 	public void ModifySpeed(float factor)
     {

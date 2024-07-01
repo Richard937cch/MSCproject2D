@@ -50,7 +50,16 @@ public class DeformableSlimeBlock : MonoBehaviour
             RollJump player = other.GetComponent<RollJump>();
             if (player != null)
             {
-                player.ModifySpeed(slowDownFactor);
+                //player.ModifySpeed(slowDownFactor);
+                StartCoroutine(DeformEdgePoints(other.transform));
+            }
+        }
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyAStar enemy = other.GetComponent<EnemyAStar>();
+            if (enemy != null)
+            {
+                //enemy.ModifySpeed(slowDownFactor);
                 StartCoroutine(DeformEdgePoints(other.transform));
             }
         }
@@ -63,7 +72,15 @@ public class DeformableSlimeBlock : MonoBehaviour
             RollJump player = other.GetComponent<RollJump>();
             if (player != null)
             {
-                player.ModifySpeed(1.0f / slowDownFactor);
+                //player.ModifySpeed(1.0f / slowDownFactor);
+                StartCoroutine(RestoreEdgePoints());
+            }
+        }
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyAStar enemy = other.GetComponent<EnemyAStar>();
+            if (enemy != null)
+            {
                 StartCoroutine(RestoreEdgePoints());
             }
         }

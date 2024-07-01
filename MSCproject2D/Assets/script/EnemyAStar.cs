@@ -32,6 +32,9 @@ public class EnemyAStar : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
 
+    public bool isInSlime = false;
+    public float slimeSpeed = 0.9f;
+
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -100,6 +103,11 @@ public class EnemyAStar : MonoBehaviour
             rb.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
         }
 
+        if (isInSlime)
+		{
+			ModifySpeed(slimeSpeed);
+		}
+
         //reach waypoint or not
         float distane = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
         if (distane < nextWaypointDistance) 
@@ -128,4 +136,27 @@ public class EnemyAStar : MonoBehaviour
 	{
 		isFalling = true;
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Slime"))
+        {
+            
+            isInSlime = true;
+        }
+    }
+
+	void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Slime"))
+        {
+            
+            isInSlime = false;
+        }
+    }
+
+    public void ModifySpeed(float factor)
+    {
+        rb.velocity *= factor;
+    }
 }

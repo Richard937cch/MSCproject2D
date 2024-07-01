@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4596656878365008379}
   m_Layer: 0
   m_Name: slime
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf97130aed772643bc7fa496377e851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowDownFactor: 0.5
+  slowDownFactor: 0.05
   forceAmount: 10
+  deformSpeed: 1
   restoreSpeed: 1
-  maxDisplacement: 1
+  maxDeformDistance: 1
+  deformRadius: 2

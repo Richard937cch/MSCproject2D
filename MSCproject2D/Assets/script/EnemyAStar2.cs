@@ -30,6 +30,9 @@ public class EnemyAStar2 : MonoBehaviour
     Rigidbody2D rb;
     private bool isOnCoolDown;
 
+    public bool isInSlime = false;
+    public float slimeSpeed = 0.9f;
+
     public void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -48,6 +51,10 @@ public class EnemyAStar2 : MonoBehaviour
         {
             PathFollow();
         }
+        /*if (isInSlime)
+		{
+			ModifySpeed(slimeSpeed);
+		}*/
     }
 
     private void UpdatePath()
@@ -86,7 +93,15 @@ public class EnemyAStar2 : MonoBehaviour
             {
                 if (isInAir) return; 
                 isJumping = true;
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                if (isInSlime)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                }
+                
                 StartCoroutine(JumpCoolDown());
 
             }
@@ -103,6 +118,10 @@ public class EnemyAStar2 : MonoBehaviour
 
         // Movement
         rb.velocity = new Vector2(force.x, rb.velocity.y);
+        if (isInSlime)
+		{
+			ModifySpeed(slimeSpeed);
+		}
 
         // Next Waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
@@ -138,6 +157,32 @@ public class EnemyAStar2 : MonoBehaviour
             currentWaypoint = 0;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Slime"))
+        {
+            print("tr");
+            isInSlime = true;
+        }
+    }
+
+	void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Slime"))
+        {
+            print("fa");
+            isInSlime = false;
+        }
+    }
+
+
+    public void ModifySpeed(float factor)
+    {
+        print("ent");
+        rb.velocity *= factor;
+    }
+
 
     IEnumerator JumpCoolDown()
     {
