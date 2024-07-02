@@ -39,9 +39,12 @@ public class RollJump : MonoBehaviour {
 	private Vector3 currentMovement;
 
 	private GM gm;
+	private Gridgen gridgen;
+	public MapSettings mapSettings;
 
 	private void Awake()
     {
+		gridgen = GameObject.Find("MapGenerator").GetComponent<Gridgen>();
 		gm = FindFirstObjectByType<GM>();
 		characterController = GetComponent<CharacterController>();
 		currentMovement = new Vector3(0, jumpHeight, 0);
@@ -58,6 +61,7 @@ public class RollJump : MonoBehaviour {
 	{
 		rigid = GetComponent<Rigidbody2D> ();
 		isFalling = true;
+		MenuParameter(); //receive setup from main manu
 	}
 		
 	void FixedUpdate () {
@@ -144,6 +148,15 @@ public class RollJump : MonoBehaviour {
 	public void ModifySpeed(float factor)
     {
         rigid.velocity *= factor;
+    }
+
+	void MenuParameter() //if not using editor setup, use setup from main menu
+    {
+        if (!gridgen.editorValue)
+        {
+            jumpHeight = mapSettings.jump;
+        }
+        
     }
 
 	private bool UpKey() 

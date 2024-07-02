@@ -33,7 +33,7 @@ public class DeformableSlimeBlock : MonoBehaviour
             Vector3 pointPosition = shapeController.spline.GetPosition(i);
             GameObject edgePoint = new GameObject("EdgePoint_" + i);
             pointPosition.y += this.transform.position.y; // add offset of slimeblock parent height
-            print(this.transform.parent.transform.position.y);
+            //print(this.transform.parent.transform.position.y);
             edgePoint.transform.position = pointPosition;
             
             edgePoint.transform.parent = transform;

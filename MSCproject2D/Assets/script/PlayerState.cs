@@ -25,6 +25,8 @@ public class PlayerState : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public MapSettings mapSettings;
+
     void Start()
     {
         gridgen = GameObject.Find("MapGenerator").GetComponent<Gridgen>();
@@ -33,10 +35,14 @@ public class PlayerState : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //GameObject healthTextObject = GameObject.Find("HP");
         //healthText = healthTextObject.GetComponent<TextMeshProUGUI>();
+        MenuParameter(); //receive setup from main manu
         currentHealth = maxHealth;
         gm.UpdateHPtext(currentHealth);
         gm.UpdateLifetext(Life);
-        respawnDepth = (gridgen.height/2+5)* -1;
+        //respawnDepth = (gridgen.height/2+5)* -1;
+        //respawnDepth = (Mathf.Max(gridgen.width, gridgen.height) / 2 + 5) * -1;
+        respawnDepth = Mathf.Sqrt(Mathf.Pow(gridgen.width, 2) + Mathf.Pow(gridgen.height, 2)) * -1 - 5;
+
     }
 
     void Update()
@@ -104,6 +110,17 @@ public class PlayerState : MonoBehaviour
         yield return new WaitForSeconds(invincibilityDuration);
         isInvincible = false;
         playerRenderer.material = normalMaterial;
+    }
+
+    void MenuParameter() //if not using editor setup, use setup from main menu
+    {
+        if (!gridgen.editorValue)
+        {
+            
+            Life = mapSettings.life;
+            maxHealth = mapSettings.hp;
+        }
+        
     }
 
     void respawn()

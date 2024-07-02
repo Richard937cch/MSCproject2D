@@ -108,6 +108,8 @@ MonoBehaviour:
   jumpHeight: 7
   isFalling: 0
   isInSlime: 0
+  slimeSpeed: 0.7
+  mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!114 &-8393920855702239908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +128,7 @@ MonoBehaviour:
   invincibilityDuration: 10
   normalMaterial: {fileID: 2100000, guid: 9975a993da8d46a4daabd55ffe9f1afb, type: 2}
   invincibleMaterial: {fileID: 2100000, guid: 751d11c4f09689d47a0616e47a0f05ab, type: 2}
+  mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!58 &-4641941229890985555
 CircleCollider2D:
   m_ObjectHideFlags: 0

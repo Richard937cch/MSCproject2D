@@ -44,6 +44,8 @@ public class scrollControl : MonoBehaviour
 
     public bool key = false;
 
+    public MapSettings mapSettings;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -63,6 +65,7 @@ public class scrollControl : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerRJ = player.GetComponent<RollJump>();
+        MenuParameter(); //receive setup from main manu
         if (player == null || playerRJ == null)
         {
             Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
@@ -224,6 +227,15 @@ public class scrollControl : MonoBehaviour
             rotateClockwise = Random.value > 0.5f;
             //print(rotateClockwise);
         }
+    }
+
+    void MenuParameter() //if not using editor setup, use setup from main menu
+    {
+        if (!this.GetComponent<Gridgen>().editorValue)
+        {
+            torqueAmount = mapSettings.rotationSpeed;
+        }
+        
     }
 
     private void RegisterInputActions()

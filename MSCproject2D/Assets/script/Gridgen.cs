@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Gridgen : MonoBehaviour
 {
+    public bool editorValue = false;
+
     [Header("Map Setup")]
     public int width;
     public int height;
@@ -49,6 +51,8 @@ public class Gridgen : MonoBehaviour
     private WaveFunctionCollapse wfc;
     private SpriteShaper spriteShaper;
     
+    public MapSettings mapSettings;
+    
     
 
     void Start()
@@ -56,14 +60,15 @@ public class Gridgen : MonoBehaviour
         enumManager = GetComponent<EnumManager>();
         wfc = GetComponent<WaveFunctionCollapse>();
         spriteShaper = GetComponent<SpriteShaper>();
+        
+        MenuParameter(); //receive setup from main manu
         Random.InitState(Seed);
-        //spawnpoint = new Vector3(width/2, 0.58f, height/2);
+
+        //spawn player
         spawnpoint = new Vector3(0, height/2+5, 0);
-        //Adventurer.transform.position = spawnpoint;
-        //Enemy.transform.position = new Vector3(width/2 + 2.0f, 0.5f, height/2);
         GameObject adventurer = Instantiate(Adventurer, spawnpoint, Quaternion.identity);
-        //GameObject adventurer = Instantiate(Adventurer, new Vector3(width/2, 0.5f, height/2), Quaternion.identity);
-        GenerateGrid();
+        GenerateGrid(); //Generating Map
+        
     }
 
     void Update()
@@ -73,7 +78,8 @@ public class Gridgen : MonoBehaviour
 
     void GenerateGrid()
     {
-        
+        //int a=0;
+        //print((MapType)a);
 
         switch (mapType)
         {
@@ -256,6 +262,23 @@ public class Gridgen : MonoBehaviour
 
             }
         }
+    }
+
+    void MenuParameter() //if not using editor setup, use setup from main menu
+    {
+        if (!editorValue)
+        {
+            width = mapSettings.width;
+            height = mapSettings.height;
+            tokenAmount = mapSettings.scoreTokenAmount;
+            invincibleAmount = mapSettings.perkTokenAmount;
+            mapType = mapSettings.mapType;
+            blockType = mapSettings.blockType;
+            backType = mapSettings.backType;
+            Seed = mapSettings.seed;
+            Time.timeScale = 1;
+        }
+        
     }
 
     void SetTileBlockType()

@@ -124,4 +124,9 @@ public class GM : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void BacktoMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
 }
