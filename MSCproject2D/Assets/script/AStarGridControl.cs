@@ -8,7 +8,7 @@ public class AStarGridControl : MonoBehaviour
 {
     public Vector3 newRotation;
     GridGraph gridGraph;
-    GridGraphEditor gridGraphEditor;
+    //GridGraphEditor gridGraphEditor;
     GameObject mapGen;
 
 
