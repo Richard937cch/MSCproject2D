@@ -95,6 +95,7 @@ public class MainMenu : MonoBehaviour
     void initSetup()
     {
         
+        
         widthInput.value = mapSettings.w;
         heightInput.value = mapSettings.h;
         scoreTokenInput.value = mapSettings.sc;

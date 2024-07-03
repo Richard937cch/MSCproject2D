@@ -63,6 +63,16 @@ public class RollJump : MonoBehaviour {
 		isFalling = true;
 		MenuParameter(); //receive setup from main manu
 	}
+
+	void Update()
+	{
+		if (pauseValue)
+		{
+			gm.Pause();
+			pauseValue = false;
+		}
+	}
+
 		
 	void FixedUpdate () {
         /*
@@ -101,11 +111,6 @@ public class RollJump : MonoBehaviour {
 		if (isInSlime)
 		{
 			ModifySpeed(slimeSpeed);
-		}
-		if (pauseValue)
-		{
-			gm.Pause();
-			pauseValue = false;
 		}
 		
 		/*else

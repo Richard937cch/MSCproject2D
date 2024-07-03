@@ -8015,7 +8015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 531, y: 431}
+  m_AnchoredPosition: {x: 531, y: 496}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2074144005
@@ -8039,13 +8039,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "How to play:\nPress space to jump.\nMouse scrollwheel or AD key to rotate
-    the map.\nCollect all white score token to win the game.\nEnemy respawn every
-    10 sec, lose 10hp if touch player.\nCollect blue perk token can defend enemy
-    attack for 10 sec.\nLose a life if fall to void or lose all hp.\nLose the game
-    if lose all life.\nGame Setting:\nCustomizable map width,height, token amount,
-    random seed. \n4 MapType(generating method) to choose.\nBlock Reaction Type:
-    None, Hit(block disappear if player hit it 3 times), Touch(block disappear if
-    player touch it for 5 sec)\nBlock Restore: None, Restore(block restore after
+    the map.\nPress shift to pause/resume\nCollect all white score token to win the
+    game.\nEnemy respawn every 10 sec, lose 10hp if touch player.\nCollect blue perk
+    token can defend enemy attack for 10 sec.\nLose a life if fall to void or lose
+    all hp.\nLose the game if lose all life.\nGame Setting:\nCustomizable map width,height,
+    token amount, random seed. \n4 MapType(generating method) to choose.\nBlock Reaction
+    Type: None, Hit(block disappear if player hit it 3 times), Touch(block disappear
+    if player touch it for 5 sec)\nBlock Restore: None, Restore(block restore after
     disappear for 5 sec)\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8109,7 +8109,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -150.3612, y: 0, z: -280.64453, w: -925.438}
+  m_margin: {x: -150.3612, y: 0, z: -280.64453, w: -983.7121}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
