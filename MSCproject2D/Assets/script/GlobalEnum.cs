@@ -12,7 +12,7 @@
 
     public enum MapType //Map generating method (Gridgen setup)
     {
-        RandomNCA, Perlin, WFC, SmoothPerlin
+        RandomNCA, Perlin, WFC, SmoothPerlin, Maze
     };
 
     public enum BlockType //Blocks reaction type (Gridgen setup and initiation)

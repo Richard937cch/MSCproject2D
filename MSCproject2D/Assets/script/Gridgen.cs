@@ -50,6 +50,7 @@ public class Gridgen : MonoBehaviour
 
     private WaveFunctionCollapse wfc;
     private SpriteShaper spriteShaper;
+    private MazeGen mazeGen;
     
     public MapSettings mapSettings;
     
@@ -60,6 +61,7 @@ public class Gridgen : MonoBehaviour
         enumManager = GetComponent<EnumManager>();
         wfc = GetComponent<WaveFunctionCollapse>();
         spriteShaper = GetComponent<SpriteShaper>();
+        mazeGen = GetComponent<MazeGen>();
         
         MenuParameter(); //receive setup from main manu
         Random.InitState(Seed);
@@ -97,6 +99,9 @@ public class Gridgen : MonoBehaviour
             case (MapType.SmoothPerlin):
                 perlinNoise("smooth");
                 break;
+            case (MapType.Maze):
+                Maze();
+                break;
             default:
                 break;
         }
@@ -107,7 +112,7 @@ public class Gridgen : MonoBehaviour
 
 
         AstarPath.active.Scan();
-        print("mapG");
+        print("mapGenerated");
     }
 
     void randomNoiseNCA()
@@ -202,6 +207,20 @@ public class Gridgen : MonoBehaviour
         grid = new Grid3D(width, height, 1);
         grid = wfc.getWFCTokenGrid();
 
+    }
+
+    void Maze()
+    {
+        grid = new Grid3D(width, height, 1);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                grid[x, y, 0] = 0;
+            }
+        }
+        grid = mazeGen.MazeGene(grid);
+        InstantiateTile();
     }
 
 

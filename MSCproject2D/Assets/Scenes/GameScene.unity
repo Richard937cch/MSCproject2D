@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1265906149813715793, guid: 2837a452ae4d1ad4ead99c8258340610, type: 3}
   spawnRange: 10
-  spawnInterval: 10
+  spawnInterval: 20
   duration: 10
 --- !u!114 &161538288
 MonoBehaviour:
@@ -1761,6 +1761,7 @@ GameObject:
   - component: {fileID: 989436732}
   - component: {fileID: 989436733}
   - component: {fileID: 989436735}
+  - component: {fileID: 989436736}
   - component: {fileID: 989436734}
   m_Layer: 0
   m_Name: MapGenerator
@@ -1805,16 +1806,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorValue: 0
-  width: 10
+  editorValue: 1
+  width: 20
   height: 10
-  Seed: 1234
-  tokenAmount: 3
+  Seed: 12345
+  tokenAmount: 8
   invincibleAmount: 3
-  mapType: 0
+  mapType: 4
   WFCmap: 1
-  blockType: 1
-  backType: 1
+  blockType: 0
+  backType: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   Adventurer: {fileID: 954048678018988784, guid: a7e12ac2ee9887b449d382a9847e6ce1, type: 3}
@@ -1957,6 +1958,24 @@ MonoBehaviour:
   spriteShapeController: {fileID: 0}
   cellSize: 1
   sprite: {fileID: 5272757927939089679, guid: 70799ed9cfd72bb4da6631e906161ced, type: 3}
+  checkblock: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
+--- !u!114 &989436736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989436727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cec350debc8c5945bbd0d4f08b34fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 10
+  height: 10
+  wallPrefab: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
+  wallThickness: 1
+  cellSize: 3
 --- !u!1 &1181797551
 GameObject:
   m_ObjectHideFlags: 0

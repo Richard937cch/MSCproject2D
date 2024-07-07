@@ -10,6 +10,8 @@ public class SpriteShaper : MonoBehaviour
 
     public GameObject sprite;
 
+    public GameObject checkblock;
+
     /*void Start()
     {
         noiseMap = new Grid3D(10, 10,0); // Example size
@@ -190,11 +192,14 @@ public class SpriteShaper : MonoBehaviour
             if (!findedge && chunk.Count>0)
             {
                 print("d");
-                print("d"+currentPoint);
+                print("dc"+currentPoint);
+                //GameObject newcheck = Instantiate(checkblock, currentPoint, Quaternion.identity);
+                //newcheck.transform.SetParent(transform);
                 Vector3 nextPoint =FindNearestEdgePoint(chunk,currentPoint);
-                print("d"+nextPoint);
+                print("dn"+nextPoint);
                 currentPoint = nextPoint;
-                edgePoints.Add(currentPoint);
+                //edgePoints.Add(currentPoint);
+                chunk.Remove(nextPoint);
                 findedge = true;
                 //break;
             }
@@ -298,7 +303,8 @@ public class SpriteShaper : MonoBehaviour
         {
             if (noiseMap[pointa+d]==0 || noiseMap[pointa+d]==-1)
             {
-                if (noiseMap[pointa+d] == noiseMap[pointb+d])
+                //if (noiseMap[pointa+d] == noiseMap[pointb+d])
+                if (noiseMap[pointb+d]==0 || noiseMap[pointb+d]==-1)
                 {
                     //print(noiseMap[pointa+d]);
                     return true;
