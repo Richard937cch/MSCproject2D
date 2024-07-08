@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BlockReaction : MonoBehaviour
 {
@@ -26,13 +27,15 @@ public class BlockReaction : MonoBehaviour
     [Header("Touch Duration Setup")]
 
     public float durationTime = 5.0f; // Set the duration time in seconds
-    private float currentDurationTime;
+    private float elapsedTime = 0f;
+    //private float currentDurationTime;
     public bool durationExceeded = false; // Boolean to check if duration is exceeded
     private bool isPlayerTouching = false;
+     private Coroutine changeColorCoroutine;
 
     [Header("Restore Time Setup")]
     public float restoreTime = 5.0f;
-    private float restoretimer =0;
+    private float restoretimer = 0;
     
     [Header("Change mode")]
     public ChangeType changeType = ChangeType.None;
@@ -42,7 +45,7 @@ public class BlockReaction : MonoBehaviour
     void Start()
     {
         objectRenderer = GetComponent<Renderer>();
-        currentDurationTime = durationTime;
+        //currentDurationTime = durationTime;
         restoretimer = restoreTime;
         if (objectRenderer != null)
         {
@@ -78,6 +81,11 @@ public class BlockReaction : MonoBehaviour
             else if (type == BlockReactionType.Touch) //touch
             {
                 isPlayerTouching = true;
+                if (changeColorCoroutine != null)
+                {
+                    StopCoroutine(changeColorCoroutine);
+                    changeColorCoroutine = null;
+                }
             }
             
         }
@@ -122,7 +130,12 @@ public class BlockReaction : MonoBehaviour
 
     void durationUpdate()
     {
-        if (isPlayerTouching && !durationExceeded)
+        if (isPlayerTouching && changeColorCoroutine == null)
+        {
+            // Start the coroutine to change color gradually
+            changeColorCoroutine = StartCoroutine(ChangeColorOverTime());
+        }
+        /*if (isPlayerTouching && !durationExceeded)
         {
             // Reduce the duration time if the player is touching the object
             currentDurationTime -= Time.deltaTime;
@@ -135,7 +148,40 @@ public class BlockReaction : MonoBehaviour
                 currentDurationTime = 0; // Ensure the timer doesn't go below zero
                 //Debug.Log("Duration time exceeded!");
             }
+        }*/
+    }
+
+    private IEnumerator ChangeColorOverTime()
+    {
+        float halfDuration = durationTime / 2.0f;
+
+        while (elapsedTime < durationTime)
+        {
+            if (isPlayerTouching)
+            {
+                elapsedTime += Time.deltaTime;
+
+                if (elapsedTime < halfDuration)
+                {
+                    // Change color from original to redMaterial at first half duration time
+                    float t = elapsedTime / halfDuration;
+                    Color lerpedColor = Color.Lerp(originalMaterial.color, redMaterial.color, t);
+                    objectRenderer.material.color = lerpedColor;
+                }
+                else
+                {
+                    // Change color from redMaterial to redMaterial2 at second half duration time
+                    float t = (elapsedTime - halfDuration) / halfDuration;
+                    Color lerpedColor = Color.Lerp(redMaterial.color, redMaterial2.color, t);
+                    objectRenderer.material.color = lerpedColor;
+                }
+            }
+            yield return null;
         }
+
+        // Ensure the final color is set
+        objectRenderer.material.color = redMaterial2.color;
+        changeType = ChangeType.Block2Back;
     }
 
     void restoreUpdate()
