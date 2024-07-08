@@ -19,6 +19,7 @@ public class Gridgen : MonoBehaviour
     public int WFCmap = 0;
     public BlockType blockType = BlockType.None;
     public BackType backType = BackType.None;
+    public bool LavaMode = false;
 
     private Grid3D grid;
 
@@ -107,9 +108,10 @@ public class Gridgen : MonoBehaviour
         }
 
         SetTileBlockType(); //set block type (background or block)
-        ScoreTokenSpawn();       //spawn score token
+        ScoreTokenSpawn();  //spawn score token
         PerkSpawn();        //spawn perk token
-
+        Lava();             //spawn lava if lava mode is true
+        
 
         AstarPath.active.Scan();
         print("mapGenerated");
@@ -255,6 +257,14 @@ public class Gridgen : MonoBehaviour
                 }
 
             }
+        }
+    }
+
+    void Lava()
+    {
+        if (LavaMode)
+        {
+            spriteShaper.CreateLava(grid);
         }
     }
 

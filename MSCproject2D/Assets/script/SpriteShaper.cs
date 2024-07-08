@@ -10,6 +10,8 @@ public class SpriteShaper : MonoBehaviour
 
     public GameObject sprite;
 
+    public GameObject lava;
+
     public GameObject checkblock;
 
     /*void Start()
@@ -34,6 +36,37 @@ public class SpriteShaper : MonoBehaviour
             }
         }
     }*/
+
+    public void CreateLava(Grid3D map)
+    {
+        noiseMap = map;
+        List<Vector3> edgePoints = new List<Vector3>();
+        for (int i = -100; i<=100; i++)
+        {
+            edgePoints.Add(new Vector3(i, 0, 0));
+        }
+        edgePoints.Add(new Vector3(100, -100, 0));
+        edgePoints.Add(new Vector3(-100, -100, 0));
+        
+        Quaternion rotation = Quaternion.Euler(0, 0, 0);
+        GameObject newsprite = Instantiate(lava, new Vector3(0, noiseMap.Height/2+10, -1), rotation);
+        //newsprite.transform.parent = transform;
+        spriteShapeController = newsprite.GetComponent<SpriteShapeController>();
+        Spline spline = spriteShapeController.spline;
+        spline.Clear();
+        print(edgePoints.Count);
+        for (int i = 0; i < edgePoints.Count; i++)
+        {
+            //print(edgePoints[i]);
+            Vector3 point = edgePoints[i] * cellSize;
+            //spline.InsertPointAt(i, new Vector2(point.x-noiseMap.Width/2+0.5f, point.y-noiseMap.Height-9.5f));
+            spline.InsertPointAt(i, new Vector2(point.x, point.y-noiseMap.Height/2-10));
+            spline.SetTangentMode(i, ShapeTangentMode.Continuous);
+        }
+
+        spriteShapeController.RefreshSpriteShape();
+        print("createlava");
+    }
 
     public void GenerateSpriteShapesFromNoiseMap(Grid3D map)
     {

@@ -139,7 +139,7 @@ public class EnemyAStar : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Slime"))
+        if (other.CompareTag("Slime") || other.CompareTag("Lava"))
         {
             
             isInSlime = true;
@@ -148,7 +148,7 @@ public class EnemyAStar : MonoBehaviour
 
 	void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Slime"))
+        if (other.CompareTag("Slime") || other.CompareTag("Lava"))
         {
             
             isInSlime = false;

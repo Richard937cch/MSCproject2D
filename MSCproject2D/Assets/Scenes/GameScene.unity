@@ -1812,10 +1812,11 @@ MonoBehaviour:
   Seed: 12345
   tokenAmount: 8
   invincibleAmount: 3
-  mapType: 4
+  mapType: 0
   WFCmap: 1
   blockType: 2
   backType: 1
+  LavaMode: 1
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   Adventurer: {fileID: 954048678018988784, guid: a7e12ac2ee9887b449d382a9847e6ce1, type: 3}
@@ -1958,6 +1959,7 @@ MonoBehaviour:
   spriteShapeController: {fileID: 0}
   cellSize: 1
   sprite: {fileID: 5272757927939089679, guid: 70799ed9cfd72bb4da6631e906161ced, type: 3}
+  lava: {fileID: 6296115184462422559, guid: 3ada2e4aa04e294489d7b6d179b38ee3, type: 3}
   checkblock: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
 --- !u!114 &989436736
 MonoBehaviour:

@@ -135,7 +135,7 @@ public class RollJump : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Slime"))
+		if (other.CompareTag("Slime") || other.CompareTag("Lava"))
         {
             isInSlime = true;
         }
@@ -143,7 +143,7 @@ public class RollJump : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Slime"))
+		if (other.CompareTag("Slime") || other.CompareTag("Lava"))
         {
             isInSlime = false;
         }

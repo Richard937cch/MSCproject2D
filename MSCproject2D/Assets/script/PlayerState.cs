@@ -11,6 +11,7 @@ public class PlayerState : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
     public float respawnDepth;
+    private Coroutine damageCoroutine;
 
     private bool isInvincible = false;
     public float invincibilityDuration = 10;
@@ -86,6 +87,43 @@ public class PlayerState : MonoBehaviour
             Destroy(token);
             
             
+        }
+
+        if (collision.CompareTag("Lava"))// Take damage when collide with lava
+        {
+            TakeDamage(10);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) // Take damage every second in the lava
+    {
+        if (collision.CompareTag("Lava"))
+        {
+            if (damageCoroutine == null)
+            {
+                damageCoroutine = StartCoroutine(DamageOverTime(1f));
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) // stop taking damage when leave lava
+    {
+        if (collision.CompareTag("Lava"))
+        {
+            if (damageCoroutine != null)
+            {
+                StopCoroutine(damageCoroutine);
+                damageCoroutine = null;
+            }
+        }
+    }
+
+    private IEnumerator DamageOverTime(float time)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(time);
+            TakeDamage(10);
         }
     }
 

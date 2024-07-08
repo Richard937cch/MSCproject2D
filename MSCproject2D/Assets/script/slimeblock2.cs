@@ -34,6 +34,7 @@ public class DeformableSlimeBlock : MonoBehaviour
             GameObject edgePoint = new GameObject("EdgePoint_" + i);
             pointPosition.y += this.transform.position.y; // add offset of slimeblock parent height
             //print(this.transform.parent.transform.position.y);
+            //pointPosition.z = -0.5f;
             edgePoint.transform.position = pointPosition;
             
             edgePoint.transform.parent = transform;
