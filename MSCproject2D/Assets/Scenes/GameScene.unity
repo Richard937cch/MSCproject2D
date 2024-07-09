@@ -1812,7 +1812,7 @@ MonoBehaviour:
   Seed: 12345
   tokenAmount: 8
   invincibleAmount: 3
-  mapType: 0
+  mapType: 2
   WFCmap: 1
   blockType: 2
   backType: 1

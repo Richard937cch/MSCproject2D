@@ -17,6 +17,7 @@ public class PlayerState : MonoBehaviour
     public float invincibilityDuration = 10;
 
     public Material normalMaterial;
+    public Material damageMaterial;
     public Material invincibleMaterial;
     private Renderer playerRenderer;
     
@@ -60,11 +61,7 @@ public class PlayerState : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // Reduce health
-            if (!isInvincible)
-            {
-                TakeDamage(10);
-            }
-            
+            TakeDamage(10);
         }
         
     }
@@ -118,7 +115,7 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    private IEnumerator DamageOverTime(float time)
+    private IEnumerator DamageOverTime(float time) //lava damage counter
     {
         while (true)
         {
@@ -129,9 +126,16 @@ public class PlayerState : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        //Debug.Log("Player Health: " + currentHealth);
-        gm.UpdateHPtext(currentHealth);
+        if (!isInvincible) // if play is not invincible
+        {
+            currentHealth -= damage;
+            //Debug.Log("Player Health: " + currentHealth);
+            gm.UpdateHPtext(currentHealth);
+
+            //flash red
+            StartCoroutine(ChangeColorTemporarily());
+        }
+        
 
         // Check if health is zero or less
         if (currentHealth <= 0)
@@ -141,7 +145,14 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    private IEnumerator ActivateInvincibility()
+    private IEnumerator ChangeColorTemporarily() // change colour for  damage
+    {
+        playerRenderer.material = damageMaterial;
+        yield return new WaitForSeconds(0.1f);
+        playerRenderer.material = normalMaterial;
+    }
+
+    private IEnumerator ActivateInvincibility() //invinciblility time counter
     {
         isInvincible = true;
         playerRenderer.material = invincibleMaterial;

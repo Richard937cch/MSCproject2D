@@ -127,6 +127,7 @@ MonoBehaviour:
   respawnDepth: -110
   invincibilityDuration: 10
   normalMaterial: {fileID: 2100000, guid: 9975a993da8d46a4daabd55ffe9f1afb, type: 2}
+  damageMaterial: {fileID: 2100000, guid: f3281e4d01ca1214ab3924d144a81a29, type: 2}
   invincibleMaterial: {fileID: 2100000, guid: 751d11c4f09689d47a0616e47a0f05ab, type: 2}
   mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!58 &-4641941229890985555
