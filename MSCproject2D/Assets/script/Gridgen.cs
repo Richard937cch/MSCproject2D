@@ -103,6 +103,9 @@ public class Gridgen : MonoBehaviour
             case (MapType.Maze):
                 Maze();
                 break;
+            case (MapType.Dot):
+                DotMap();
+                break;
             default:
                 break;
         }
@@ -189,7 +192,7 @@ public class Gridgen : MonoBehaviour
                 }
             }
         }
-
+        
         if (ismooth == "smooth")
         {
             //InstantiateTile();
@@ -222,6 +225,24 @@ public class Gridgen : MonoBehaviour
             }
         }
         grid = mazeGen.MazeGene(grid);
+        InstantiateTile();
+    }
+
+    void DotMap()
+    {
+        grid = new Grid3D(width, height, 1);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                grid[x, y, 0] = (Random.value < fillProbability) ? 1 : 0;
+            }
+        }
+
+        //isolation
+        isolation(3,true);
+
+
         InstantiateTile();
     }
 
@@ -350,6 +371,43 @@ public class Gridgen : MonoBehaviour
         }
         count -= grid[x, y, 0]; // Exclude the cell itself
         return count;
+    }
+
+    void isolation(int dis, bool random)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (grid[x, y, 0] == 1)
+                {
+                    isolating(x, y, dis, random);
+                }
+            }
+        }
+        
+    }
+    
+    void isolating(int x, int y, int dist, bool random)
+    {
+        int dis = dist;
+        if (random)
+        {
+            dis = Random.Range(2, dist);
+        }
+
+        for (int i = dis*-1; i <= dis; i++)
+        {
+            for (int j = dis*-1; j <= dis; j++)
+            {
+                int neighborX = x + i;
+                int neighborY = y + j;
+                if (grid.isInGrid(neighborX, neighborY, 0) && !(neighborX==x && neighborY==y))
+                {
+                    grid[neighborX, neighborY, 0] = 0;
+                }
+            }
+        }
     }
 
 

@@ -117,6 +117,20 @@ public class Grid3D
         }
     }
 
+    public bool isInGrid(int x , int y , int z)
+    {
+        if (x >= 0 && x < Width && y >= 0 && y < Height && z >= 0 && z < Depth)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    
+
     public List<Vector3> FindCellsWithValue(int value)
     {
         List<Vector3> cells = new List<Vector3>();
@@ -158,6 +172,27 @@ public class Grid3D
         }
 
         return pickedCells;
+    }
+
+    public List<Vector3> FindUpperSurfaceCells()
+    {
+        List<Vector3> cells = new List<Vector3>();
+
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                for (int z = 0; z < Depth; z++)
+                {
+                    if (grid[x, y, z] == 1 && grid[x, y+1, z] == 0)
+                    {
+                        cells.Add(new Vector3(x, y+1, z));
+                    }
+                }
+            }
+        }
+
+        return cells;
     }
 
 }
