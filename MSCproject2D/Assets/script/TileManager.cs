@@ -85,7 +85,7 @@ public class TileManager : MonoBehaviour
                 //newObject.GetComponent<BlockReaction>().changePrefab = child.gameObject; // store old prefab in script for restore
             }
             //update node
-            print(newObject.transform.localPosition);
+            //print(newObject.transform.localPosition);
             Vector3Int newnode = Vector3Int.FloorToInt(newObject.transform.localPosition);
             //newnode -= new Vector3Int (gridgen.width/2, gridgen.height/2, 0);
             astarGridControl.UpdateNodeWalkability(newnode);

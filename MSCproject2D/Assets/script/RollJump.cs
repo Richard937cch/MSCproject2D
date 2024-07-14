@@ -29,8 +29,10 @@ public class RollJump : MonoBehaviour {
 
 	public bool isFalling = false;
 	public bool isInSlime = false;
+	public bool isInLava = false;
 
 	public float slimeSpeed = 0.7f;
+	private Vector3 previousSlimePosition;
 
 	private Rigidbody2D rigid;
 
@@ -108,10 +110,21 @@ public class RollJump : MonoBehaviour {
 			//rigid.MovePosition(currentMovement*Time.deltaTime);
 			
 		}
-		if (isInSlime)
+		if (isInSlime || isInLava)
 		{
 			ModifySpeed(slimeSpeed);
 		}
+		if (isInSlime)
+		{
+			this.transform.SetParent(GameObject.Find("MapGenerator").transform);
+		}
+
+		if (!isInSlime)
+        {
+            this.transform.SetParent(null);
+        }
+
+		
 		
 		/*else
 		{
@@ -135,17 +148,25 @@ public class RollJump : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-		if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+		if (other.CompareTag("Slime"))
         {
             isInSlime = true;
+        }
+		if (other.CompareTag("Lava"))
+        {
+            isInLava = true;
         }
     }
 
 	void OnTriggerExit2D(Collider2D other)
     {
-		if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+		if (other.CompareTag("Slime"))
         {
             isInSlime = false;
+        }
+		if (other.CompareTag("Lava"))
+        {
+            isInLava = false;
         }
     }
 

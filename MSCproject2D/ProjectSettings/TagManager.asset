@@ -8,6 +8,7 @@ TagManager:
   - Token
   - Slime
   - Lava
+  - Block
   layers:
   - Default
   - TransparentFX

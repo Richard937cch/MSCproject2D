@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9079712420449233267}
   - component: {fileID: 6462667028244516023}
   - component: {fileID: 1883917253352646980}
+  - component: {fileID: -1221047720202455559}
   m_Layer: 0
   m_Name: lava
   m_TagString: Lava
@@ -284,3 +285,16 @@ MonoBehaviour:
   restoreSpeed: 1
   maxDeformDistance: 1
   deformRadius: 2
+--- !u!114 &-1221047720202455559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296115184462422559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c86461314ca7747b96940c108f7a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.3

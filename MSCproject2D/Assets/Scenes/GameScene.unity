@@ -1807,16 +1807,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 1
-  width: 50
+  width: 90
   height: 30
   Seed: 12345
   tokenAmount: 8
   invincibleAmount: 3
-  mapType: 5
+  mapType: 3
   WFCmap: 1
   blockType: 2
   backType: 1
-  LavaMode: 0
+  LavaMode: 1
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   Adventurer: {fileID: 954048678018988784, guid: a7e12ac2ee9887b449d382a9847e6ce1, type: 3}
