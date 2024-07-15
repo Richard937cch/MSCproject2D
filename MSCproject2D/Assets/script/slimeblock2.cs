@@ -10,7 +10,9 @@ public class DeformableSlimeBlock : MonoBehaviour
     public float deformSpeed = 1.0f;
     public float restoreSpeed = 1.0f;
     public float maxDeformDistance = 1.0f;
-    public float deformRadius = 2.0f;
+    public float deformRadius = 1.0f;
+    public float expandOffset = 1.0f;
+    private float expandRadius;
 
     private List<Transform> edgePoints;
     private List<Vector3> originalPositions;
@@ -22,7 +24,7 @@ public class DeformableSlimeBlock : MonoBehaviour
         shapeController = GetComponent<SpriteShapeController>();
         edgePoints = new List<Transform>();
         originalPositions = new List<Vector3>();
-
+        expandRadius = deformRadius + expandOffset;
         InitializeEdgePoints();
     }
 
@@ -95,12 +97,22 @@ public class DeformableSlimeBlock : MonoBehaviour
         {
             for (int i = 0; i < edgePoints.Count; i++)
             {
-                float distanceToPlayer = Vector3.Distance(edgePoints[i].position, player.position);
+                float distanceToPlayer = Vector3.Distance(edgePoints[i].localPosition + edgePoints[i].parent.localPosition, player.transform.localPosition);
                 if (distanceToPlayer < deformRadius)
                 {
-                    Vector3 directionToPlayer = (player.position - edgePoints[i].position).normalized;
+                    Vector3 directionToPlayer = (player.transform.localPosition - edgePoints[i].localPosition - edgePoints[i].parent.localPosition).normalized;
                     Vector3 targetPosition = originalPositions[i] + directionToPlayer * Mathf.Min(maxDeformDistance, distanceToPlayer);
                     edgePoints[i].localPosition = Vector3.MoveTowards(edgePoints[i].localPosition, targetPosition, deformSpeed * Time.deltaTime);
+                }
+                else if (distanceToPlayer < expandRadius)
+                {
+                    Vector3 directionToPlayer = (player.transform.localPosition - edgePoints[i].localPosition - edgePoints[i].parent.localPosition).normalized;
+                    Vector3 targetPosition = originalPositions[i] - directionToPlayer * maxDeformDistance;
+                    edgePoints[i].localPosition = Vector3.MoveTowards(edgePoints[i].localPosition, targetPosition, deformSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    edgePoints[i].localPosition = Vector3.MoveTowards(edgePoints[i].localPosition, originalPositions[i], restoreSpeed * Time.deltaTime);
                 }
             }
 

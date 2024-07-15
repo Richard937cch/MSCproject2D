@@ -180,11 +180,14 @@ public class Gridgen : MonoBehaviour
             }
         }
 
+        float offsetX = Random.Range(-100000, 100000);
+        float offsetY = Random.Range(-100000, 100000);
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                float perlinValue = Mathf.PerlinNoise(x * NoiseScale, y * NoiseScale);
+                float perlinValue = Mathf.PerlinNoise((x + offsetX) * NoiseScale, (y + offsetY) * NoiseScale);
 
                 if (perlinValue < Threshold)
                 {
@@ -197,6 +200,7 @@ public class Gridgen : MonoBehaviour
         {
             //InstantiateTile();
             spriteShaper.GenerateSpriteShapesFromNoiseMap(grid);
+            
         }
         else
         {

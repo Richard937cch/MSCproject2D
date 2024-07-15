@@ -71,6 +71,7 @@ public class SpriteShaper : MonoBehaviour
     public void GenerateSpriteShapesFromNoiseMap(Grid3D map)
     {
         noiseMap = map;
+        preprocess();
 
         List<List<Vector3>> chunks = FindChunks();
 
@@ -78,6 +79,24 @@ public class SpriteShaper : MonoBehaviour
         {
             List<Vector3> edgePoints = LoopEdgePoints(chunk);
             CreateSpriteShape(edgePoints);
+        }
+    }
+
+    void preprocess() // preprocess the map to avoid glitch, e.c. cleaning single layer edgepoint
+    {
+        for (int i = 0; i < noiseMap.Width; i++)
+        {
+            for (int j = 0; j < noiseMap.Height; j++)
+            {
+                if (noiseMap[i, j, 0] == 1)
+                {
+                    if ((noiseMap[i, j+1, 0] != 1 && noiseMap[i, j-1, 0] != 1) ||
+                        (noiseMap[i+1, j, 0] != 1 && noiseMap[i-1, j, 0] != 1)  )
+                    {
+                        noiseMap[i, j, 0] = 0;
+                    }
+                }
+            }
         }
     }
 
@@ -197,6 +216,7 @@ public class SpriteShaper : MonoBehaviour
 
             if (!findedge && chunk.Count>0)
             {
+                //print("bb");
                 foreach (var edgec in edgeCandidates)
                 {
                     if (ShareSameBacktile(currentPoint, edgec))
@@ -241,7 +261,7 @@ public class SpriteShaper : MonoBehaviour
 
         } while (chunk.Count>0);//currentPoint != startPoint && time <= 80 && 
         edgePoints.Add(startPoint);
-
+        //noiseMap[startPoint] = 2;
         //print(time);
         //print("chunkcc"+chunk.Count);
         return edgePoints;
@@ -358,13 +378,13 @@ public class SpriteShaper : MonoBehaviour
                                  Vector3.up, };
         foreach (var d in directions)
         {
-            if (noiseMap.isInGrid(pointa+d))
+            if(noiseMap[pointa+d]==0 || noiseMap[pointa+d]==-1) 
             {
-                if(noiseMap[pointa+d]==0 || noiseMap[pointa+d]==-1) neighbora.Add(pointa+d);
+                neighbora.Add(pointa+d);
             }
-            if (noiseMap.isInGrid(pointb+d))
+            if(noiseMap[pointb+d]==0 || noiseMap[pointb+d]==-1) 
             {
-                if(noiseMap[pointb+d]==0 || noiseMap[pointa+d]==-1) neighbora.Add(pointb+d);
+                neighborb.Add(pointb+d);
             }
         }
         foreach(var a in neighbora)
