@@ -33,7 +33,11 @@ public class EnemyAStar : MonoBehaviour
     Rigidbody2D rb;
 
     public bool isInSlime = false;
+    public bool isInLava = false;
     public float slimeSpeed = 0.9f;
+    private Coroutine deformCoroutine;
+    private DeformableSlimeBlock slimeDeform;
+
 
     void Start()
     {
@@ -103,10 +107,20 @@ public class EnemyAStar : MonoBehaviour
             rb.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
         }
 
-        if (isInSlime)
+        if (isInSlime || isInLava)
 		{
 			ModifySpeed(slimeSpeed);
 		}
+
+        if (isInSlime)
+		{
+			this.transform.SetParent(GameObject.Find("MapGenerator").transform);
+		}
+
+		if (!isInSlime)
+        {
+            this.transform.SetParent(GameObject.Find("GameController").transform);
+        }
 
         //reach waypoint or not
         float distane = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
@@ -139,20 +153,45 @@ public class EnemyAStar : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+        if (other.CompareTag("Slime"))
         {
-            
             isInSlime = true;
         }
+		if (other.CompareTag("Lava"))
+        {
+            isInLava = true;
+        }
+        /*if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+        {
+            isInSlime = true;
+            slimeDeform = other.GetComponent<DeformableSlimeBlock>();
+            if (slimeDeform != null)
+            {
+                deformCoroutine = StartCoroutine(slimeDeform.DeformEdgePoints(transform, "e"));
+            }
+        }*/
     }
 
 	void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+        if (other.CompareTag("Slime"))
         {
-            
             isInSlime = false;
         }
+		if (other.CompareTag("Lava"))
+        {
+            isInLava = false;
+        }
+        /*if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+        {
+            isInSlime = false;
+            if (slimeDeform != null && deformCoroutine != null)
+            {
+                StopCoroutine(deformCoroutine);
+                //StartCoroutine(slimeDeform.RestoreEdgePoints());
+                deformCoroutine = null;
+            }
+        }*/
     }
 
     public void ModifySpeed(float factor)

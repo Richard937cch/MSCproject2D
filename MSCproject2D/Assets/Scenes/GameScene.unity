@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1265906149813715793, guid: 2837a452ae4d1ad4ead99c8258340610, type: 3}
   spawnRange: 10
-  spawnInterval: 20
+  spawnInterval: 5
   duration: 10
 --- !u!114 &161538288
 MonoBehaviour:
@@ -1807,14 +1807,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 1
-  width: 50
+  width: 48
   height: 40
-  Seed: 11
+  Seed: 3
   tokenAmount: 8
   invincibleAmount: 3
   mapType: 3
   WFCmap: 1
-  blockType: 0
+  blockType: 2
   backType: 0
   LavaMode: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}

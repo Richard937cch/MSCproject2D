@@ -32,6 +32,9 @@ public class RollJump : MonoBehaviour {
 	public bool isInLava = false;
 
 	public float slimeSpeed = 0.7f;
+	private Coroutine deformCoroutine;
+    private DeformableSlimeBlock slimeDeform;
+
 	private Vector3 previousSlimePosition;
 
 	private Rigidbody2D rigid;
@@ -156,6 +159,14 @@ public class RollJump : MonoBehaviour {
         {
             isInLava = true;
         }
+		/*if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+        {
+            slimeDeform = other.GetComponent<DeformableSlimeBlock>();
+            if (slimeDeform != null)
+            {
+                deformCoroutine = StartCoroutine(slimeDeform.DeformEdgePoints(transform,"player"));
+            }
+        }*/
     }
 
 	void OnTriggerExit2D(Collider2D other)
@@ -168,6 +179,15 @@ public class RollJump : MonoBehaviour {
         {
             isInLava = false;
         }
+		/*if (other.CompareTag("Slime") || other.CompareTag("Lava"))
+        {
+            if (slimeDeform != null && deformCoroutine != null)
+            {
+                StopCoroutine(deformCoroutine);
+                //StartCoroutine(slimeDeform.RestoreEdgePoints());
+                deformCoroutine = null;
+            }
+        }*/
     }
 
 
