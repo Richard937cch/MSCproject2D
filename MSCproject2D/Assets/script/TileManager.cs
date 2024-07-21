@@ -11,6 +11,8 @@ public class TileManager : MonoBehaviour
 
     private Gridgen gridgen;
     private AStarGridControl astarGridControl;
+
+    public bool shrink = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +40,11 @@ public class TileManager : MonoBehaviour
                 // Check the boolean value
                 if (childScript.changeType == ChangeType.Block2Back)
                 {
-                    ReplaceChildWithPrefab(child,back);
+                    ReplaceChildWithPrefab(child, back, 0.1f);
                 }
                 else if (childScript.changeType == ChangeType.Back2Block)
                 {
-                    ReplaceChildWithPrefab(child,block);
+                    ReplaceChildWithPrefab(child, block, -0.2f);
                     //RestoreChild(child);
                 }
                 /*else
@@ -67,7 +69,7 @@ public class TileManager : MonoBehaviour
             }*/
         }
     }
-    void ReplaceChildWithPrefab(Transform child, GameObject newPrefab)
+    void ReplaceChildWithPrefab(Transform child, GameObject newPrefab, float depth)
     {
         if (newPrefab != null)
         {
@@ -75,6 +77,8 @@ public class TileManager : MonoBehaviour
             Vector3 position = child.position;
             Quaternion rotation = child.rotation;
             Vector3 scale = child.localScale;
+            //set depth for block(-0.1) and back(0.1) for hiden token adaption
+            position.z = depth;
             
             // Instantiate the new prefab with the same transform values
             GameObject newObject = Instantiate(newPrefab, position, rotation, transform);

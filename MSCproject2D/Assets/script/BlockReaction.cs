@@ -36,6 +36,7 @@ public class BlockReaction : MonoBehaviour
     [Header("Restore Time Setup")]
     public float restoreTime = 5.0f;
     private float restoretimer = 0;
+    private bool isInTile = false;
     
     [Header("Change mode")]
     public ChangeType changeType = ChangeType.None;
@@ -103,6 +104,22 @@ public class BlockReaction : MonoBehaviour
             {
                 objectRenderer.material = originalMaterial; // Restore the original material
             }*/
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isInTile = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isInTile = false;
         }
     }
 
@@ -188,7 +205,7 @@ public class BlockReaction : MonoBehaviour
     {
         restoretimer -= Time.deltaTime;
 
-        if (restoretimer <= 0)
+        if (restoretimer <= 0 && !isInTile)
         {
             changeType = ChangeType.Back2Block;
             restoreTime = 0;

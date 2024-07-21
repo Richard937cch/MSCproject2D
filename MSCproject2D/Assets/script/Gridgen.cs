@@ -12,8 +12,9 @@ public class Gridgen : MonoBehaviour
     public int height;
     public int Seed = 1234;
     public int tokenAmount = 8;
+    public int hidentokenAmount = 8;
     public int invincibleAmount = 3;
-    
+    public int hideninvincibleAmount = 3;
 
     public MapType mapType = MapType.RandomNCA;
     public int WFCmap = 0;
@@ -68,7 +69,7 @@ public class Gridgen : MonoBehaviour
         Random.InitState(Seed);
 
         //spawn player
-        spawnpoint = new Vector3(0, height/2+5, 0);
+        spawnpoint = new Vector3(0, height/2+5, -0.3f);
         GameObject adventurer = Instantiate(Adventurer, spawnpoint, Quaternion.identity);
         GenerateGrid(); //Generating Map
         
@@ -105,6 +106,12 @@ public class Gridgen : MonoBehaviour
                 break;
             case (MapType.Dot):
                 DotMap();
+                break;
+            case (MapType.Flat):
+                FlatMap("square");
+                break;
+            case (MapType.SmoothFlat):
+                FlatMap("smooth");
                 break;
             default:
                 break;
@@ -249,23 +256,56 @@ public class Gridgen : MonoBehaviour
 
         InstantiateTile();
     }
-
+    
+    void FlatMap(string ismooth)
+    {
+        grid = new Grid3D(width, height, 1);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                grid[x, y, 0] = 1;
+            }
+        }
+        
+        if (ismooth == "smooth")
+        {
+            //InstantiateTile();
+            spriteShaper.GenerateSpriteShapesFromNoiseMap(grid);
+            
+        }
+        else
+        {
+            InstantiateTile();
+        }
+        
+        
+    }
 
     void ScoreTokenSpawn()
     {
-        TokenSpawn(token, tokenAmount, 2);
+        TokenSpawn(token, tokenAmount, hidentokenAmount, 2);
+        //HidenTokenSpawn(token, hidentokenAmount, 2);
     }
 
     void PerkSpawn()
     {
-        TokenSpawn(invincible, invincibleAmount, 3);
+        TokenSpawn(invincible, invincibleAmount, hideninvincibleAmount, 3);
+        //HidenTokenSpawn(invincible, hideninvincibleAmount, 3);
     }
 
-    void TokenSpawn(GameObject TokenPrefab, int TAmount, int tokenID)
+    void TokenSpawn(GameObject TokenPrefab, int TAmount, int HTAmount, int tokenID)
     {
         List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(0);
         List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, TAmount);
         foreach (Vector3 cell in randomCells)
+        {
+            grid[cell] = tokenID;
+        }
+        //hiden
+        List<Vector3> cellsWithValue1 = grid.FindCellsWithValue(1);
+        List<Vector3> randomCells1 = grid.PickRandomCells(cellsWithValue1, HTAmount);
+        foreach (Vector3 cell in randomCells1)
         {
             grid[cell] = tokenID;
         }
@@ -285,6 +325,30 @@ public class Gridgen : MonoBehaviour
         }
     }
 
+    /*void HidenTokenSpawn(GameObject TokenPrefab, int TAmount, int tokenID)
+    {
+        List<Vector3> cellsWithValue0 = grid.FindCellsWithValue(1);
+        List<Vector3> randomCells = grid.PickRandomCells(cellsWithValue0, TAmount);
+        foreach (Vector3 cell in randomCells)
+        {
+            grid[cell] = tokenID;
+        }
+        //Instantiate token prefab
+        Quaternion rotation = Quaternion.Euler(0, 0, 90);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (grid[x, y, 0] == tokenID) //token
+                {
+                    GameObject newperk = Instantiate(TokenPrefab, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
+                    newperk.transform.parent = transform;
+                }
+
+            }
+        }
+    }*/
+
     void Lava()
     {
         if (LavaMode)
@@ -303,13 +367,13 @@ public class Gridgen : MonoBehaviour
             {
                 if (grid[x, y, 0] == 1) //block
                 {
-                    GameObject newblock = Instantiate(block, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), block.transform.rotation);
+                    GameObject newblock = Instantiate(block, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, -0.2f), block.transform.rotation);
                     newblock.transform.parent = transform;
                     //enumManager.SetBlockType(newblock, blockType);
                 }
                 else                    //background
                 {
-                    GameObject newbackground = Instantiate(background, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.0f), rotation);
+                    GameObject newbackground = Instantiate(background, new Vector3(x-(float)width/2+0.5f, y-(float)height/2+0.5f, 0.1f), rotation);
                     newbackground.transform.parent = transform;
                 }
                 
