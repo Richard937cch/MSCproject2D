@@ -204,7 +204,7 @@ public class BlockReaction : MonoBehaviour
     void restoreUpdate()
     {
         restoretimer -= Time.deltaTime;
-
+        this.GetComponent<BoxCollider2D>().enabled = true;
         if (restoretimer <= 0 && !isInTile)
         {
             changeType = ChangeType.Back2Block;

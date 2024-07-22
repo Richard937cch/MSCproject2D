@@ -331,7 +331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161538284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7540a326a2674004a839968dd3c86a52, type: 3}
   m_Name: 
@@ -1807,17 +1807,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 1
-  width: 10
-  height: 10
+  width: 50
+  height: 50
   Seed: 3
   tokenAmount: 1
-  hidentokenAmount: 20
+  hidentokenAmount: 2000
   invincibleAmount: 3
   hideninvincibleAmount: 20
-  mapType: 6
+  mapType: 2
   WFCmap: 1
-  blockType: 1
-  backType: 1
+  blockType: 0
+  backType: 0
   LavaMode: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
