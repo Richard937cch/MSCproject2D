@@ -331,7 +331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161538284}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7540a326a2674004a839968dd3c86a52, type: 3}
   m_Name: 
@@ -1757,12 +1757,13 @@ GameObject:
   - component: {fileID: 989436730}
   - component: {fileID: 989436729}
   - component: {fileID: 989436731}
-  - component: {fileID: 989436728}
+  - component: {fileID: 989436738}
+  - component: {fileID: 989436740}
   - component: {fileID: 989436732}
   - component: {fileID: 989436733}
   - component: {fileID: 989436735}
   - component: {fileID: 989436736}
-  - component: {fileID: 989436734}
+  - component: {fileID: 989436741}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -1770,30 +1771,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &989436728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989436727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98d99e3bdc2277c44bd64a13f758dd69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollcontrols: {fileID: -944628639613478452, guid: a836a174a4956a749926f7fdb4221613, type: 3}
-  actionMapName: scroll
-  rotate: mouseScroll
-  left: left
-  right: right
-  scrollSpeed: 2
-  torqueAmount: 10
-  dampingFactor: 0.95
-  mapRotation: 2
-  changeDirectionInterval: 10
-  key: 1
-  mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!114 &989436729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1807,17 +1784,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 1
-  width: 60
-  height: 60
+  width: 90
+  height: 90
   Seed: 3
-  tokenAmount: 100
-  hidentokenAmount: 100
+  tokenAmount: 1000
+  hidentokenAmount: 1000
   invincibleAmount: 3
   hideninvincibleAmount: 0
-  mapType: 6
+  mapType: 1
   WFCmap: 3
   blockType: 1
-  backType: 0
+  backType: 1
   LavaMode: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
@@ -1859,6 +1836,8 @@ MonoBehaviour:
   back: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   shrink: 0
+  cullDistance: 25
+  enemycullDistance: 10
 --- !u!114 &989436732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1926,33 +1905,6 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 2bda0227a362da14483a2a3b30e605a4, type: 2}
       - {fileID: 11400000, guid: 722b0093f7cfa1a42b0de456057a44e2, type: 2}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
---- !u!54 &989436734
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989436727}
-  serializedVersion: 4
-  m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &989436735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1987,6 +1939,81 @@ MonoBehaviour:
   wallPrefab: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   wallThickness: 1
   cellSize: 3
+--- !u!114 &989436738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989436727}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293176c596c71fc4c838f8d556619e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollcontrols: {fileID: -944628639613478452, guid: a836a174a4956a749926f7fdb4221613, type: 3}
+  actionMapName: scroll
+  rotate: mouseScroll
+  left: left
+  right: right
+  scrollSpeed: 2
+  torqueAmount: 10
+  dampingFactor: 0.95
+  mapRotation: 2
+  changeDirectionInterval: 10
+  key: 1
+  mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
+--- !u!114 &989436740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989436727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d99e3bdc2277c44bd64a13f758dd69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollcontrols: {fileID: -944628639613478452, guid: a836a174a4956a749926f7fdb4221613, type: 3}
+  actionMapName: scroll
+  rotate: mouseScroll
+  left: left
+  right: right
+  scrollSpeed: 2
+  torqueAmount: 10
+  dampingFactor: 0.95
+  mapRotation: 2
+  changeDirectionInterval: 2
+  key: 1
+  mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
+--- !u!54 &989436741
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989436727}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1181797551
 GameObject:
   m_ObjectHideFlags: 0

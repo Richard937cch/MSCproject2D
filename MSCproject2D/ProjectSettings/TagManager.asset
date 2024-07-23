@@ -9,6 +9,7 @@ TagManager:
   - Slime
   - Lava
   - Block
+  - Restore
   layers:
   - Default
   - TransparentFX

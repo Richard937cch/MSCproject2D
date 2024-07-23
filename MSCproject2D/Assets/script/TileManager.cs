@@ -6,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
     public GameObject back;
     public GameObject block;
+    private GameObject player;
 
     private EnumManager enumManager;
 
@@ -13,12 +14,17 @@ public class TileManager : MonoBehaviour
     private AStarGridControl astarGridControl;
 
     public bool shrink = false;
-    // Start is called before the first frame update
+    
+    public float cullDistance = 25.0f; // Distance within which tiles are active
+    public float enemycullDistance = 10.0f; // Distance within which tiles are active
+    private List<Transform> enemies = new List<Transform>(); // List of enemies
     void Start()
     {
         gridgen = GetComponent<Gridgen>();
         enumManager = GetComponent<EnumManager>();
         astarGridControl = GameObject.Find("A*").GetComponent<AStarGridControl>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine(UpdateTileVisibility());
     }
 
     // Update is called once per frame
@@ -26,6 +32,70 @@ public class TileManager : MonoBehaviour
     {
         changeCheck();
     }
+    IEnumerator UpdateTileVisibility() //culling manager
+    {
+        while (true)
+        {
+            Vector3 playerPosition = player.transform.position;
+            bool isPlayerOrEnemyInRange;
+            UpdateEnemyList();
+
+            // Activate tiles within the cullDistance of player or enemies
+            foreach (Transform tile in transform)
+            {
+                Vector3 tilePosition = tile.transform.position;
+                float distanceToPlayer = Vector3.Distance(playerPosition, tilePosition);
+                
+                // Check if any enemy is within the cullDistance
+                bool isEnemyInRange = false;
+                foreach (Transform enemy in enemies)
+                {
+                    if (Vector3.Distance(enemy.position, tilePosition) < enemycullDistance)
+                    {
+                        isEnemyInRange = true;
+                        break;
+                    }
+                }
+
+                // Check if the tile is within the cullDistance of player or any enemy
+                isPlayerOrEnemyInRange = distanceToPlayer < cullDistance || isEnemyInRange;
+
+                
+                // Activate or deactivate the tile based on proximity and visibility
+                tile.gameObject.SetActive(isPlayerOrEnemyInRange ||
+                tile.gameObject.tag == "Slime" || tile.gameObject.tag == "Restore"
+                );
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void UpdateEnemyList()
+    {
+        enemies.Clear();
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemyObject in enemyObjects)
+        {
+            enemies.Add(enemyObject.transform);
+        }
+    }
+
+    /*bool TileActive(Transform tile, Vector3 playerPosition)
+    {
+        
+        Vector3 tilePosition = tile.transform.position;
+        float distanceToPlayer = Vector3.Distance(playerPosition, tilePosition);
+        if (distanceToPlayer < cullDistance || 
+            tile.gameObject.tag == "Slime" || 
+            tile.GetComponent<BlockReaction>().type == BlockReactionType.Restore)
+        {
+            return true;
+        }
+        return false;
+
+    }*/
 
     void changeCheck()
     {
@@ -83,10 +153,15 @@ public class TileManager : MonoBehaviour
             // Instantiate the new prefab with the same transform values
             GameObject newObject = Instantiate(newPrefab, position, rotation, transform);
             newObject.transform.localScale = scale;
+            BlockReaction newBR = newObject.GetComponent<BlockReaction>();
             if (gridgen.backType == BackType.Restore)  //set restore 
             {
-                newObject.GetComponent<BlockReaction>().type = BlockReactionType.Restore;
+                newBR.type = BlockReactionType.Restore;
                 //newObject.GetComponent<BlockReaction>().changePrefab = child.gameObject; // store old prefab in script for restore
+                if (newBR.tiletype == TileType.BackGrounds)
+                {
+                    newObject.tag = "Restore";
+                }
             }
             //update node
             //print(newObject.transform.localPosition);
