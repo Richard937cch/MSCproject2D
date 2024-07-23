@@ -1807,11 +1807,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 1
-  width: 90
-  height: 90
+  width: 60
+  height: 60
   Seed: 3
-  tokenAmount: 0
-  hidentokenAmount: 0
+  tokenAmount: 100
+  hidentokenAmount: 100
   invincibleAmount: 3
   hideninvincibleAmount: 0
   mapType: 6

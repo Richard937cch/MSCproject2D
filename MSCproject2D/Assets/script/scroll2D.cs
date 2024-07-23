@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class scrollControl : MonoBehaviour
+public class scrollControl2D : MonoBehaviour
 {
     [Header("Input Action Asset")]
     [SerializeField] private InputActionAsset scrollcontrols;
