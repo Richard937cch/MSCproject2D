@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9650278031e738940a02c681c9e8a83c, type: 3}
+  m_Name: I1aD
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
+  allowedNeighborsUp:
+  - {fileID: 11400000, guid: 16e687ac733d574429bc056c52f4d329, type: 2}
+  allowedNeighborsDown:
+  - {fileID: 11400000, guid: 16e687ac733d574429bc056c52f4d329, type: 2}
+  allowedNeighborsLeft:
+  - {fileID: 11400000, guid: 8989e1447aa118545b034ad47d7c8576, type: 2}
+  - {fileID: 11400000}
+  allowedNeighborsRight:
+  - {fileID: 11400000, guid: 722b0093f7cfa1a42b0de456057a44e2, type: 2}
+  - {fileID: 11400000}

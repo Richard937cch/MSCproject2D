@@ -1807,16 +1807,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 1
-  width: 50
-  height: 50
+  width: 90
+  height: 90
   Seed: 3
-  tokenAmount: 1
-  hidentokenAmount: 2000
+  tokenAmount: 0
+  hidentokenAmount: 0
   invincibleAmount: 3
-  hideninvincibleAmount: 20
-  mapType: 2
-  WFCmap: 1
-  blockType: 0
+  hideninvincibleAmount: 0
+  mapType: 6
+  WFCmap: 3
+  blockType: 1
   backType: 0
   LavaMode: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
@@ -1919,6 +1919,12 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 562426575ceed604da5b76bc2a2ebfcc, type: 2}
       - {fileID: 11400000, guid: ebc1e7b12c3110841aeabd621aaae25f, type: 2}
       - {fileID: 11400000, guid: a66b314819d66ad4a8a811820625a1e5, type: 2}
+    - WFCtileTypes:
+      - {fileID: 11400000, guid: 16e687ac733d574429bc056c52f4d329, type: 2}
+      - {fileID: 11400000, guid: 8989e1447aa118545b034ad47d7c8576, type: 2}
+      - {fileID: 11400000, guid: 569376884b5d07741a89428da03d597a, type: 2}
+      - {fileID: 11400000, guid: 2bda0227a362da14483a2a3b30e605a4, type: 2}
+      - {fileID: 11400000, guid: 722b0093f7cfa1a42b0de456057a44e2, type: 2}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
 --- !u!54 &989436734
 Rigidbody:
