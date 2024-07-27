@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8568792856845339911}
   - component: {fileID: 9063368433346247226}
   - component: {fileID: 729855694825556535}
-  - component: {fileID: -7430303671125399901}
+  - component: {fileID: -206132789067444407}
   m_Layer: 6
   m_Name: block
   m_TagString: Untagged
@@ -153,7 +153,7 @@ MonoBehaviour:
   durationExceeded: 0
   restoreTime: 5
   changeType: 0
---- !u!50 &-7430303671125399901
+--- !u!50 &-206132789067444407
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

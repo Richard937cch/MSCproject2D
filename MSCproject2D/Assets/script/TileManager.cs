@@ -40,12 +40,13 @@ public class TileManager : MonoBehaviour
             bool isPlayerOrEnemyInRange;
             UpdateEnemyList();
 
+            Vector3 respawnp = gridgen.spawnpoint;
             // Activate tiles within the cullDistance of player or enemies
             foreach (Transform tile in transform)
             {
                 Vector3 tilePosition = tile.transform.position;
                 float distanceToPlayer = Vector3.Distance(playerPosition, tilePosition);
-                
+                float distanceToSpawn = Vector3.Distance(respawnp, tilePosition);
                 // Check if any enemy is within the cullDistance
                 bool isEnemyInRange = false;
                 foreach (Transform enemy in enemies)
@@ -58,7 +59,7 @@ public class TileManager : MonoBehaviour
                 }
 
                 // Check if the tile is within the cullDistance of player or any enemy
-                isPlayerOrEnemyInRange = distanceToPlayer < cullDistance || isEnemyInRange;
+                isPlayerOrEnemyInRange = distanceToPlayer < cullDistance || isEnemyInRange || distanceToSpawn < cullDistance;
 
                 
                 // Activate or deactivate the tile based on proximity and visibility
