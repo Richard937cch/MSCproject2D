@@ -5,6 +5,7 @@ using Pathfinding;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public bool EnemyEnable = true;
     public GameObject enemyPrefab; // Reference to the enemy prefab
     public float spawnRange = 5f; // Range within which to spawn enemies
     public float spawnInterval = 20f; // Time interval between spawns
@@ -15,11 +16,14 @@ public class EnemySpawn : MonoBehaviour
     private float timer;
 
     private GridGraph gridGraph;
+    private Gridgen gridgen;
+    public MapSettings mapSettings;
 
     void Start()
     {
         gridGraph = AstarPath.active.data.gridGraph;
-
+        gridgen = GameObject.Find("MapGenerator").GetComponent<Gridgen>();
+        MenuParameter(); //receive setup from main manu
         timer = spawnInterval; // Initialize the timer
         if (enemyPrefab == null)
         {
@@ -42,7 +46,7 @@ public class EnemySpawn : MonoBehaviour
     {
         timer -= Time.deltaTime;
         
-        if (timer <= 0.0f) //spawn enemy
+        if (timer <= 0.0f && EnemyEnable) //spawn enemy
         {
             FindWalkablePositionNearPlayer();
             timer = spawnInterval; // Reset the timer
@@ -119,5 +123,13 @@ public class EnemySpawn : MonoBehaviour
             print("no enemy spawnpoint");
         }
 
+    }
+    void MenuParameter() //if not using editor setup, use setup from main menu
+    {
+        if (!gridgen.editorValue)
+        {
+            EnemyEnable = mapSettings.enemyEnable;
+        }
+        
     }
 }

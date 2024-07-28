@@ -11,22 +11,29 @@ public class MainMenu : MonoBehaviour
     public Scrollbar heightInput;
     public TMP_InputField seedInput;
     public Scrollbar scoreTokenInput;
+    public Scrollbar HidenScoreTokenInput;
     public Scrollbar perkTokenInput;
+    public Scrollbar HidenPerkTokenInput;
     public TMP_Dropdown mapTypeDropdown;
     public TMP_Dropdown blockTypeDropdown;
     public TMP_Dropdown backTypeDropdown;
+    public Toggle LavaModeInput;
+    public Toggle EnemyEnableInput;
     public Scrollbar rotationSpeedInput;
     public Scrollbar jumpInput;
     public Scrollbar LifeInput;
     public Scrollbar HPInput;
     public MapSettings mapSettings;
+    
 
 
     private float w;
     private float h;
     private string s;
     private float sc;
+    private float hisc;
     private float p;
+    private float hip;
     private int map;
     private int block;
     private int back;
@@ -57,7 +64,9 @@ public class MainMenu : MonoBehaviour
         mapSettings.width = Convert.ToInt32(widthInput.value*40+5)*2;
         mapSettings.height = Convert.ToInt32(heightInput.value*40+5)*2;
         mapSettings.scoreTokenAmount = Convert.ToInt32(scoreTokenInput.value*100+1);
+        mapSettings.hidenScoreTokenAmount = Convert.ToInt32(HidenScoreTokenInput.value*100+1);
         mapSettings.perkTokenAmount = Convert.ToInt32(perkTokenInput.value*100+1);
+        mapSettings.hidenPerkTokenAmount = Convert.ToInt32(HidenPerkTokenInput.value*100+1);
         mapSettings.rotationSpeed = Convert.ToInt32(rotationSpeedInput.value*100+1);
         mapSettings.jump = Convert.ToInt32(jumpInput.value*30+1);
         mapSettings.life = Convert.ToInt32(LifeInput.value*100+1);
@@ -66,13 +75,17 @@ public class MainMenu : MonoBehaviour
         mapSettings.blockType = (BlockType)blockTypeDropdown.value;
         mapSettings.backType = (BackType)backTypeDropdown.value;
         mapSettings.seed = int.Parse(seedInput.text);
+        mapSettings.lavaMode = LavaModeInput.isOn;
+        mapSettings.enemyEnable = EnemyEnableInput.isOn;
 
         //set Text
         widthInput.GetComponentInChildren<TextMeshProUGUI>().text = "Width: " + mapSettings.width;
         heightInput.GetComponentInChildren<TextMeshProUGUI>().text = "Height: " + mapSettings.height;
         scoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Score Token: " + mapSettings.scoreTokenAmount;
+        HidenScoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Hiden Score Token: " + mapSettings.hidenScoreTokenAmount;
         perkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Perk Token: " + mapSettings.perkTokenAmount; 
-        rotationSpeedInput.GetComponentInChildren<TextMeshProUGUI>().text = "Rotation speed: " + mapSettings.rotationSpeed;
+        HidenPerkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Hiden Perk Token: " + mapSettings.hidenPerkTokenAmount; 
+        rotationSpeedInput.GetComponentInChildren<TextMeshProUGUI>().text = "Rotate speed: " + mapSettings.rotationSpeed;
         jumpInput.GetComponentInChildren<TextMeshProUGUI>().text = "Jump height: " + mapSettings.jump;
         LifeInput.GetComponentInChildren<TextMeshProUGUI>().text = "Life: " + mapSettings.life;
         HPInput.GetComponentInChildren<TextMeshProUGUI>().text = "HP: " + mapSettings.hp;
@@ -81,7 +94,9 @@ public class MainMenu : MonoBehaviour
         mapSettings.w = widthInput.value;
         mapSettings.h = heightInput.value;
         mapSettings.sc = scoreTokenInput.value;
+        mapSettings.hisc = HidenScoreTokenInput.value;
         mapSettings.p = perkTokenInput.value;
+        mapSettings.hip = HidenPerkTokenInput.value;
         mapSettings.r = rotationSpeedInput.value;
         mapSettings.j = jumpInput.value;
         mapSettings.l = LifeInput.value;
@@ -90,16 +105,18 @@ public class MainMenu : MonoBehaviour
         mapSettings.block = blockTypeDropdown.value;
         mapSettings.back = backTypeDropdown.value;
         mapSettings.s = seedInput.text;
+        mapSettings.lava = LavaModeInput.isOn;
+        mapSettings.enemy = EnemyEnableInput.isOn;
     }
 
     void initSetup()
     {
-        
-        
         widthInput.value = mapSettings.w;
         heightInput.value = mapSettings.h;
         scoreTokenInput.value = mapSettings.sc;
+        HidenScoreTokenInput.value = mapSettings.hisc;
         perkTokenInput.value = mapSettings.p;
+        HidenPerkTokenInput.value = mapSettings.hip;
         rotationSpeedInput.value = mapSettings.r;
         jumpInput.value = mapSettings.j;
         LifeInput.value = mapSettings.l;
@@ -108,7 +125,8 @@ public class MainMenu : MonoBehaviour
         blockTypeDropdown.value = mapSettings.block;
         backTypeDropdown.value= mapSettings.back;
         seedInput.text = mapSettings.s;
-        
+        LavaModeInput.isOn = mapSettings.lava;
+        EnemyEnableInput.isOn = mapSettings.enemy;
     }
 
     

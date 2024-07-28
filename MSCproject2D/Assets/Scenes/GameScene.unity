@@ -336,10 +336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7540a326a2674004a839968dd3c86a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyEnable: 1
   enemyPrefab: {fileID: 1265906149813715793, guid: 2837a452ae4d1ad4ead99c8258340610, type: 3}
   spawnRange: 10
   spawnInterval: 5
   duration: 10
+  mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!114 &161538288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1783,7 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorValue: 1
+  editorValue: 0
   width: 90
   height: 90
   Seed: 3

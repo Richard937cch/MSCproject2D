@@ -302,13 +302,17 @@ public class Gridgen : MonoBehaviour
         {
             grid[cell] = tokenID;
         }
-        //hiden
-        List<Vector3> cellsWithValue1 = grid.FindCellsWithValue(1);
-        List<Vector3> randomCells1 = grid.PickRandomCells(cellsWithValue1, HTAmount);
-        foreach (Vector3 cell in randomCells1)
+        //hiden (disable when block cannot be destroy => blocktype(reaction) != none)
+        if (blockType != BlockType.None)
         {
-            grid[cell] = tokenID;
+            List<Vector3> cellsWithValue1 = grid.FindCellsWithValue(1);
+            List<Vector3> randomCells1 = grid.PickRandomCells(cellsWithValue1, HTAmount);
+            foreach (Vector3 cell in randomCells1)
+            {
+                grid[cell] = tokenID;
+            }
         }
+        
         //Instantiate token prefab
         Quaternion rotation = Quaternion.Euler(0, 0, 90);
         for (int x = 0; x < width; x++)
@@ -390,10 +394,13 @@ public class Gridgen : MonoBehaviour
             height = mapSettings.height;
             tokenAmount = mapSettings.scoreTokenAmount;
             invincibleAmount = mapSettings.perkTokenAmount;
+            hidentokenAmount = mapSettings.hidenScoreTokenAmount;
+            hideninvincibleAmount = mapSettings.hidenPerkTokenAmount;
             mapType = mapSettings.mapType;
             blockType = mapSettings.blockType;
             backType = mapSettings.backType;
             Seed = mapSettings.seed;
+            LavaMode = mapSettings.lavaMode;
             Time.timeScale = 1;
         }
         
