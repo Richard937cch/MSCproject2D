@@ -172,7 +172,7 @@ public class SpriteShaper : MonoBehaviour
         Vector3 previousDirection = Vector3.up; // Assume we enter the first edge point from above
 
         int time = 0;
-        print(startPoint);
+        //print(startPoint);
         do
         {
             time++;
@@ -221,7 +221,7 @@ public class SpriteShaper : MonoBehaviour
                 {
                     if (ShareSameBacktile(currentPoint, edgec))
                     {
-                        print("b");
+                        //print("b");
                         currentPoint = edgec;
                         //previousDirection = direction;
                         edgePoints.Add(currentPoint);
@@ -402,7 +402,7 @@ public class SpriteShaper : MonoBehaviour
 
     void CreateSpriteShape(List<Vector3> edgePoints)
     {
-        print("createsprite");
+        //print("createsprite");
         Quaternion rotation = Quaternion.Euler(0, 0, 0);
         //GameObject newsprite = Instantiate(sprite, new Vector3(0, 0, 0), rotation); //noiseMap.Height/2+5
         GameObject newsprite = Instantiate(sprite, new Vector3(0, noiseMap.Height/2+10, 0), rotation);
@@ -411,7 +411,7 @@ public class SpriteShaper : MonoBehaviour
         spriteShapeController = newsprite.GetComponent<SpriteShapeController>();
         Spline spline = spriteShapeController.spline;
         spline.Clear();
-        print(edgePoints.Count);
+        //print(edgePoints.Count);
         for (int i = 0; i < edgePoints.Count; i++)
         {
             //print(edgePoints[i]);

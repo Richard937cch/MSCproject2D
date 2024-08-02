@@ -339,7 +339,7 @@ MonoBehaviour:
   EnemyEnable: 1
   enemyPrefab: {fileID: 1265906149813715793, guid: 2837a452ae4d1ad4ead99c8258340610, type: 3}
   spawnRange: 10
-  spawnInterval: 5
+  spawnInterval: 15
   duration: 10
   mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!114 &161538288
@@ -1793,7 +1793,7 @@ MonoBehaviour:
   hidentokenAmount: 1000
   invincibleAmount: 3
   hideninvincibleAmount: 0
-  mapType: 1
+  mapType: 3
   WFCmap: 3
   blockType: 1
   backType: 1
