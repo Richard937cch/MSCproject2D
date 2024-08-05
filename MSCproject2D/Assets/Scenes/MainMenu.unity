@@ -4209,7 +4209,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: PerlinNoise
       m_Image: {fileID: 0}
-    - m_Text: WFC
+    - m_Text: WFC1
+      m_Image: {fileID: 0}
+    - m_Text: WFC2
       m_Image: {fileID: 0}
     - m_Text: SlimePerlin
       m_Image: {fileID: 0}

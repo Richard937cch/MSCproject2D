@@ -96,7 +96,13 @@ public class Gridgen : MonoBehaviour
                 break;
 
             case (MapType.WFC):
-                WaveFunctionCollapseMap();
+                WaveFunctionCollapseMap(-1);
+                break;
+            case (MapType.WFC1):
+                WaveFunctionCollapseMap(2);
+                break;
+            case (MapType.WFC2):
+                WaveFunctionCollapseMap(3);
                 break;
             case (MapType.SmoothPerlin):
                 perlinNoise("smooth");
@@ -217,8 +223,9 @@ public class Gridgen : MonoBehaviour
         
     }
 
-    void WaveFunctionCollapseMap()
+    void WaveFunctionCollapseMap(int wfcIndex)
     {
+        if (wfcIndex != -1) {WFCmap = wfcIndex;}
         wfc.GenerateMap(width, height, Seed, WFCmap);
         grid = new Grid3D(width, height, 1);
         grid = wfc.getWFCTokenGrid();

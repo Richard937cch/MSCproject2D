@@ -1786,17 +1786,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 0
-  width: 90
-  height: 90
-  Seed: 3
-  tokenAmount: 1000
-  hidentokenAmount: 1000
+  width: 30
+  height: 30
+  Seed: 123
+  tokenAmount: 0
+  hidentokenAmount: 0
   invincibleAmount: 3
   hideninvincibleAmount: 0
-  mapType: 3
-  WFCmap: 3
-  blockType: 1
-  backType: 1
+  mapType: 2
+  WFCmap: 2
+  blockType: 0
+  backType: 0
   LavaMode: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
