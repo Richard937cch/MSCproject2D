@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 
 public class Gridgen : MonoBehaviour
@@ -56,8 +57,10 @@ public class Gridgen : MonoBehaviour
     
     public MapSettings mapSettings;
     
-    
+    private Stopwatch stopwatch;
+    private Stopwatch stopwatch2;
 
+    long Memory;
     void Start()
     {
         enumManager = GetComponent<EnumManager>();
@@ -71,6 +74,8 @@ public class Gridgen : MonoBehaviour
         //spawn player
         spawnpoint = new Vector3(0, height/2+5, -0.3f);
         GameObject adventurer = Instantiate(Adventurer, spawnpoint, Quaternion.identity);
+        stopwatch = new Stopwatch();
+        stopwatch2 = new Stopwatch();
         GenerateGrid(); //Generating Map
         
     }
@@ -84,7 +89,9 @@ public class Gridgen : MonoBehaviour
     {
         //int a=0;
         //print((MapType)a);
-
+        long initialMemory = System.GC.GetTotalMemory(false);
+        stopwatch.Start();
+        stopwatch2.Start();
         switch (mapType)
         {
             case (MapType.RandomNCA):
@@ -123,6 +130,9 @@ public class Gridgen : MonoBehaviour
                 break;
         }
 
+        
+        stopwatch2.Stop();
+        long finalMemory = System.GC.GetTotalMemory(false);
         SetTileBlockType(); //set block type (background or block)
         ScoreTokenSpawn();  //spawn score token
         PerkSpawn();        //spawn perk token
@@ -131,6 +141,10 @@ public class Gridgen : MonoBehaviour
 
         AstarPath.active.Scan();
         print("mapGenerated");
+        UnityEngine.Debug.Log($"Map generation took {stopwatch.ElapsedMilliseconds} ms.");
+        UnityEngine.Debug.Log($"Map generation including tile took {stopwatch2.ElapsedMilliseconds} ms.");
+        UnityEngine.Debug.Log($"Memory used for grid generation: {(Memory - initialMemory) / 1024.0f} KB");
+        UnityEngine.Debug.Log($"Memory used for map generation: {(finalMemory - initialMemory) / 1024.0f} KB");
     }
 
     void randomNoiseNCA()
@@ -177,7 +191,8 @@ public class Gridgen : MonoBehaviour
             // Update the grid with the new values
             grid = newGrid;
         }
-        
+        stopwatch.Stop();
+        Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
         
     }
@@ -208,7 +223,8 @@ public class Gridgen : MonoBehaviour
                 }
             }
         }
-        
+        stopwatch.Stop();
+        Memory = System.GC.GetTotalMemory(false);
         if (ismooth == "smooth")
         {
             //InstantiateTile();
@@ -225,11 +241,14 @@ public class Gridgen : MonoBehaviour
 
     void WaveFunctionCollapseMap(int wfcIndex)
     {
+        grid = new Grid3D(width, height, 1);
         if (wfcIndex != -1) {WFCmap = wfcIndex;}
         wfc.GenerateMap(width, height, Seed, WFCmap);
-        grid = new Grid3D(width, height, 1);
+        
         grid = wfc.getWFCTokenGrid();
-
+        stopwatch.Stop();
+        Memory = System.GC.GetTotalMemory(false);
+        InstantiateTile();
     }
 
     void Maze()
@@ -243,6 +262,8 @@ public class Gridgen : MonoBehaviour
             }
         }
         grid = mazeGen.MazeGene(grid);
+        stopwatch.Stop();
+        Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
     }
 
@@ -260,7 +281,8 @@ public class Gridgen : MonoBehaviour
         //isolation
         isolation(3,true);
 
-
+        stopwatch.Stop();
+        Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
     }
     
@@ -274,7 +296,8 @@ public class Gridgen : MonoBehaviour
                 grid[x, y, 0] = 1;
             }
         }
-        
+        stopwatch.Stop();
+        Memory = System.GC.GetTotalMemory(false);
         if (ismooth == "smooth")
         {
             //InstantiateTile();

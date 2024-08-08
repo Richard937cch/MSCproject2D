@@ -1785,15 +1785,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorValue: 0
+  editorValue: 1
   width: 90
   height: 90
   Seed: 123
   tokenAmount: 0
   hidentokenAmount: 0
-  invincibleAmount: 3
+  invincibleAmount: 0
   hideninvincibleAmount: 0
-  mapType: 2
+  mapType: 8
   WFCmap: 2
   blockType: 0
   backType: 0

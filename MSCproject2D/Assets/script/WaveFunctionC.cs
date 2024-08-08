@@ -80,8 +80,8 @@ public class WaveFunctionCollapse : MonoBehaviour
             map[position.x, position.y] = selectedTile;
 
             // Instantiate the tile at the position
-            GameObject PlaceTile = Instantiate(selectedTile.tilePrefab, new Vector3(position.x-(float)mapWidth/2+0.5f, position.y-(float)mapHeight/2+0.5f, selectedTile.tilePrefab.transform.position.z), selectedTile.tilePrefab.transform.rotation);
-            PlaceTile.transform.parent = transform;
+            //GameObject PlaceTile = Instantiate(selectedTile.tilePrefab, new Vector3(position.x-(float)mapWidth/2+0.5f, position.y-(float)mapHeight/2+0.5f, selectedTile.tilePrefab.transform.position.z), selectedTile.tilePrefab.transform.rotation);
+            //PlaceTile.transform.parent = transform;
 
             //mark on tokengrid
             if (selectedTile.tilePrefab == background)
@@ -98,6 +98,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             // Propagate constraints to neighbors
             PropagateConstraints(position, selectedTile);
         }
+        //return tokengrid;
     }
 
     Vector2Int GetPositionWithLeastEntropy(List<Vector2Int> openPositions)
