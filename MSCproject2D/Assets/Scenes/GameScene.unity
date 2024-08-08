@@ -1786,8 +1786,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorValue: 0
-  width: 30
-  height: 30
+  width: 90
+  height: 90
   Seed: 123
   tokenAmount: 0
   hidentokenAmount: 0

@@ -63,8 +63,8 @@ public class MainMenu : MonoBehaviour
         //set Value
         mapSettings.width = Convert.ToInt32(widthInput.value*40+5)*2;
         mapSettings.height = Convert.ToInt32(heightInput.value*40+5)*2;
-        mapSettings.scoreTokenAmount = Convert.ToInt32(scoreTokenInput.value*100);
-        mapSettings.hidenScoreTokenAmount = Convert.ToInt32(HidenScoreTokenInput.value*100);
+        mapSettings.scoreTokenAmount = Convert.ToInt32(scoreTokenInput.value*1000);
+        mapSettings.hidenScoreTokenAmount = Convert.ToInt32(HidenScoreTokenInput.value*1000);
         mapSettings.perkTokenAmount = Convert.ToInt32(perkTokenInput.value*100);
         mapSettings.hidenPerkTokenAmount = Convert.ToInt32(HidenPerkTokenInput.value*100);
         mapSettings.rotationSpeed = Convert.ToInt32(rotationSpeedInput.value*100+1);
