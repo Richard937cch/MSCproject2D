@@ -142,9 +142,9 @@ public class Gridgen : MonoBehaviour
         AstarPath.active.Scan();
         print("mapGenerated");
         UnityEngine.Debug.Log($"Map generation took {stopwatch.ElapsedMilliseconds} ms.");
-        UnityEngine.Debug.Log($"Map generation including tile took {stopwatch2.ElapsedMilliseconds} ms.");
+        //UnityEngine.Debug.Log($"Map generation including tile took {stopwatch2.ElapsedMilliseconds} ms.");
         UnityEngine.Debug.Log($"Memory used for grid generation: {(Memory - initialMemory) / 1024.0f} KB");
-        UnityEngine.Debug.Log($"Memory used for map generation: {(finalMemory - initialMemory) / 1024.0f} KB");
+        //UnityEngine.Debug.Log($"Memory used for map generation: {(finalMemory - initialMemory) / 1024.0f} KB");
     }
 
     void randomNoiseNCA()
@@ -242,6 +242,14 @@ public class Gridgen : MonoBehaviour
     void WaveFunctionCollapseMap(int wfcIndex)
     {
         grid = new Grid3D(width, height, 1);
+        /*for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                grid[x, y, 0] = 0;
+            }
+        }*/
+
         if (wfcIndex != -1) {WFCmap = wfcIndex;}
         wfc.GenerateMap(width, height, Seed, WFCmap);
         
