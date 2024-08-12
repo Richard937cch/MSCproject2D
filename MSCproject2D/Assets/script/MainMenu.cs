@@ -63,8 +63,8 @@ public class MainMenu : MonoBehaviour
         //set Value
         mapSettings.width = Convert.ToInt32(widthInput.value*40+5)*2;
         mapSettings.height = Convert.ToInt32(heightInput.value*40+5)*2;
-        mapSettings.scoreTokenAmount = Convert.ToInt32(scoreTokenInput.value*1000);
-        mapSettings.hidenScoreTokenAmount = Convert.ToInt32(HidenScoreTokenInput.value*1000);
+        mapSettings.scoreTokenAmount = Convert.ToInt32(scoreTokenInput.value*100);
+        mapSettings.hidenScoreTokenAmount = Convert.ToInt32(HidenScoreTokenInput.value*100);
         mapSettings.perkTokenAmount = Convert.ToInt32(perkTokenInput.value*100);
         mapSettings.hidenPerkTokenAmount = Convert.ToInt32(HidenPerkTokenInput.value*100);
         mapSettings.rotationSpeed = Convert.ToInt32(rotationSpeedInput.value*100+1);
@@ -82,9 +82,9 @@ public class MainMenu : MonoBehaviour
         widthInput.GetComponentInChildren<TextMeshProUGUI>().text = "Width: " + mapSettings.width;
         heightInput.GetComponentInChildren<TextMeshProUGUI>().text = "Height: " + mapSettings.height;
         scoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Score Token: " + mapSettings.scoreTokenAmount;
-        HidenScoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Hiden Score Token: " + mapSettings.hidenScoreTokenAmount;
+        HidenScoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Hided Score Token: " + mapSettings.hidenScoreTokenAmount;
         perkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Perk Token: " + mapSettings.perkTokenAmount; 
-        HidenPerkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Hiden Perk Token: " + mapSettings.hidenPerkTokenAmount; 
+        HidenPerkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Hided Perk Token: " + mapSettings.hidenPerkTokenAmount; 
         rotationSpeedInput.GetComponentInChildren<TextMeshProUGUI>().text = "Rotate speed: " + mapSettings.rotationSpeed;
         jumpInput.GetComponentInChildren<TextMeshProUGUI>().text = "Jump height: " + mapSettings.jump;
         LifeInput.GetComponentInChildren<TextMeshProUGUI>().text = "Life: " + mapSettings.life;
