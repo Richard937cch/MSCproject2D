@@ -89,9 +89,9 @@ public class Gridgen : MonoBehaviour
     {
         //int a=0;
         //print((MapType)a);
-        long initialMemory = System.GC.GetTotalMemory(false);
-        stopwatch.Start();
-        stopwatch2.Start();
+        //long initialMemory = System.GC.GetTotalMemory(false);
+        //stopwatch.Start();
+        //stopwatch2.Start();
         switch (mapType)
         {
             case (MapType.RandomNCA):
@@ -131,8 +131,8 @@ public class Gridgen : MonoBehaviour
         }
 
         
-        stopwatch2.Stop();
-        long finalMemory = System.GC.GetTotalMemory(false);
+        //stopwatch2.Stop();
+        //long finalMemory = System.GC.GetTotalMemory(false);
         SetTileBlockType(); //set block type (background or block)
         ScoreTokenSpawn();  //spawn score token
         PerkSpawn();        //spawn perk token
@@ -141,9 +141,9 @@ public class Gridgen : MonoBehaviour
 
         AstarPath.active.Scan();
         print("mapGenerated");
-        UnityEngine.Debug.Log($"Map generation took {stopwatch.ElapsedMilliseconds} ms.");
+        //UnityEngine.Debug.Log($"Map generation took {stopwatch.ElapsedMilliseconds} ms.");
         //UnityEngine.Debug.Log($"Map generation including tile took {stopwatch2.ElapsedMilliseconds} ms.");
-        UnityEngine.Debug.Log($"Memory used for grid generation: {(Memory - initialMemory) / 1024.0f} KB");
+        //UnityEngine.Debug.Log($"Memory used for grid generation: {(Memory - initialMemory) / 1024.0f} KB");
         //UnityEngine.Debug.Log($"Memory used for map generation: {(finalMemory - initialMemory) / 1024.0f} KB");
     }
 
@@ -191,8 +191,8 @@ public class Gridgen : MonoBehaviour
             // Update the grid with the new values
             grid = newGrid;
         }
-        stopwatch.Stop();
-        Memory = System.GC.GetTotalMemory(false);
+        //stopwatch.Stop();
+        //Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
         
     }
@@ -223,8 +223,8 @@ public class Gridgen : MonoBehaviour
                 }
             }
         }
-        stopwatch.Stop();
-        Memory = System.GC.GetTotalMemory(false);
+        //stopwatch.Stop();
+        //Memory = System.GC.GetTotalMemory(false);
         if (ismooth == "smooth")
         {
             //InstantiateTile();
@@ -254,8 +254,8 @@ public class Gridgen : MonoBehaviour
         wfc.GenerateMap(width, height, Seed, WFCmap);
         
         grid = wfc.getWFCTokenGrid();
-        stopwatch.Stop();
-        Memory = System.GC.GetTotalMemory(false);
+        //stopwatch.Stop();
+        //Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
     }
 
@@ -270,8 +270,8 @@ public class Gridgen : MonoBehaviour
             }
         }
         grid = mazeGen.MazeGene(grid);
-        stopwatch.Stop();
-        Memory = System.GC.GetTotalMemory(false);
+        //stopwatch.Stop();
+        //Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
     }
 
@@ -289,8 +289,8 @@ public class Gridgen : MonoBehaviour
         //isolation
         isolation(3,true);
 
-        stopwatch.Stop();
-        Memory = System.GC.GetTotalMemory(false);
+        //stopwatch.Stop();
+        //Memory = System.GC.GetTotalMemory(false);
         InstantiateTile();
     }
     
@@ -304,8 +304,8 @@ public class Gridgen : MonoBehaviour
                 grid[x, y, 0] = 1;
             }
         }
-        stopwatch.Stop();
-        Memory = System.GC.GetTotalMemory(false);
+        //stopwatch.Stop();
+        //Memory = System.GC.GetTotalMemory(false);
         if (ismooth == "smooth")
         {
             //InstantiateTile();

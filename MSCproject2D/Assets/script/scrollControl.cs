@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Diagnostics;
 
 public class scrollControl : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class scrollControl : MonoBehaviour
     public bool key = false;
 
     public MapSettings mapSettings;
+    long Memory1;
+    long Memory2;
 
     private void Awake()
     {
@@ -69,7 +72,7 @@ public class scrollControl : MonoBehaviour
         MenuParameter(); //receive setup from main manu
         if (player == null || playerRJ == null)
         {
-            Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
+            UnityEngine.Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
             return;
         }
         if (mapRotation == MapRotation.RandomRotation)
@@ -101,6 +104,7 @@ public class scrollControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Memory1 = System.GC.GetTotalMemory(false);
         switch (mapRotation) 
         {
             case (MapRotation.None):
@@ -123,6 +127,8 @@ public class scrollControl : MonoBehaviour
             default:
                 break;
         }
+        //Memory2 = System.GC.GetTotalMemory(false);
+        //UnityEngine.Debug.Log($"Memory used for grid generation: {(Memory2) / 1024.0f} KB");
     }
 
     void ScrollWheelTransform()

@@ -18,6 +18,9 @@ public class TileManager : MonoBehaviour
     public float cullDistance = 25.0f; // Distance within which tiles are active
     public float enemycullDistance = 10.0f; // Distance within which tiles are active
     private List<Transform> enemies = new List<Transform>(); // List of enemies
+    long Memory4;
+    private float deltaTime = 0.0f;
+    private float fps;
     void Start()
     {
         gridgen = GetComponent<Gridgen>();
@@ -31,6 +34,11 @@ public class TileManager : MonoBehaviour
     void Update()
     {
         changeCheck();
+        //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        //fps = 1.0f / deltaTime;
+        //print("fps: "+ fps);
+        //Memory4 = System.GC.GetTotalMemory(false);
+        //UnityEngine.Debug.Log($"Memory used for grid generation: {(Memory4) / 1024.0f} KB");
     }
     IEnumerator UpdateTileVisibility() //culling manager
     {
