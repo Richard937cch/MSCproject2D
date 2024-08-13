@@ -20,13 +20,13 @@ public class MapSettings : ScriptableObject
     public int life;
     public int hp;
 
-    public float w = 0.5114591f;
-    public float h = 0.5042072f;
+    public float w = 0.2f;
+    public float h = 0.2f;
     public string s = "1234";
     public float sc = 0.09167421f;
-    public float hisc = 0.09167421f;
+    public float hisc = 0.0f;
     public float p = 0.04583697f;
-    public float hip = 0.04583697f;
+    public float hip = 0.0f;
     public int map = 0;
     public int block = 0;
     public int back = 0;

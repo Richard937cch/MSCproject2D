@@ -12,26 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5cfdd4e78690746886e7e2b2133086, type: 3}
   m_Name: MapSettings
   m_EditorClassIdentifier: 
-  width: 50
-  height: 50
+  width: 26
+  height: 26
   seed: 1234
-  scoreTokenAmount: 68
-  perkTokenAmount: 33
+  scoreTokenAmount: 9
+  hidenScoreTokenAmount: 0
+  perkTokenAmount: 9
+  hidenPerkTokenAmount: 0
   mapType: 2
   blockType: 1
   backType: 1
+  lavaMode: 0
+  enemyEnable: 1
   rotationSpeed: 10
   jump: 5
   life: 3
   hp: 100
-  w: 0.5114591
-  h: 0.5042072
+  w: 0.2
+  h: 0.2
   s: 1234
-  sc: 0.67188877
-  p: 0.31665185
+  sc: 0.09167421
+  hisc: 0
+  p: 0.09167421
+  hip: 0
   map: 2
   block: 1
   back: 1
+  lava: 0
+  enemy: 1
   r: 0.09167393
   j: 0.1260518
   l: 0.02291848
