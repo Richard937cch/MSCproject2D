@@ -79,6 +79,7 @@ public class MainMenu : MonoBehaviour
         mapSettings.enemyEnable = EnemyEnableInput.isOn;
 
         //set Text
+        
         widthInput.GetComponentInChildren<TextMeshProUGUI>().text = "Width: " + mapSettings.width;
         heightInput.GetComponentInChildren<TextMeshProUGUI>().text = "Height: " + mapSettings.height;
         scoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Score Token: " + mapSettings.scoreTokenAmount;
@@ -89,6 +90,7 @@ public class MainMenu : MonoBehaviour
         jumpInput.GetComponentInChildren<TextMeshProUGUI>().text = "Jump height: " + mapSettings.jump;
         LifeInput.GetComponentInChildren<TextMeshProUGUI>().text = "Life: " + mapSettings.life;
         HPInput.GetComponentInChildren<TextMeshProUGUI>().text = "HP: " + mapSettings.hp;
+       
 
         //save UI value
         mapSettings.w = widthInput.value;

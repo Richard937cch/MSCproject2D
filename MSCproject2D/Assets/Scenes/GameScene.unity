@@ -1793,7 +1793,7 @@ MonoBehaviour:
   hidentokenAmount: 0
   invincibleAmount: 0
   hideninvincibleAmount: 0
-  mapType: 7
+  mapType: 2
   WFCmap: 2
   blockType: 0
   backType: 0
