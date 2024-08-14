@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class RollJump : MonoBehaviour {
 
@@ -47,6 +48,9 @@ public class RollJump : MonoBehaviour {
 	private Gridgen gridgen;
 	public MapSettings mapSettings;
 
+	public Button JumpButton; 
+    public bool isButtonClicked = false;
+
 	private void Awake()
     {
 		gridgen = GameObject.Find("MapGenerator").GetComponent<Gridgen>();
@@ -60,6 +64,7 @@ public class RollJump : MonoBehaviour {
 		pauseAction = jumpControl.FindActionMap (actionMapName).FindAction (pause);
 		pauseAction.performed += context => pauseValue = true;
 		pauseAction.canceled += context => pauseValue = false;
+		JumpButton = GameObject.Find("JUMP").GetComponent<Button>();
     }
 
 	void Start () 
@@ -67,6 +72,7 @@ public class RollJump : MonoBehaviour {
 		rigid = GetComponent<Rigidbody2D> ();
 		isFalling = true;
 		MenuParameter(); //receive setup from main manu
+		JumpButton.onClick.AddListener(OnButtonClick);
 	}
 
 	void Update()
@@ -95,20 +101,22 @@ public class RollJump : MonoBehaviour {
 		}*/
 		//if (UpKey()) {print("up");}
 		
-        if (jumpValue && !isFalling) 
+        if ((jumpValue || isButtonClicked) && !isFalling) 
 		{
 			//Jump
 			rigid.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
 			jumpValue = false;
+			isButtonClicked = false;
 			//rigid. Move (currentMovement*Time.deltaTime);
 			//rigid.MovePosition(currentMovement*Time.deltaTime);
 			
 		}
-		if (jumpValue && isInSlime) 
+		if ((jumpValue || isButtonClicked) && isInSlime) 
 		{
 			//Jump
 			rigid.AddForce (Vector3.up * jumpHeight , (ForceMode2D)ForceMode.Impulse);
 			jumpValue = false;
+			isButtonClicked = false;
 			//rigid. Move (currentMovement*Time.deltaTime);
 			//rigid.MovePosition(currentMovement*Time.deltaTime);
 			
@@ -138,6 +146,25 @@ public class RollJump : MonoBehaviour {
 		
 
 	}
+
+	public void ButtonJump()
+	{
+		if (!isFalling) 
+		{
+			//Jump
+			rigid.AddForce (Vector3.up * jumpHeight, (ForceMode2D)ForceMode.Impulse);
+		}
+		if (isInSlime) 
+		{
+			//Jump
+			rigid.AddForce (Vector3.up * jumpHeight , (ForceMode2D)ForceMode.Impulse);
+		}
+	}
+
+	private void OnButtonClick()
+    {
+        isButtonClicked = true;
+    }
 
 	public void OnCollisionStay2D (Collision2D col) 
 	{ //Takes parameter of Collision so unity doesn't complain
