@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Diagnostics;
+using UnityEngine.UI;
 
 public class scrollControl : MonoBehaviour
 {
@@ -49,6 +50,10 @@ public class scrollControl : MonoBehaviour
     public MapSettings mapSettings;
     long Memory1;
     long Memory2;
+
+    //public Button Leftb;
+
+    
 
     private void Awake()
     {
@@ -170,6 +175,22 @@ public class scrollControl : MonoBehaviour
             rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, dampingFactor * Time.fixedDeltaTime);
         }
         
+    }
+
+    public void ButtonLeftScrollWheelForce()
+    {
+        if (rb.angularVelocity.z < 0.3)
+        {
+            rb.AddTorque(Vector3.forward * torqueAmount, ForceMode.Acceleration);
+        } 
+    }
+
+    public void ButtonRightScrollWheelForce()
+    {
+        if (rb.angularVelocity.z > -0.3)
+        {
+            rb.AddTorque(Vector3.back * torqueAmount, ForceMode.Acceleration);
+        }
     }
 
     void GravityMode()

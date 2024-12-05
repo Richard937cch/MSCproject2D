@@ -79,7 +79,7 @@ public class MainMenu : MonoBehaviour
         mapSettings.enemyEnable = EnemyEnableInput.isOn;
 
         //set Text
-        
+        /*
         widthInput.GetComponentInChildren<TextMeshProUGUI>().text = "Width: " + mapSettings.width;
         heightInput.GetComponentInChildren<TextMeshProUGUI>().text = "Height: " + mapSettings.height;
         scoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "Score Token: " + mapSettings.scoreTokenAmount;
@@ -89,8 +89,18 @@ public class MainMenu : MonoBehaviour
         rotationSpeedInput.GetComponentInChildren<TextMeshProUGUI>().text = "Rotate speed: " + mapSettings.rotationSpeed;
         jumpInput.GetComponentInChildren<TextMeshProUGUI>().text = "Jump height: " + mapSettings.jump;
         LifeInput.GetComponentInChildren<TextMeshProUGUI>().text = "Life: " + mapSettings.life;
+        HPInput.GetComponentInChildren<TextMeshProUGUI>().text = "HP: " + mapSettings.hp;*/
+        
+        widthInput.GetComponentInChildren<TextMeshProUGUI>().text = "地圖寬: " + mapSettings.width;
+        heightInput.GetComponentInChildren<TextMeshProUGUI>().text = "地圖高: " + mapSettings.height;
+        scoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "分數方塊: " + mapSettings.scoreTokenAmount;
+        HidenScoreTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "隱藏分數方塊: " + mapSettings.hidenScoreTokenAmount;
+        perkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "防禦方塊: " + mapSettings.perkTokenAmount; 
+        HidenPerkTokenInput.GetComponentInChildren<TextMeshProUGUI>().text = "隱藏防禦方塊: " + mapSettings.hidenPerkTokenAmount; 
+        rotationSpeedInput.GetComponentInChildren<TextMeshProUGUI>().text = "地圖旋轉速度: " + mapSettings.rotationSpeed;
+        jumpInput.GetComponentInChildren<TextMeshProUGUI>().text = "跳躍高度: " + mapSettings.jump;
+        LifeInput.GetComponentInChildren<TextMeshProUGUI>().text = "生命: " + mapSettings.life;
         HPInput.GetComponentInChildren<TextMeshProUGUI>().text = "HP: " + mapSettings.hp;
-       
 
         //save UI value
         mapSettings.w = widthInput.value;
