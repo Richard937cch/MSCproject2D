@@ -339,7 +339,7 @@ MonoBehaviour:
   EnemyEnable: 1
   enemyPrefab: {fileID: 1265906149813715793, guid: 2837a452ae4d1ad4ead99c8258340610, type: 3}
   spawnRange: 10
-  spawnInterval: 15
+  spawnInterval: 2
   duration: 10
   mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
 --- !u!114 &161538288
@@ -1785,17 +1785,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1f2ec122de64db9c3c7941159284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorValue: 0
-  width: 40
-  height: 40
-  Seed: 123
+  editorValue: 1
+  width: 30
+  height: 30
+  Seed: 1234
   tokenAmount: 0
   hidentokenAmount: 0
   invincibleAmount: 0
   hideninvincibleAmount: 0
-  mapType: 2
-  WFCmap: 2
-  blockType: 0
+  mapType: 5
+  WFCmap: 3
+  blockType: 2
   backType: 0
   LavaMode: 0
   block: {fileID: 4199342521610914143, guid: 154584998b742eb4e9e11e83825056b1, type: 3}
@@ -1804,7 +1804,7 @@ MonoBehaviour:
   token: {fileID: 3450604137700535255, guid: 1d829408b9d55cb42881bb78e2b37955, type: 3}
   invincible: {fileID: 6708388823151251692, guid: 86cc2fb0223c2344da6081435f41c785, type: 3}
   spawnpoint: {x: 0, y: 0, z: 0}
-  fillProbability: 0.5
+  fillProbability: 0.1
   Threshold: 0.4
   NoiseScale: 0.15
   mapSettings: {fileID: 11400000, guid: 5fd90289296025448b135a4c4fd4a519, type: 2}
@@ -1906,6 +1906,12 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 569376884b5d07741a89428da03d597a, type: 2}
       - {fileID: 11400000, guid: 2bda0227a362da14483a2a3b30e605a4, type: 2}
       - {fileID: 11400000, guid: 722b0093f7cfa1a42b0de456057a44e2, type: 2}
+    - WFCtileTypes:
+      - {fileID: 11400000, guid: b1e4f92b86ae0ba46a57e88a42d0b435, type: 2}
+      - {fileID: 11400000, guid: 6af8318ec6833c142aa87e7249af8fa8, type: 2}
+      - {fileID: 11400000, guid: 562426575ceed604da5b76bc2a2ebfcc, type: 2}
+      - {fileID: 11400000, guid: ebc1e7b12c3110841aeabd621aaae25f, type: 2}
+      - {fileID: 11400000, guid: a66b314819d66ad4a8a811820625a1e5, type: 2}
   background: {fileID: 8110484845569979591, guid: cc53db6ca82d6d54cb6f7abe18a53f8a, type: 3}
 --- !u!114 &989436735
 MonoBehaviour:

@@ -177,7 +177,7 @@ public class SpriteShaper : MonoBehaviour
         {
             time++;
             bool findedge = false;
-            noiseMap[currentPoint] = -2;   //value = 2 if the point is add;
+            noiseMap[currentPoint] = -2;   //value = -2 if the point is add;
             if (chunk.Contains(currentPoint))
             {
                 chunk.Remove(currentPoint);
@@ -330,7 +330,7 @@ public class SpriteShaper : MonoBehaviour
         return false;
     }
 
-    bool IsCheck(Vector3 point) //if is check, value should be 2
+    bool IsCheck(Vector3 point) //if is check, value should be -2
     {
         if (noiseMap[point] == -2) { return true; }
         else { return false; }

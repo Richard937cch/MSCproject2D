@@ -21,9 +21,7 @@ public class EnemyAStar : MonoBehaviour
 
     public float duration = 10f; // Time interval between spawns
     private float timer;
-
-    //Enemy Sprite, Disregard if you dont want the sprite to flip to look at the player
-    //public Transform enemyGFX; 
+ 
 
     Path path;
     int currentWayPoint;
@@ -128,17 +126,6 @@ public class EnemyAStar : MonoBehaviour
         {
             currentWayPoint++;
         }
-
-        //Disregard below if you dont want the sprite to flip to look at the player.
-        //You can change 'force' to 'rb.velocity' if you want the sprite to flip depending on the velocity and not the direction it is travelling toward the player.
-        /*if (force.x >= 0.01f)
-        {
-            enemyGFX.localScale = new Vector3(-1f, 1f, 1f);
-        }
-        else if (force.x <= -0.01f)
-        {
-            enemyGFX.localScale = new Vector3(1f, 1f, 1f);
-        }*/
     }
 
     public void OnCollisionStay2D (Collision2D col) 

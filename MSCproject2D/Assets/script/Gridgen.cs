@@ -216,7 +216,7 @@ public class Gridgen : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 float perlinValue = Mathf.PerlinNoise((x + offsetX) * NoiseScale, (y + offsetY) * NoiseScale);
-
+                //float perlinValue = Mathf.PerlinNoise((x ) * NoiseScale, (y ) * NoiseScale);
                 if (perlinValue < Threshold)
                 {
                     grid[x, y, 0] = 1;

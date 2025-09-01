@@ -70,8 +70,6 @@ public class AStarGridControl : MonoBehaviour
         gridGraph.UpdateTransform();
 
         // Determine the area to update
-        // For this example, let's update the entire grid
-        // You can change this to only update specific regions if needed
         for (int x = 0; x < gridGraph.width; x++)
         {
             for (int z = 0; z < gridGraph.depth; z++)
